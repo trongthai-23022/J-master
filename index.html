@@ -515,12 +515,13 @@ function submitRound() {
     const wi = selWinner;
     const n = active.length;
     const mult = spRule ? 2 : 1;
-    const perLoser = bet * mult;
+    const effectiveBet = bet + s.jackpot;
+    const perLoser = effectiveBet * mult;
     const changes = [];
     s.players.forEach((p, i) => {
       if (!p.active) return;
       if (i === wi) {
-        const gain = perLoser * (n - 1) + s.jackpot;
+        const gain = perLoser * (n - 1);
         p.balance += gain; changes.push({ name: p.name, delta: gain });
       } else {
         p.balance -= perLoser; changes.push({ name: p.name, delta: -perLoser });
