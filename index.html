@@ -92,6 +92,11 @@ select option{background:#1f3d2a}
 .pm-list{display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
 .pm-item{background:var(--surf2);border:1px solid var(--border);border-radius:9px;padding:10px 13px;display:flex;align-items:center;gap:10px;transition:opacity .2s}
 .pm-item.is-out{opacity:.45;border-style:dashed}
+.prow.frozen{opacity:.65;border-color:rgba(100,180,255,.35)}
+.prow.frozen::before{background:#3a8fc4}
+.pm-item.is-frozen{opacity:.6;border-style:dashed;border-color:rgba(100,180,255,.35)}
+.badge-freeze{background:rgba(60,140,220,.2);color:#7ec8f5;border-radius:4px;padding:1px 7px;font-size:10px;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px}
+.frozen-tag{font-size:10px;color:#7ec8f5;letter-spacing:1px;margin-left:6px}
 .pm-name{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;flex:1}
 .pm-bal{font-family:'Bebas Neue',sans-serif;font-size:17px;min-width:64px;text-align:right}
 .pm-actions{display:flex;gap:5px}
@@ -321,6 +326,9 @@ select option{background:#1f3d2a}
       <button class="btn btn-red" onclick="leaveSettle()" style="width:100%;justify-content:flex-start;gap:10px">
         💰 <span>Tính tiền mặt ngay & Ra (về 0)</span>
       </button>
+      <button class="btn" onclick="leaveFreeze()" style="width:100%;justify-content:flex-start;gap:10px;background:linear-gradient(135deg,#1a4a6b,#2a7db5);color:#a8d8f0;border:1px solid rgba(100,180,255,.3)">
+        ❄️ <span>Đóng băng số dư & Tạm ra</span>
+      </button>
       <button class="btn btn-ghost" onclick="closeModal('modal-leave')" style="width:100%">Hủy</button>
     </div>
   </div>
@@ -360,7 +368,7 @@ function save() {
 function load() {
   try { const r = localStorage.getItem('baitien_v4'); if (r) state = JSON.parse(r); } catch(e) {}
   // migrate old data
-  if (state.sessions) state.sessions.forEach(s => s.players?.forEach(p => { if (p.active === undefined) p.active = true; }));
+  if (state.sessions) state.sessions.forEach(s => s.players?.forEach(p => { if (p.active === undefined) p.active = true; if (p.frozen === undefined) p.frozen = false; }));
 }
 
 // ══════════════════════════════
@@ -463,12 +471,12 @@ function renderScoreboard() {
   const sorted = [...s.players].sort((a, b) => b.balance - a.balance);
   document.getElementById('scoreboard').innerHTML = sorted.map(p => {
     const active = p.active;
-    const cls = !active ? 'out' : p.balance > 0 ? 'winner' : p.balance < 0 ? 'loser' : '';
+    const cls = !active ? (p.frozen ? 'frozen' : 'out') : p.balance > 0 ? 'winner' : p.balance < 0 ? 'loser' : '';
     const bc = p.balance > 0 ? 'pos' : p.balance < 0 ? 'neg' : 'zero';
     const sign = p.balance > 0 ? '+' : '';
     return `<div class="prow ${cls}">
       <div class="avatar">${p.name.charAt(0).toUpperCase()}</div>
-      <div style="flex:1"><div class="pname">${esc(p.name)}${!active ? '<span class="out-tag">· đã ra</span>' : ''}</div></div>
+      <div style="flex:1"><div class="pname">${esc(p.name)}${!active ? (p.frozen ? '<span class="frozen-tag">❄️ tạm ra</span>' : '<span class="out-tag">· đã ra</span>') : ''}</div></div>
       <div class="pbal ${bc}">${sign}${fmtK(p.balance)}</div>
     </div>`;
   }).join('');
@@ -549,9 +557,9 @@ function renderPM() {
   document.getElementById('pm-list').innerHTML = s.players.map((p, i) => {
     const bc = p.balance > 0 ? 'pos' : p.balance < 0 ? 'neg' : 'zero';
     const sign = p.balance > 0 ? '+' : '';
-    return `<div class="pm-item ${p.active ? '' : 'is-out'}">
+    return `<div class="pm-item ${p.active ? '' : p.frozen ? 'is-frozen' : 'is-out'}">
       <div class="avatar" style="width:30px;height:30px;font-size:14px">${p.name.charAt(0).toUpperCase()}</div>
-      <div class="pm-name">${esc(p.name)}${!p.active ? '<span class="out-tag" style="margin-left:6px">· đã ra</span>' : ''}</div>
+      <div class="pm-name">${esc(p.name)}${!p.active ? (p.frozen ? `<span class="frozen-tag" style="margin-left:6px">❄️ tạm ra (${fmtK(p.balance)})</span>` : '<span class="out-tag" style="margin-left:6px">· đã ra</span>') : ''}</div>
       <div class="pm-bal ${bc}">${sign}${fmtK(p.balance)}</div>
       <div class="pm-actions">
         ${p.active
@@ -581,6 +589,7 @@ function rejoin(idx) {
   const p = s.players[idx];
   s.snapshot = JSON.parse(JSON.stringify({ players: s.players, round: s.round, jackpot: s.jackpot, history: s.history }));
   p.active = true;
+  p.frozen = false;
   s.history.unshift({ round: s.round, type: 'join', player: p.name, rejoin: true });
   save(); renderGame();
   toast(`↩ ${p.name} quay lại bàn!`, 'info');
@@ -625,6 +634,18 @@ function leaveSettle() {
   p.active = false; p.balance = 0;
   save(); renderGame(); closeModal('modal-leave');
   toast(`💰 ${p.name} ra, tính tiền mặt`, 'info');
+}
+
+function leaveFreeze() {
+  const s = state.current;
+  const pi = pendingLeaveIdx;
+  const p = s.players[pi];
+  s.snapshot = JSON.parse(JSON.stringify({ players: s.players, round: s.round, jackpot: s.jackpot, history: s.history }));
+  p.active = false;
+  p.frozen = true;
+  s.history.unshift({ round: s.round, type: 'leave', player: p.name, balance: p.balance, frozen: true });
+  save(); renderGame(); closeModal('modal-leave');
+  toast(`❄️ ${p.name} tạm ra — số dư ${fmtK(p.balance)} đóng băng`, 'info');
 }
 
 // ══════════════════════════════
@@ -679,8 +700,11 @@ function renderHistory() {
     } else if (h.type === 'join') {
       det = `<div class="hw"><span class="badge-join">VÀO BÀN</span> ${esc(h.player)}${h.rejoin ? ' (vào lại)' : ''}</div>`;
     } else if (h.type === 'leave') {
-      const info = h.settled ? 'tính tiền mặt' : `chuyển → ${esc(h.transferTo)}`;
-      det = `<div class="hd"><span class="badge-leave">RA BÀN</span> ${esc(h.player)}</div><div class="hm">${info} · Số dư ${fmtK(h.balance)}</div>`;
+      let info, bal;
+      if (h.frozen) { info = `<span class="badge-freeze">❄️ ĐÓNG BĂNG</span>`; bal = `Giữ lại ${fmtK(h.balance)}`; }
+      else if (h.settled) { info = 'tính tiền mặt'; bal = `Số dư ${fmtK(h.balance)}`; }
+      else { info = `chuyển → ${esc(h.transferTo)}`; bal = `Số dư ${fmtK(h.balance)}`; }
+      det = `<div class="hd"><span class="badge-leave">RA BÀN</span> ${esc(h.player)}</div><div class="hm">${info} · ${bal}</div>`;
     }
     return `<div class="hi"><div class="rn">${h.round}</div><div class="hdet">${det}</div></div>`;
   }).join('');
@@ -698,7 +722,7 @@ function buildText() {
   t += `📊 BẢNG ĐIỂM\n`;
   [...s.players].sort((a, b) => b.balance - a.balance).forEach(p => {
     const sign = p.balance >= 0 ? '+' : '';
-    t += `  ${p.active ? '●' : '○'} ${p.name.padEnd(14)} ${sign}${fmtK(p.balance)}${!p.active ? ' (đã ra)' : ''}\n`;
+    t += `  ${p.active ? '●' : p.frozen ? '❄' : '○'} ${p.name.padEnd(14)} ${sign}${fmtK(p.balance)}${!p.active ? (p.frozen ? ' (tạm ra)' : ' (đã ra)') : ''}\n`;
   });
   if (s.jackpot > 0) t += `\n🎰 Đang dồn: ${fmtK(s.jackpot)}\n`;
   t += `\n📜 LỊCH SỬ (${s.history.length} sự kiện)\n`;
@@ -713,8 +737,9 @@ function buildText() {
     } else if (h.type === 'join') {
       t += `  [${h.round}] ✅ ${h.player} vào bàn${h.rejoin ? ' (lại)' : ''}\n`;
     } else if (h.type === 'leave') {
-      const info = h.settled ? 'tiền mặt' : `→ ${h.transferTo}`;
-      t += `  [${h.round}] 🚪 ${h.player} ra (${info}, dư ${fmtK(h.balance)})\n`;
+      const info = h.frozen ? '❄️ đóng băng' : (h.settled ? 'tiền mặt' : `→ ${h.transferTo}`);
+      const balNote = h.frozen ? `giữ ${fmtK(h.balance)}` : `dư ${fmtK(h.balance)}`;
+      t += `  [${h.round}] 🚪 ${h.player} ra (${info}, ${balNote})\n`;
     }
   });
   return t;
