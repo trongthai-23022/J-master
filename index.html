@@ -449,6 +449,7 @@ function renderGame() {
 
   renderScoreboard();
   renderWinnerChips();
+  updSp();
   document.getElementById('bet-inp').value = s.defaultBet;
   const rb = document.getElementById('rollback-btn');
   rb.disabled = !s.snapshot; rb.style.opacity = s.snapshot ? '1' : '0.38';
