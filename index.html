@@ -1,604 +1,796 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>J-Master: Học Từ Vựng Tiếng Nhật</title>
-   <script src="https://cdn.tailwindcss.com"></script>
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-   <style>
-       :root {
-           --primary-color: #4f46e5;
-           --primary-hover: #4338ca;
-           --secondary-color: #e0e7ff;
-           --secondary-hover: #c7d2fe;
-           --danger-color: #ef4444;
-           --danger-hover: #dc2626;
-           --green-color: #10b981;
-           --green-hover: #059669;
-           --bg-light: #f8fafc;
-           --bg-base: #f1f5f9;
-           --border-color: #e2e8f0;
-           --text-main: #1e293b;
-           --text-light: #64748b;
-       }
-       html, body { scroll-behavior: smooth; }
-       body {
-           font-family: 'Inter', sans-serif;
-           background-color: var(--bg-base);
-           color: var(--text-main);
-       }
-       .jp-font { font-family: 'Noto Sans JP', sans-serif; }
-       .main-container { width: 100%; max-width: 1200px; margin: auto; }
-       .screen { display: none; }
-       .screen.active { display: block; animation: fadeIn 0.5s ease-in-out; }
-       @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-       .btn {
-           padding: 0.75rem 1.5rem; border-radius: 0.75rem; font-weight: 600;
-           transition: all 0.2s ease; border: none; cursor: pointer;
-           display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-       }
-       .btn:active { transform: scale(0.97); }
-       .btn-primary { background-color: var(--primary-color); color: white; }
-       .btn-primary:hover { background-color: var(--primary-hover); }
-       .btn-secondary { background-color: var(--secondary-color); color: var(--primary-hover); }
-       .btn-secondary:hover { background-color: var(--secondary-hover); }
-       .btn-danger { background-color: var(--danger-color); color: white; }
-       .btn-danger:hover { background-color: var(--danger-hover); }
-       .btn-green { background-color: var(--green-color); color: white; }
-       .btn-green:hover { background-color: var(--green-hover); }
-       
-       .modal {
-           display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%;
-           background-color: rgba(0,0,0,0.5); align-items: center; justify-content: center;
-       }
-       .modal.active { display: flex; animation: fadeIn 0.3s; }
-       .modal-content {
-           background-color: #fff; padding: 2rem; border-radius: 1.5rem;
-           width: 90%; max-width: 500px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
-           animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-       }
-       @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chia Tiền Bài</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green:#1a6b3a; --green-l:#2d9e57; --green-d:#0f3d22;
+  --gold:#d4a017; --gold-l:#f0c030;
+  --red:#c0392b; --red-l:#e74c3c;
+  --dark:#0d1f13; --text:#f0ead8; --muted:#8aab96;
+  --surf:#162b1d; --surf2:#1f3d2a; --border:#2e6641;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--dark);color:var(--text);font-family:'Barlow',sans-serif;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(45,158,87,.12) 0%,transparent 60%),radial-gradient(ellipse at 0% 100%,rgba(15,61,34,.4) 0%,transparent 50%),repeating-linear-gradient(45deg,transparent,transparent 2px,rgba(255,255,255,.012) 2px,rgba(255,255,255,.012) 4px);pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;max-width:700px;margin:0 auto;padding:16px 14px 80px}
 
-       /* Component Styles */
-       .card-base { background-color: white; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1); transition: all 0.3s ease; }
-       .card-base:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1); }
-       .input-base { width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 0.5rem; transition: all 0.2s; }
-       .input-base:focus { border-color: var(--primary-color); box-shadow: 0 0 0 2px var(--secondary-color); outline: none; }
-       
-       /* Game Card Styles */
-       .game-card {
-           background-color: white; border-radius: 0.75rem; cursor: pointer; transition: all 0.2s;
-           position: relative; aspect-ratio: 4 / 3; display: flex; justify-content: center;
-           align-items: center; padding: 0.25rem; text-align: center; border: 2px solid var(--border-color);
-       }
-       .game-card:hover { transform: translateY(-4px); box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
-       .game-card.is-selected { border-color: var(--primary-color); transform: scale(1.05); }
-       .game-card.is-matched { opacity: 0.3; cursor: default; pointer-events: none; }
-       .game-card.is-wrong { animation: shake 0.4s; border-color: var(--danger-color) !important; }
-       @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
-       /* Story Mode Styles */
-       #cloze-story { font-size: 1.5rem; line-height: 2.5rem; background: var(--bg-light); padding: 1.5rem; border-radius: 0.5rem; min-height: 100px; }
-       .word-bank-item { cursor: grab; user-select: none; }
-       .cloze-blank {
-           display: inline-block; width: 120px; height: 40px; background: var(--secondary-color);
-           border-radius: 6px; border: 2px dashed #a5b4fc; margin: 0 4px; vertical-align: bottom;
-       }
-       .drag-over { border-style: solid; background-color: #c7d2fe; }
-   </style>
+.hdr{text-align:center;padding:28px 0 20px}
+.hdr h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,11vw,76px);letter-spacing:6px;color:var(--gold-l);text-shadow:0 0 40px rgba(212,160,23,.4),2px 4px 0 rgba(0,0,0,.5);line-height:1}
+.hdr .suits{font-size:20px;letter-spacing:8px;margin-top:6px;opacity:.55}
+.hdr .suits .r{color:#e05050}
+.hdr p{font-family:'Barlow Condensed',sans-serif;color:var(--muted);letter-spacing:3px;font-size:12px;text-transform:uppercase;margin-top:4px}
+
+.card{background:var(--surf);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:0 8px 28px rgba(0,0,0,.38)}
+.ct{font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:3px;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+
+.ig{margin-bottom:12px}
+.ig label,.lbl{display:block;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+input[type=text],input[type=number],select,textarea{width:100%;background:var(--surf2);border:1px solid var(--border);border-radius:8px;padding:10px 13px;color:var(--text);font-family:'Barlow',sans-serif;font-size:15px;outline:none;transition:border-color .2s;-webkit-appearance:none}
+input:focus,select:focus,textarea:focus{border-color:var(--gold)}
+input::placeholder,textarea::placeholder{color:rgba(138,171,150,.4)}
+select option{background:#1f3d2a}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 20px;border-radius:10px;border:none;font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;cursor:pointer;transition:all .17s;white-space:nowrap}
+.btn:active{transform:scale(.96)}
+.btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold-l));color:var(--dark);width:100%;font-size:19px;box-shadow:0 4px 18px rgba(212,160,23,.3)}
+.btn-green{background:linear-gradient(135deg,var(--green),var(--green-l));color:#fff;box-shadow:0 4px 14px rgba(26,107,58,.4)}
+.btn-red{background:linear-gradient(135deg,var(--red),var(--red-l));color:#fff}
+.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted);font-size:14px;letter-spacing:1px}
+.btn-ghost:hover{border-color:var(--muted);color:var(--text)}
+.btn-amber{background:linear-gradient(135deg,#7a5200,#c48800);color:#ffe09a;border:none}
+.btn-sm{padding:7px 14px;font-size:14px}
+.btn-xs{padding:5px 10px;font-size:12px;border-radius:7px;letter-spacing:1px}
+
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{padding:7px 16px;border-radius:100px;border:2px solid var(--border);background:var(--surf2);color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:all .14s;user-select:none}
+.chip:hover{border-color:var(--gold);color:var(--text)}
+.chip.sel-win{background:rgba(212,160,23,.2);border-color:var(--gold);color:var(--gold-l)}
+.chip.sel-draw{background:rgba(138,171,150,.15);border-color:var(--muted);color:var(--text)}
+
+.sbar{background:var(--surf2);border:1px solid var(--border);border-radius:12px;padding:11px 15px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.sbar .sn{font-family:'Bebas Neue',sans-serif;font-size:19px;color:var(--gold);letter-spacing:2px}
+.sbar .sm{font-size:11px;color:var(--muted);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;margin-top:2px}
+.round-badge{background:var(--green-d);border:1px solid var(--green);border-radius:20px;padding:3px 13px;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;color:var(--green-l)}
+.sbar-btns{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+
+.jpbar{background:linear-gradient(135deg,rgba(212,160,23,.15),rgba(240,192,48,.08));border:1px solid rgba(212,160,23,.4);border-radius:12px;padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;animation:pgold 2s infinite}
+@keyframes pgold{0%,100%{box-shadow:0 0 0 rgba(212,160,23,0)}50%{box-shadow:0 0 16px rgba(212,160,23,.25)}}
+.jpbar.hidden{display:none}
+.jp-label{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--gold);font-family:'Barlow Condensed',sans-serif}
+.jp-note{font-size:10px;color:rgba(212,160,23,.6);margin-top:2px}
+.jp-amt{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--gold-l)}
+
+.scoreboard{display:grid;gap:7px}
+.prow{background:var(--surf2);border:1px solid var(--border);border-radius:11px;padding:12px 14px;display:flex;align-items:center;gap:11px;position:relative;overflow:hidden;transition:border-color .2s,opacity .2s}
+.prow::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--border)}
+.prow.winner{border-color:var(--gold-l)} .prow.winner::before{background:var(--gold-l)}
+.prow.loser{border-color:rgba(192,57,43,.5)} .prow.loser::before{background:var(--red)}
+.prow.out{opacity:.42} .prow.out::before{background:#444}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--green-d);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:17px;color:var(--gold);flex-shrink:0}
+.pname{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;letter-spacing:1px;flex:1}
+.out-tag{font-size:10px;color:var(--muted);letter-spacing:1px;margin-left:6px;font-weight:400;font-family:'Barlow',sans-serif}
+.pbal{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px}
+.pos{color:var(--gold-l)} .neg{color:#e05050} .zero{color:var(--muted)}
+
+.sp-row{display:flex;gap:8px;margin-bottom:13px;flex-wrap:wrap}
+.spc{padding:8px 15px;border-radius:8px;border:2px solid var(--border);background:var(--surf2);color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:all .14s;display:flex;align-items:center;gap:5px;user-select:none}
+.spc.a-binh{background:rgba(45,158,87,.2);border-color:var(--green-l);color:#5dde8a}
+.spc.a-tu{background:rgba(212,160,23,.2);border-color:var(--gold);color:var(--gold-l)}
+
+.bet-row{display:flex;gap:8px;align-items:center;margin-bottom:11px}
+.bet-row input{flex:1;font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;text-align:right;padding:10px 14px}
+.bet-cur{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--muted);letter-spacing:2px}
+.quick-bets{display:flex;gap:5px;margin-bottom:14px;flex-wrap:wrap}
+.qbet{padding:5px 12px;border-radius:6px;border:1px solid var(--border);background:var(--surf2);color:var(--muted);font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:1px;cursor:pointer;transition:all .14s}
+.qbet:hover{border-color:var(--green);color:var(--green-l)}
+.action-row{display:flex;gap:8px}
+
+.pm-list{display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
+.pm-item{background:var(--surf2);border:1px solid var(--border);border-radius:9px;padding:10px 13px;display:flex;align-items:center;gap:10px;transition:opacity .2s}
+.pm-item.is-out{opacity:.45;border-style:dashed}
+.pm-name{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;flex:1}
+.pm-bal{font-family:'Bebas Neue',sans-serif;font-size:17px;min-width:64px;text-align:right}
+.pm-actions{display:flex;gap:5px}
+.add-player-row{display:flex;gap:8px;align-items:center}
+.add-player-row input{flex:1;font-size:14px;padding:9px 12px}
+
+.sum-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px}
+.sum-card{background:var(--surf2);border:1px solid var(--border);border-radius:9px;padding:11px 13px;text-align:center}
+.sum-card .sl{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);font-family:'Barlow Condensed',sans-serif}
+.sum-card .sv{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold-l);letter-spacing:1px;margin-top:2px}
+
+.hist-list{display:flex;flex-direction:column;gap:7px}
+.hi{background:var(--surf2);border:1px solid var(--border);border-radius:9px;padding:11px 13px;display:flex;align-items:flex-start;gap:9px;font-size:13px;opacity:.88;transition:opacity .2s}
+.hi:hover{opacity:1}
+.rn{font-family:'Bebas Neue',sans-serif;font-size:19px;color:var(--gold);min-width:28px;letter-spacing:1px;line-height:1.2}
+.hdet{flex:1}
+.hw{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;color:var(--gold-l)}
+.hd{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;color:var(--muted)}
+.hm{font-size:11px;color:var(--muted);font-family:'Barlow Condensed',sans-serif;letter-spacing:.5px;margin-top:2px}
+.hev{font-family:'Barlow Condensed',sans-serif;font-size:11px;color:rgba(138,171,150,.7);margin-top:3px}
+.badge-b{background:rgba(45,158,87,.2);color:#5dde8a;border-radius:4px;padding:1px 6px;font-size:10px;margin-left:4px;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px}
+.badge-t{background:rgba(212,160,23,.2);color:var(--gold-l);border-radius:4px;padding:1px 6px;font-size:10px;margin-left:4px;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px}
+.badge-dr{background:rgba(138,171,150,.15);color:var(--muted);border-radius:4px;padding:1px 6px;font-size:10px;margin-left:4px;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px}
+.badge-join{background:rgba(45,158,87,.18);color:#5dde8a;border-radius:4px;padding:1px 7px;font-size:10px;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px}
+.badge-leave{background:rgba(192,57,43,.18);color:#e05050;border-radius:4px;padding:1px 7px;font-size:10px;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px}
+.empty-h{text-align:center;padding:22px;color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1px}
+
+.export-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.export-grid .btn{flex-direction:column;gap:3px;padding:14px 10px;font-size:15px;height:72px}
+.export-grid .btn small{font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:0;font-weight:400;opacity:.75;text-transform:none}
+
+.sess-list{display:flex;flex-direction:column;gap:7px;margin-top:10px}
+.sess-item{background:var(--surf2);border:1px solid var(--border);border-radius:9px;padding:11px 14px;cursor:pointer;transition:border-color .2s;display:flex;align-items:center;justify-content:space-between}
+.sess-item:hover{border-color:var(--gold)}
+.sess-item .ssn{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700}
+.sess-item .ssm{font-size:11px;color:var(--muted);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;margin-top:2px}
+
+.divider{display:flex;align-items:center;gap:10px;margin:14px 0;color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--surf);border:1px solid var(--border);border-radius:100px;padding:11px 22px;font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:1px;color:var(--text);z-index:1000;transition:transform .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 8px 28px rgba(0,0,0,.5);white-space:nowrap;max-width:90vw;text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast.success{border-color:var(--green);color:#5dde8a}
+.toast.error{border-color:var(--red);color:#e05050}
+.toast.info{border-color:var(--gold);color:var(--gold-l)}
+
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:500;display:flex;align-items:center;justify-content:center;padding:18px;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-ov.show{opacity:1;pointer-events:all}
+.modal-box{background:var(--surf);border:1px solid var(--border);border-radius:15px;padding:24px 20px;max-width:340px;width:100%;box-shadow:0 16px 48px rgba(0,0,0,.6);max-height:90vh;overflow-y:auto}
+.modal-box h3{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;color:var(--gold);margin-bottom:8px}
+.modal-box p{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:16px}
+.modal-btns{display:flex;gap:9px}
+.modal-btns .btn{flex:1}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+#game-screen{display:none}
+</style>
 </head>
-<body class="p-4 md:p-6">
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <h1>CHIA TIỀN BÀI</h1>
+    <div class="suits"><span class="r">♥ ♦</span> ♠ ♣</div>
+    <p>Tính tiền thắng thua chuẩn không cần chỉnh</p>
+  </div>
 
-   <div class="main-container">
+  <!-- ══════ SETUP ══════ -->
+  <div id="setup-screen">
+    <div class="card">
+      <div class="ct">🎮 Tạo Phiên Mới</div>
+      <div class="ig">
+        <label>Tên phiên</label>
+        <input type="text" id="sname" placeholder="VD: Tối thứ 6, Nhậu 30/4...">
+      </div>
+      <div class="ig">
+        <label>Số người chơi ban đầu</label>
+        <div class="chips" id="pc-chips">
+          <button class="chip" onclick="setPCount(2)">2 người</button>
+          <button class="chip" onclick="setPCount(3)">3 người</button>
+          <button class="chip sel-win" onclick="setPCount(4)">4 người</button>
+          <button class="chip" onclick="setPCount(5)">5 người</button>
+          <button class="chip" onclick="setPCount(6)">6 người</button>
+        </div>
+      </div>
+      <div class="ig">
+        <label>Tên người chơi</label>
+        <div id="pinputs" style="display:grid;grid-template-columns:1fr 1fr;gap:9px"></div>
+      </div>
+      <div class="ig">
+        <label>Tiền cược mặc định (K)</label>
+        <input type="number" id="defbet" value="10" min="1">
+      </div>
+      <button class="btn btn-primary" onclick="startGame()" style="margin-top:8px">🃏 BẮT ĐẦU CHƠI</button>
+    </div>
 
-       <!-- ===== Main Dashboard Screen ===== -->
-       <div id="dashboard-screen" class="screen active">
-           <header class="text-center mb-10">
-               <div class="flex justify-center items-center gap-4 relative">
-                   <h1 class="text-5xl font-bold text-gray-800 jp-font">J-Master</h1>
-                   <button id="show-settings-modal-btn" class="absolute top-0 right-0 p-2 text-gray-400 hover:text-indigo-600 transition-colors" title="Cài đặt">
-                       <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16"><path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311a1.464 1.464 0 0 1 .872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1-.872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1-.872-2.105l.34-.1c1.4-.413-1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1 .872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/></svg>
-                   </button>
-               </div>
-               <p class="jp-font text-xl text-indigo-600 mt-1">あなたの日本語学習パートナー</p>
-               <p class="text-gray-500 mt-2 max-w-2xl mx-auto">Công cụ học từ vựng cá nhân, mạnh mẽ, hoạt động hoàn toàn trên trình duyệt của bạn.</p>
-           </header>
-           <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-               <div class="card-base p-8 text-center">
-                   <h2 class="text-2xl font-bold mb-4">Học & Luyện tập</h2>
-                   <p class="text-gray-500 mb-6">Chọn bộ từ và bắt đầu học với game ghép thẻ hoặc tạo truyện chêm AI.</p>
-                   <button id="go-to-learn-btn" class="btn btn-primary">Vào học</button>
-               </div>
-               <div class="card-base p-8 text-center">
-                   <h2 class="text-2xl font-bold mb-4">Quản lý Từ vựng</h2>
-                   <p class="text-gray-500 mb-6">Thêm, sửa, xóa, và nhập hàng loạt các bộ từ vựng của riêng bạn.</p>
-                   <button id="go-to-manager-btn" class="btn btn-secondary">Quản lý</button>
-               </div>
-           </div>
-       </div>
-       
-       <div id="list-selection-screen" class="screen card-base p-6 md:p-8"></div>
-       <div id="settings-screen" class="screen card-base p-6 md:p-8"></div>
-       <div id="game-screen" class="screen card-base p-6 md:p-8"></div>
-       <div id="results-screen" class="screen card-base p-8 text-center"></div>
-       <div id="story-mode-screen" class="screen card-base p-6 md:p-8"></div>
-       <div id="manager-screen" class="screen card-base p-6 md:p-8"></div>
-   </div>
+    <div class="card">
+      <div class="ct">📂 Import Phiên Cũ</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:10px">Dán JSON export vào đây để tiếp tục phiên chơi cũ</p>
+      <textarea id="import-json" style="height:80px;resize:vertical;font-family:monospace;font-size:12px" placeholder='{"id":"...","name":"...",...}'></textarea>
+      <button class="btn btn-ghost" onclick="importSession()" style="width:100%;margin-top:9px">📥 IMPORT & TIẾP TỤC</button>
+    </div>
 
-   <!-- Modals -->
-   <div id="add-word-list-modal" class="modal"></div>
-   <div id="add-edit-word-modal" class="modal"></div>
-   <div id="import-modal" class="modal"></div>
-   <div id="settings-modal" class="modal">
-       <div class="modal-content">
-           <h3 class="text-2xl font-bold mb-4">Cài đặt</h3>
-           <div class="space-y-2">
-               <label for="api-key-input" class="font-semibold text-gray-700">Khóa API Gemini</label>
-               <input type="password" id="api-key-input" placeholder="Nhập khóa API của bạn ở đây" class="input-base">
-               <p class="text-xs text-gray-500">Khóa API cần thiết cho chức năng "Tạo Truyện Chêm". Khóa của bạn chỉ được lưu trên trình duyệt này.</p>
-           </div>
-           <div id="save-key-feedback" class="text-green-600 text-sm mt-4 text-center hidden"></div>
-           <div class="flex justify-end gap-3 mt-6">
-               <button class="btn btn-secondary close-modal">Đóng</button>
-               <button id="save-api-key-btn" class="btn btn-primary">Lưu</button>
-           </div>
-       </div>
-   </div>
+    <div id="saved-sec"></div>
+  </div>
 
-   <script>
-   document.addEventListener('DOMContentLoaded', () => {
-       // --- INITIAL DATA & APP CONFIG ---
-       const initialVocabulary = {
-           "N2 Mẫu (401-410)": [
-               { id: 401, kanji: "反抗", reading: "はんこう", meaning: "Sự phản kháng, nổi loạn" }, { id: 402, kanji: "無駄", reading: "むだ", meaning: "Vô ích, lãng phí" }, { id: 403, kanji: "休暇", reading: "きゅうか", meaning: "Kì nghỉ (có phép)" }, { id: 404, kanji: "眺める", reading: "ながめる", meaning: "Nhìn, ngắm" }, { id: 405, kanji: "感心", reading: "かんしん", meaning: "Ngưỡng mộ" }, { id: 406, kanji: "発揮", reading: "はっき", meaning: "Phát huy" }, { id: 407, kanji: "尽きる", reading: "つきる", meaning: "Cạn kiệt, hết sạch" }, { id: 408, kanji: "相次ぐ", reading: "あいつぐ", meaning: "Liên tục, nối tiếp" }, { id: 409, kanji: "外す", reading: "はずす", meaning: "Tháo ra, trượt, không trúng" }, { id: 410, kanji: "保つ", reading: "たもつ", meaning: "Bảo vệ, duy trì" },
-           ]
-       };
-       const STORAGE_KEY = 'jMasterVocabApp';
-       const API_KEY_STORAGE = 'jMasterApiKey';
-       let activeVocabularyList = [];
-       let selectedCard = null, isChecking = false, matchedPairs = 0, totalPairs = 0;
-       let timerInterval, seconds = 0;
-       let draggedItem = null;
-       
-       // --- UTILITY FUNCTIONS ---
-       const $ = (selector) => document.querySelector(selector);
-       const $$ = (selector) => document.querySelectorAll(selector);
-       const showScreen = (screenId) => {
-           $$('.screen').forEach(s => s.classList.remove('active'));
-           $(`#${screenId}`)?.classList.add('active');
-       };
-       const showModal = (modalId) => $(`#${modalId}`)?.classList.add('active');
-       const hideAllModals = () => $$('.modal').forEach(m => m.classList.remove('active'));
-       const shuffle = (array) => { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; };
+  <!-- ══════ GAME ══════ -->
+  <div id="game-screen">
 
-       // --- HTML INJECTION FOR SCREENS AND MODALS ---
-       const injectHTML = () => {
-           $('#list-selection-screen').innerHTML = `<div class="flex justify-between items-center mb-6"><h2 class="text-3xl font-bold">Chọn Bộ Từ Vựng</h2><button class="btn btn-secondary back-to-dashboard">Trở về</button></div><div class="grid md:grid-cols-2 gap-6"><div class="bg-slate-100 p-4 rounded-lg"><div class="space-y-1" id="word-list-radios"></div></div><div class="bg-slate-100 p-4 rounded-lg"><h3 class="text-lg font-bold mb-2">Xem trước</h3><div id="preview-list" class="max-h-64 overflow-y-auto pr-2"></div></div></div><div class="mt-6 text-center space-y-3 sm:space-y-0 sm:space-x-4"><button id="go-to-match-game-settings-btn" class="btn btn-primary">Chơi Ghép Thẻ</button><div class="inline-block relative group"><button id="create-story-btn" class="btn btn-green">Tạo Truyện Chêm (AI)</button><div id="api-key-tooltip" class="absolute bottom-full mb-2 w-max bg-slate-700 text-white text-xs rounded py-1 px-2 invisible group-hover:visible transition-opacity">Vui lòng nhập API Key trong Cài đặt</div></div></div>`;
-           $('#settings-screen').innerHTML = `<div class="flex justify-between items-center mb-6"><h2 class="text-3xl font-bold">Tùy Chỉnh Game</h2><button class="btn btn-secondary back-to-list-selection">Quay lại</button></div><div class="grid md:grid-cols-2 gap-6 mb-6"><div class="bg-slate-100 p-4 rounded-lg"><h3 class="font-bold mb-4">1. Thẻ gốc:</h3><div id="cardA-options" class="space-y-2"></div></div><div class="bg-slate-100 p-4 rounded-lg"><h3 class="font-bold mb-4">2. Thẻ ghép:</h3><div id="cardB-options" class="space-y-2"></div></div></div><div class="bg-slate-100 p-4 rounded-lg mb-6"><h3 class="font-bold mb-4">3. Số lượng:</h3><select id="pair-count" class="input-base"></select></div><div class="text-center"><button id="start-game-btn" class="btn btn-primary w-full sm:w-auto">Bắt đầu chơi</button></div>`;
-           $('#game-screen').innerHTML = `<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2"><h2 class="text-2xl font-bold text-indigo-700">Hãy tìm các cặp thẻ!</h2><div class="text-right text-lg font-bold"><p>Thời gian: <span id="timer">0</span>s</p><p>Đã ghép: <span id="matched-pairs">0</span>/<span id="total-pairs">0</span></p></div></div><div id="game-board" class="grid gap-2 sm:gap-4 grid-cols-4 md:grid-cols-6 lg:grid-cols-8"></div><div class="mt-6 text-center"><button class="btn btn-secondary back-to-list-selection">Chọn lại bộ từ</button></div>`;
-           $('#results-screen').innerHTML = `<h2 class="text-4xl font-bold text-green-600 mb-4">Hoàn thành!</h2><p class="text-xl mb-2">Thời gian: <span id="final-time" class="font-bold"></span> giây.</p><p class="text-xl mb-8">Số cặp thẻ: <span id="final-pairs" class="font-bold"></span>.</p><div class="flex flex-col sm:flex-row gap-4 justify-center"><button id="play-again-btn" class="btn btn-primary">Chơi lại</button><button class="btn btn-secondary back-to-list-selection">Đổi bộ từ vựng</button></div>`;
-           $('#story-mode-screen').innerHTML = `<div class="flex justify-between items-center mb-4"><h2 class="text-3xl font-bold">Tạo Truyện Chêm</h2><button class="btn btn-secondary back-to-list-selection">Quay lại</button></div><div id="story-loader" class="text-center py-10"></div><div id="story-content" class="hidden"></div>`;
-           $('#manager-screen').innerHTML = `<div class="flex justify-between items-center mb-6"><h2 class="text-3xl font-bold">Quản lý Từ vựng</h2><button class="btn btn-secondary back-to-dashboard">Trở về</button></div><div class="flex flex-wrap gap-4 mb-6"><button id="show-add-list-modal-btn" class="btn btn-primary">Tạo bộ từ mới</button><button id="show-import-modal-btn" class="btn btn-secondary">Nhập hàng loạt (JSON)</button></div><div id="word-lists-container" class="space-y-6"></div>`;
-           $('#cardA-options').innerHTML = `<div><input type="radio" id="a-kanji" name="cardA" value="kanji" checked hidden><label for="a-kanji" class="jp-font p-3 block cursor-pointer rounded-lg">Kanji (例: 反抗)</label></div><div><input type="radio" id="a-reading" name="cardA" value="reading" hidden><label for="a-reading" class="jp-font p-3 block cursor-pointer rounded-lg">Cách đọc (例: はんこう)</label></div>`;
-           $('#cardB-options').innerHTML = `<div><input type="radio" id="b-meaning" name="cardB" value="meaning" checked hidden><label for="b-meaning" class="p-3 block cursor-pointer rounded-lg">Ý nghĩa (Vd: Phản kháng)</label></div><div><input type="radio" id="b-audio" name="cardB" value="audio" hidden><label for="b-audio" class="p-3 block cursor-pointer rounded-lg">Âm thanh 🔊</label></div><div><input type="radio" id="b-kanji" name="cardB" value="kanji" hidden><label for="b-kanji" class="jp-font p-3 block cursor-pointer rounded-lg">Kanji (例: 反抗)</label></div><div><input type="radio" id="b-reading" name="cardB" value="reading" hidden><label for="b-reading" class="jp-font p-3 block cursor-pointer rounded-lg">Cách đọc (例: はんこう)</label></div>`;
-           $('#story-loader').innerHTML = `<div class="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div><p class="mt-4 text-gray-600">AI đang sáng tác truyện...</p>`;
-           $('#story-content').innerHTML = `<p class="mb-4 text-center text-slate-600">Kéo và thả các từ vào ô trống.</p><div id="word-bank" class="flex flex-wrap justify-center gap-3 p-4 mb-4 bg-slate-100 rounded-lg"></div><div id="cloze-story" class="jp-font mb-6 text-slate-800"></div><div class="text-center"><button id="check-story-btn" class="btn btn-primary">Xem đáp án</button></div><div id="story-answer-section" class="hidden mt-6 p-4 border-t-2 border-slate-200"><h3 class="text-xl font-bold mb-2 text-green-700">Truyện Hoàn Chỉnh</h3><p id="full-story" class="jp-font text-lg mb-4 bg-green-50 p-3 rounded"></p><h3 class="text-xl font-bold mb-2 text-blue-700">Bản Dịch</h3><p id="story-translation" class="text-lg bg-blue-50 p-3 rounded"></p><div class="mt-6 text-center"><button id="new-story-btn" class="btn btn-secondary">Tạo truyện mới</button></div></div>`;
-           $('#add-word-list-modal').innerHTML = `<div class="modal-content"><h3 class="text-2xl font-bold mb-4">Tạo bộ từ mới</h3><input type="text" id="new-list-name-input" placeholder="Ví dụ: N2 - Bài 10" class="input-base mb-4"><div class="flex justify-end gap-3"><button class="btn btn-secondary close-modal">Hủy</button><button id="add-new-list-btn" class="btn btn-primary">Tạo</button></div></div>`;
-           $('#add-edit-word-modal').innerHTML = `<div class="modal-content"><h3 id="word-modal-title" class="text-2xl font-bold mb-4">Thêm từ mới</h3><input type="hidden" id="word-id-input"><input type="hidden" id="word-list-name-input"><div class="space-y-4"><input type="text" id="kanji-input" placeholder="Kanji / Từ vựng" class="input-base"><input type="text" id="reading-input" placeholder="Cách đọc (Hiragana)" class="input-base"><input type="text" id="meaning-input" placeholder="Ý nghĩa" class="input-base"></div><div class="flex justify-end gap-3 mt-6"><button class="btn btn-secondary close-modal">Hủy</button><button id="save-word-btn" class="btn btn-primary">Lưu</button></div></div>`;
-           $('#import-modal').innerHTML = `<div class="modal-content"><h3 class="text-2xl font-bold mb-4">Nhập hàng loạt bằng JSON</h3><p class="text-sm text-gray-500 mb-2">Dán một mảng (array) các object JSON vào đây. Ví dụ:</p><pre class="bg-slate-100 p-2 rounded text-xs overflow-x-auto mb-4"><code>[
- {
-   "kanji": "新しい",
-   "reading": "あたらしい",
-   "meaning": "Mới"
- }
-]</code></pre><textarea id="import-data-input" rows="8" class="input-base font-mono text-sm"></textarea><div class="mt-4"><label for="import-list-name-input" class="font-semibold text-sm text-gray-700">Tên cho bộ từ mới</label><input type="text" id="import-list-name-input" placeholder="Ví dụ: N1 - Ngữ pháp" class="input-base mt-1"></div><div id="import-feedback" class="text-sm mt-4 text-center hidden"></div><div class="flex justify-end gap-3 mt-6"><button class="btn btn-secondary close-modal">Hủy</button><button id="import-data-btn" class="btn btn-primary">Nhập</button></div></div>`;
-       };
-       
-       // --- DATABASE SERVICE ---
-       const db = {
-           getWordLists: () => JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'),
-           saveWordLists: (lists) => localStorage.setItem(STORAGE_KEY, JSON.stringify(lists)),
-           getApiKey: () => localStorage.getItem(API_KEY_STORAGE) || '',
-           saveApiKey: (key) => localStorage.setItem(API_KEY_STORAGE, key),
-       };
-       if (Object.keys(db.getWordLists()).length === 0) { db.saveWordLists(initialVocabulary); }
+    <div class="sbar">
+      <div>
+        <div class="sn" id="gs-sname">—</div>
+        <div class="sm" id="gs-players">—</div>
+      </div>
+      <div class="sbar-btns">
+        <div class="round-badge">VÁN <span id="gs-round">1</span></div>
+        <button class="btn btn-ghost btn-sm" onclick="openModal('modal-export')">⬇ Export</button>
+        <button class="btn btn-ghost btn-sm" onclick="confirmEnd()">⏻ Kết thúc</button>
+      </div>
+    </div>
 
-       // --- CORE LOGIC ---
-       const checkApiKeyStatus = () => {
-           const apiKey = db.getApiKey();
-           const storyBtnContainer = $('#create-story-btn').parentElement;
-           if (apiKey) {
-               storyBtnContainer.classList.remove('opacity-50', 'cursor-not-allowed');
-               storyBtnContainer.querySelector('button').disabled = false;
-               $('#api-key-tooltip').style.visibility = 'hidden';
-           } else {
-               storyBtnContainer.classList.add('opacity-50', 'cursor-not-allowed');
-               storyBtnContainer.querySelector('button').disabled = true;
-               $('#api-key-tooltip').style.visibility = 'visible';
-           }
-       };
+    <div class="jpbar hidden" id="jpbar">
+      <div>
+        <div class="jp-label">🎰 Đang dồn (Hòa)</div>
+        <div class="jp-note">Ván sau ai thắng lấy hết!</div>
+      </div>
+      <div style="text-align:right"><div class="jp-amt" id="jp-amt">0K</div></div>
+    </div>
 
-       function renderWordManager() {
-           const lists = db.getWordLists();
-           const container = $('#word-lists-container');
-           container.innerHTML = Object.keys(lists).length === 0 ? '<div class="text-center p-8 bg-slate-100 rounded-lg"><p class="text-slate-500">Chưa có bộ từ nào. Hãy tạo một bộ mới!</p></div>' : '';
-           for (const listName in lists) {
-               const listContainer = document.createElement('div');
-               listContainer.className = 'bg-slate-100 p-4 rounded-lg';
-               let wordsHTML = lists[listName].map(word => `<div class="word-item bg-white grid grid-cols-2 md:grid-cols-4 items-center gap-4 p-4 rounded-lg border border-slate-200"><strong class="jp-font text-lg">${word.kanji}</strong><span class="text-slate-600">${word.reading}</span><span class="col-span-2 md:col-span-1 text-slate-800">${word.meaning}</span><div class="flex gap-2 justify-self-end col-start-2 md:col-start-auto"><button class="edit-word-btn btn btn-sm btn-secondary" data-list="${listName}" data-id="${word.id}">Sửa</button><button class="delete-word-btn btn btn-sm btn-danger" data-list="${listName}" data-id="${word.id}">Xóa</button></div></div>`).join('');
-               listContainer.innerHTML = `<div class="flex justify-between items-center mb-4 flex-wrap gap-2"><h3 class="text-xl font-bold">${listName}</h3><div class="flex gap-2"><button class="add-word-to-list-btn btn btn-sm btn-primary" data-list="${listName}">Thêm từ</button><button class="delete-list-btn btn btn-sm btn-danger" data-list="${listName}">Xóa bộ</button></div></div><div class="space-y-2">${wordsHTML || '<p class="text-sm text-center p-4">Bộ từ này trống.</p>'}</div>`;
-               container.appendChild(listContainer);
-           }
-           showScreen('manager-screen');
-       }
+    <!-- Scoreboard -->
+    <div class="card" style="padding:13px">
+      <div class="ct" style="margin-bottom:9px">📊 Bảng Điểm</div>
+      <div class="scoreboard" id="scoreboard"></div>
+    </div>
 
-       function renderLearnScreen() {
-           const lists = db.getWordLists();
-           const container = $('#word-list-radios');
-           container.innerHTML = '';
-           let isFirst = true;
-           const validLists = Object.keys(lists).filter(listName => lists[listName].length > 0);
-           if(validLists.length === 0) {
-                container.innerHTML = '<p class="text-slate-500 p-4 text-center">Không có bộ từ nào để học. Vui lòng vào trình quản lý để thêm từ.</p>';
-                $('#go-to-match-game-settings-btn').style.display = 'none';
-                $('#create-story-btn').parentElement.style.display = 'none';
-           } else {
-               validLists.forEach(listName => {
-                   const div = document.createElement('div');
-                   div.innerHTML = `<input type="radio" id="list-${listName.replace(/\s/g, '-')}" name="word-list" value="${listName}" ${isFirst ? 'checked' : ''} hidden><label for="list-${listName.replace(/\s/g, '-')}" class="p-3 block cursor-pointer rounded-lg hover:bg-slate-200">${listName} (${lists[listName].length} từ)</label>`;
-                   container.appendChild(div); isFirst = false;
-               });
-               $('#go-to-match-game-settings-btn').style.display = 'inline-flex';
-               $('#create-story-btn').parentElement.style.display = 'inline-block';
-               container.querySelectorAll('input[name="word-list"]').forEach(radio => radio.addEventListener('change', updatePreview));
-               updatePreview();
-           }
-           showScreen('list-selection-screen');
-       }
+    <!-- Round input -->
+    <div class="card">
+      <div class="ct">🃏 Nhập Kết Quả Ván</div>
 
-       function updatePreview() {
-           const selectedValue = $('input[name="word-list"]:checked')?.value;
-           const previewList = $('#preview-list');
-           if (!selectedValue) { previewList.innerHTML = '<p class="text-sm text-slate-400">Chọn một bộ từ để xem trước.</p>'; return; };
-           activeVocabularyList = db.getWordLists()[selectedValue];
-           previewList.innerHTML = activeVocabularyList.map(word => `<div class="p-2 border-b border-slate-200"><div class="flex justify-between items-center"><p class="jp-font font-bold text-slate-800">${word.kanji}</p><p class="text-sm text-slate-500">${word.reading}</p></div><p class="text-xs text-slate-600">${word.meaning}</p></div>`).join('');
-           updateRadioStyles();
-       }
+      <div class="lbl" style="margin-bottom:7px">Ai thắng?</div>
+      <div class="chips" id="winner-chips" style="margin-bottom:14px"></div>
 
-       function updateRadioStyles(containerSelector = '#word-list-radios') {
-           $$(containerSelector + ' input[type="radio"]').forEach(radio => {
-               const label = radio.nextElementSibling;
-               if (radio.checked) {
-                   label.classList.add('bg-indigo-100', 'text-indigo-800', 'font-bold');
-                   label.classList.remove('hover:bg-slate-200');
-               } else {
-                   label.classList.remove('bg-indigo-100', 'text-indigo-800', 'font-bold');
-                   label.classList.add('hover:bg-slate-200');
-               }
-           });
-       }
-       
-       function setupMatchGameSettings() {
-            const pairCountSelect = $('#pair-count');
-            pairCountSelect.innerHTML = '';
-            const maxPairs = activeVocabularyList.length;
-            [4, 8, 12, 16, 20].forEach(opt => { if (opt <= maxPairs) pairCountSelect.innerHTML += `<option value="${opt}">${opt} cặp (${opt*2} thẻ)</option>`; });
-            if (maxPairs > 0) {
-               pairCountSelect.innerHTML += `<option value="${maxPairs}">Tất cả ${maxPairs} cặp (${maxPairs*2} thẻ)</option>`;
-               pairCountSelect.value = Math.min(maxPairs, 8); // Default to 8 or max
-            }
-            showScreen('settings-screen');
-            updateRadioStyles('#cardA-options');
-            updateRadioStyles('#cardB-options');
-       }
+      <div class="lbl" style="margin-bottom:7px">Loại đặc biệt (nhân đôi tiền)</div>
+      <div class="sp-row">
+        <button class="spc" id="sp-binh" onclick="toggleSp('binh')">🌊 Binh</button>
+        <button class="spc" id="sp-tu" onclick="toggleSp('tu')">👑 Tứ quý</button>
+      </div>
 
-       function startGame() {
-           const cardAValue = $('input[name="cardA"]:checked').value;
-           const cardBValue = $('input[name="cardB"]:checked').value;
-           totalPairs = parseInt($('#pair-count').value);
-           const gameBoard = $('#game-board');
-           gameBoard.innerHTML = '';
-           selectedCard = null; isChecking = false; matchedPairs = 0; seconds = 0;
-           clearInterval(timerInterval);
-           $('#matched-pairs').textContent = 0;
-           $('#total-pairs').textContent = totalPairs;
-           const timerEl = $('#timer');
-           timerEl.textContent = 0;
-           const selectedWords = shuffle([...activeVocabularyList]).slice(0, totalPairs);
-           let gameCards = [];
-           selectedWords.forEach(word => {
-               gameCards.push({ item: word, type: cardAValue });
-               gameCards.push({ item: word, type: cardBValue });
-           });
-           shuffle(gameCards).forEach(cardData => gameBoard.appendChild(createCardElement(cardData.item, cardData.type)));
-           showScreen('game-screen');
-           timerInterval = setInterval(() => { seconds++; timerEl.textContent = seconds; }, 1000);
-       }
+      <div class="lbl" style="margin-bottom:7px">Tiền cược (K)</div>
+      <div class="bet-row">
+        <input type="number" id="bet-inp" placeholder="0" min="0">
+        <div class="bet-cur">K</div>
+      </div>
+      <div class="quick-bets">
+        <button class="qbet" onclick="qbet(5)">5K</button>
+        <button class="qbet" onclick="qbet(10)">10K</button>
+        <button class="qbet" onclick="qbet(20)">20K</button>
+        <button class="qbet" onclick="qbet(50)">50K</button>
+        <button class="qbet" onclick="qbet(100)">100K</button>
+        <button class="qbet" onclick="qbet(200)">200K</button>
+      </div>
 
-       function createCardElement(item, cardType) {
-           const card = document.createElement('div');
-           card.className = 'game-card';
-           card.dataset.id = item.id;
-           card.dataset.reading = item.reading;
-           const audioIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="text-indigo-600" viewBox="0 0 16 16"><path d="M11.536 14.01A8.47 8.47 0 0 0 14.026 8a8.47 8.47 0 0 0-2.49-6.01l-.708.707A7.48 7.48 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303z"/><path d="M10.121 12.59A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.59l-.707.707A5.48 5.48 0 0 1 11.025 8a5.48 5.48 0 0 1-1.61 3.88z"/><path d="M8.707 11.182A4.49 4.49 0 0 0 10.025 8a4.49 4.49 0 0 0-1.318-3.182L8 5.525A3.49 3.49 0 0 1 9.025 8 3.49 3.49 0 0 1 8 10.475zM6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06"/></svg>`;
-           const contentMap = {
-               'kanji': `<span class="jp-font text-xl sm:text-2xl font-bold">${item.kanji}</span>`,
-               'reading': `<span class="jp-font text-base sm:text-xl">${item.reading}</span>`,
-               'meaning': `<span class="text-xs sm:text-sm font-medium">${item.meaning}</span>`,
-               'audio': audioIcon,
-           };
-           card.innerHTML = contentMap[cardType] || '';
-           return card;
-       }
+      <div class="action-row">
+        <button class="btn btn-green" onclick="submitRound()" style="flex:1;font-size:18px">✓ XÁC NHẬN VÁN</button>
+        <button class="btn btn-ghost btn-sm" id="rollback-btn" onclick="confirmRollback()">↩ Lùi 1 ván</button>
+      </div>
+    </div>
 
-       function handleCardClick(e) {
-           const clickedCard = e.target.closest('.game-card');
-           if (!clickedCard || isChecking || clickedCard.classList.contains('is-matched') || clickedCard === selectedCard) return;
-           if (clickedCard.dataset.reading) speak(clickedCard.dataset.reading);
-           if (!selectedCard) {
-               selectedCard = clickedCard;
-               selectedCard.classList.add('is-selected');
-           } else {
-               isChecking = true;
-               clickedCard.classList.add('is-selected');
-               if (selectedCard.dataset.id === clickedCard.dataset.id) {
-                   setTimeout(() => {
-                       selectedCard.classList.add('is-matched');
-                       clickedCard.classList.add('is-matched');
-                       selectedCard.classList.remove('is-selected');
-                       clickedCard.classList.remove('is-selected');
-                       selectedCard = null; isChecking = false;
-                       matchedPairs++;
-                       $('#matched-pairs').textContent = matchedPairs;
-                       if (matchedPairs === totalPairs) {
-                           clearInterval(timerInterval);
-                           $('#final-time').textContent = seconds;
-                           $('#final-pairs').textContent = totalPairs;
-                           showScreen('results-screen');
-                       }
-                   }, 400);
-               } else {
-                   setTimeout(() => {
-                       selectedCard.classList.add('is-wrong');
-                       clickedCard.classList.add('is-wrong');
-                       setTimeout(() => {
-                          selectedCard.classList.remove('is-selected', 'is-wrong');
-                          clickedCard.classList.remove('is-selected', 'is-wrong');
-                          selectedCard = null; isChecking = false;
-                       }, 800);
-                   }, 400);
-               }
-           }
-       }
-       
-       async function handleCreateStoryClick() {
-           showScreen('story-mode-screen');
-           $('#story-content').classList.add('hidden');
-           $('#story-loader').classList.remove('hidden');
-           // Reset loader in case of previous error
-           $('#story-loader').innerHTML = `<div class="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div><p class="mt-4 text-gray-600">AI đang sáng tác truyện...</p>`;
-           $('#story-answer-section').classList.add('hidden');
-           await generateStory();
-       }
+    <!-- Player Manager -->
+    <div class="card">
+      <div class="ct">👥 Quản Lý Người Chơi</div>
+      <div class="pm-list" id="pm-list"></div>
+      <div class="lbl" style="margin-bottom:7px">Thêm người vào bàn</div>
+      <div class="add-player-row">
+        <input type="text" id="new-pname" placeholder="Nhập tên người mới vào..." style="font-size:14px;padding:9px 12px">
+        <button class="btn btn-green btn-sm" onclick="addPlayer()">+ Vào bàn</button>
+      </div>
+    </div>
 
-       async function generateStory() {
-           const apiKey = db.getApiKey();
-           const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-           const wordsForStory = shuffle([...activeVocabularyList]).slice(0, Math.min(4, activeVocabularyList.length));
-           const wordListString = wordsForStory.map(w => `${w.kanji} (${w.reading})`).join(', ');
-           const systemPrompt = `You are a Japanese language tutor creating a learning exercise. 1. Write a very short, simple story (3-4 sentences) in natural-sounding Japanese. 2. The story MUST include ALL of the following words: ${wordListString}. 3. After the story, create a "fill-in-the-blank" version. In this version, replace ONLY the target words with the placeholder [____]. 4. Finally, provide a Vietnamese translation of the complete story. 5. Format your entire response EXACTLY like this, with these specific headings: [STORY_CLOZE] (Your cloze story here) [STORY_FULL] (Your full, complete Japanese story here) [STORY_TRANSLATION] (Your Vietnamese translation here)`;
-           try {
-               const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: systemPrompt }] }] }) });
-               if (!response.ok) throw new Error(`API Error: ${response.status} ${await response.text()}`);
-               const result = await response.json();
-               const text = result.candidates[0].content.parts[0].text;
-               const clozeText = text.split('[STORY_CLOZE]')[1]?.split('[STORY_FULL]')[0]?.trim();
-               const fullText = text.split('[STORY_FULL]')[1]?.split('[STORY_TRANSLATION]')[0]?.trim();
-               const translationText = text.split('[STORY_TRANSLATION]')[1]?.trim();
-               $('#full-story').textContent = fullText;
-               $('#story-translation').textContent = translationText;
-               $('#cloze-story').innerHTML = clozeText.replace(/\[____\]/g, '<span class="cloze-blank" data-filled="false"></span>');
-               const wordBank = $('#word-bank');
-               wordBank.innerHTML = '';
-               shuffle(wordsForStory).forEach(word => {
-                   const wordEl = document.createElement('div');
-                   wordEl.className = 'word-bank-item jp-font p-2 bg-white border rounded-lg shadow-sm';
-                   wordEl.textContent = word.kanji;
-                   wordEl.draggable = true;
-                   wordEl.dataset.word = word.kanji;
-                   wordBank.appendChild(wordEl);
-               });
-               $('#story-loader').classList.add('hidden');
-               $('#story-content').classList.remove('hidden');
-               addDragDropListeners();
-           } catch (error) {
-               let displayMessage = `Đã có lỗi xảy ra khi gọi AI. Vui lòng thử lại.`;
-               const errorMessage = error.message.toLowerCase();
+    <!-- Stats -->
+    <div class="card">
+      <div class="ct">📈 Thống Kê</div>
+      <div class="sum-grid" id="sum-grid"></div>
+    </div>
 
-               if (errorMessage.includes('api key not valid') || errorMessage.includes('400') || errorMessage.includes('403')) {
-                   displayMessage = 'Có lỗi với khóa API của bạn. Vui lòng kiểm tra lại trong phần Cài đặt và đảm bảo khóa còn hiệu lực.';
-               } else if (errorMessage.includes('failed to fetch')) {
-                   displayMessage = 'Không thể kết nối đến máy chủ AI. Vui lòng kiểm tra lại kết nối mạng của bạn.';
-               }
-               
-               $('#story-loader').innerHTML = `<div class="p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg text-center"><strong>Lỗi!</strong><p>${displayMessage}</p><p class="text-xs mt-2 text-red-500">Chi tiết: ${error.message}</p></div>`;
-           }
-       }
-       
-       function addDragDropListeners() {
-           $$('.word-bank-item').forEach(item => {
-               item.addEventListener('dragstart', e => { draggedItem = e.target; setTimeout(() => e.target.classList.add('opacity-0'), 0); });
-               item.addEventListener('dragend', () => setTimeout(() => { if(draggedItem) draggedItem.classList.remove('opacity-0'); }, 0));
-           });
-           $$('.cloze-blank').forEach(blank => {
-               blank.addEventListener('dragover', e => { e.preventDefault(); if(blank.dataset.filled === 'false') blank.classList.add('drag-over'); });
-               blank.addEventListener('dragleave', () => blank.classList.remove('drag-over'));
-               blank.addEventListener('drop', e => {
-                   e.preventDefault(); blank.classList.remove('drag-over');
-                   if (blank.dataset.filled === 'false') {
-                       blank.textContent = draggedItem.textContent;
-                       blank.classList.add('jp-font', 'p-2', 'flex', 'items-center', 'justify-center', 'bg-green-100', 'border-green-400');
-                       blank.dataset.filled = 'true';
-                       draggedItem.parentElement.removeChild(draggedItem);
-                       draggedItem = null;
-                   }
-               });
-           });
-       }
-       
-       const synth = window.speechSynthesis;
-       const speak = (text) => {
-           if (synth.speaking) synth.cancel();
-           const utterThis = new SpeechSynthesisUtterance(text);
-           utterThis.lang = 'ja-JP';
-           synth.speak(utterThis);
-       }
+    <!-- History -->
+    <div class="card">
+      <div class="ct">📜 Lịch Sử</div>
+      <div class="hist-list" id="hist-list"></div>
+    </div>
+  </div>
+</div>
 
-       const handleSaveWord = () => {
-           const id = $('#word-id-input').value;
-           const listName = $('#word-list-name-input').value;
-           const word = { id: id ? parseInt(id) : Date.now(), kanji: $('#kanji-input').value.trim(), reading: $('#reading-input').value.trim(), meaning: $('#meaning-input').value.trim(), };
-           if (!word.kanji || !word.meaning) { alert("Vui lòng nhập Từ vựng và Ý nghĩa."); return; }
-           const lists = db.getWordLists();
-           if (id) { const wordIndex = lists[listName].findIndex(w => w.id == id); if (wordIndex > -1) lists[listName][wordIndex] = word; }
-           else { lists[listName].push(word); }
-           db.saveWordLists(lists); hideAllModals(); renderWordManager();
-       };
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
 
-       const handleImport = () => {
-           const data = $('#import-data-input').value.trim();
-           const listName = $('#import-list-name-input').value.trim();
-           const feedbackEl = $('#import-feedback');
+<!-- MODAL: Confirm -->
+<div class="modal-ov" id="modal-confirm">
+  <div class="modal-box">
+    <h3 id="mc-title">Xác nhận?</h3>
+    <p id="mc-msg">Bạn có chắc không?</p>
+    <div class="modal-btns">
+      <button class="btn btn-ghost" onclick="closeModal('modal-confirm')">Hủy</button>
+      <button class="btn btn-red" id="mc-ok">OK</button>
+    </div>
+  </div>
+</div>
 
-           feedbackEl.textContent = '';
-           feedbackEl.classList.add('hidden');
-           feedbackEl.classList.remove('text-red-600', 'text-green-600');
+<!-- MODAL: Leave player -->
+<div class="modal-ov" id="modal-leave">
+  <div class="modal-box">
+    <h3>🚪 Người Chơi Ra Bàn</h3>
+    <p id="ml-msg">Chọn cách xử lý số dư</p>
+    <div style="background:var(--surf2);border:1px solid var(--border);border-radius:9px;padding:12px;margin-bottom:14px">
+      <div id="ml-bal-info" style="font-family:'Bebas Neue',sans-serif;font-size:22px;text-align:center;margin-bottom:4px"></div>
+      <div style="text-align:center;font-size:11px;color:var(--muted);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px">Số dư hiện tại</div>
+    </div>
+    <div class="ig">
+      <label>Nếu chuyển → chuyển cho ai?</label>
+      <select id="ml-transfer"></select>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+      <button class="btn btn-amber" onclick="leaveTransfer()" style="width:100%;justify-content:flex-start;gap:10px">
+        💸 <span>Chuyển số dư cho người khác & Ra</span>
+      </button>
+      <button class="btn btn-red" onclick="leaveSettle()" style="width:100%;justify-content:flex-start;gap:10px">
+        💰 <span>Tính tiền mặt ngay & Ra (về 0)</span>
+      </button>
+      <button class="btn btn-ghost" onclick="closeModal('modal-leave')" style="width:100%">Hủy</button>
+    </div>
+  </div>
+</div>
 
-           if (!data || !listName) {
-               feedbackEl.textContent = 'Vui lòng dán dữ liệu JSON và nhập tên cho bộ từ.';
-               feedbackEl.classList.add('text-red-600');
-               feedbackEl.classList.remove('hidden');
-               return;
-           }
-           
-           let newWords = [];
-           try {
-               const parsed = JSON.parse(data);
-               if (!Array.isArray(parsed)) {
-                   throw new Error("Dữ liệu JSON phải là một mảng (array).");
-               }
-               newWords = parsed.map(item => ({
-                   id: item.id || Date.now() + Math.random(),
-                   kanji: item.kanji || '',
-                   reading: item.reading || '',
-                   meaning: item.meaning || ''
-               })).filter(word => word.kanji && word.meaning);
-           } catch (e) {
-               feedbackEl.textContent = `Lỗi phân tích JSON: ${e.message}`;
-               feedbackEl.classList.add('text-red-600');
-               feedbackEl.classList.remove('hidden');
-               return;
-           }
+<!-- MODAL: Export -->
+<div class="modal-ov" id="modal-export">
+  <div class="modal-box" style="max-width:380px">
+    <h3>⬇ Export Phiên Chơi</h3>
+    <p>Tải file về hoặc copy để lưu trữ / chia sẻ</p>
+    <div class="export-grid">
+      <button class="btn btn-green" onclick="exportJSON()">📦 Tải JSON<small>Import lại được</small></button>
+      <button class="btn btn-ghost" onclick="exportText()">📋 Tải Text<small>Dễ đọc, share zalo</small></button>
+      <button class="btn btn-ghost" onclick="copyJSON()">📄 Copy JSON<small>Dán vào Import</small></button>
+      <button class="btn btn-ghost" onclick="copyText()">📄 Copy Text<small>Dán vào chat</small></button>
+    </div>
+    <button class="btn btn-ghost" onclick="closeModal('modal-export')" style="width:100%">Đóng</button>
+  </div>
+</div>
 
-           if (newWords.length === 0) {
-               feedbackEl.textContent = 'Không tìm thấy từ vựng hợp lệ nào trong dữ liệu JSON.';
-               feedbackEl.classList.add('text-red-600');
-               feedbackEl.classList.remove('hidden');
-               return;
-           }
+<script>
+// ══════════════════════════════
+//            STATE
+// ══════════════════════════════
+// player: { name, balance, active }
+// history events: win | draw | join | leave
+let state = { sessions: [], current: null };
 
-           const lists = db.getWordLists();
-           if (lists[listName]) {
-                if(!confirm(`Bộ từ "${listName}" đã tồn tại. Bạn có muốn thêm các từ này vào bộ từ đã có không?`)) return;
-                lists[listName].push(...newWords);
-           } else {
-               lists[listName] = newWords;
-           }
-           db.saveWordLists(lists);
-           
-           feedbackEl.textContent = `Đã nhập thành công ${newWords.length} từ vào bộ "${listName}"!`;
-           feedbackEl.classList.add('text-green-600');
-           feedbackEl.classList.remove('hidden');
+function save() {
+  if (state.current) {
+    const i = state.sessions.findIndex(s => s.id === state.current.id);
+    i >= 0 ? (state.sessions[i] = state.current) : state.sessions.unshift(state.current);
+    if (state.sessions.length > 10) state.sessions.length = 10;
+  }
+  localStorage.setItem('baitien_v4', JSON.stringify(state));
+}
+function load() {
+  try { const r = localStorage.getItem('baitien_v4'); if (r) state = JSON.parse(r); } catch(e) {}
+  // migrate old data
+  if (state.sessions) state.sessions.forEach(s => s.players?.forEach(p => { if (p.active === undefined) p.active = true; }));
+}
 
-           setTimeout(() => {
-               hideAllModals();
-               renderWordManager();
-           }, 2000);
-       };
-       
-       // --- EVENT LISTENERS ---
-       $('#go-to-learn-btn').addEventListener('click', renderLearnScreen);
-       $('#go-to-manager-btn').addEventListener('click', renderWordManager);
-       document.body.addEventListener('click', e => {
-           if (e.target.matches('.back-to-dashboard')) showScreen('dashboard-screen');
-           if (e.target.matches('.back-to-list-selection')) renderLearnScreen();
-           if (e.target.matches('.close-modal')) hideAllModals();
-           if (e.target.matches('#go-to-match-game-settings-btn')) setupMatchGameSettings();
-           if (e.target.matches('#show-add-list-modal-btn')) showModal('add-word-list-modal');
-           if (e.target.matches('#show-import-modal-btn')) {
-               const feedbackEl = $('#import-feedback');
-               if (feedbackEl) {
-                   feedbackEl.textContent = '';
-                   feedbackEl.classList.add('hidden');
-               }
-               $('#import-list-name-input').value = '';
-               $('#import-data-input').value = '';
-               showModal('import-modal');
-           }
-           if (e.target.matches('#add-new-list-btn')) {
-               const name = $('#new-list-name-input').value.trim();
-               if (!name) return;
-               const lists = db.getWordLists();
-               if (lists[name]) { alert('Tên bộ từ đã tồn tại.'); return; }
-               lists[name] = []; db.saveWordLists(lists); hideAllModals(); renderWordManager();
-           }
-           if (e.target.matches('#save-word-btn')) handleSaveWord();
-           if (e.target.matches('#import-data-btn')) handleImport();
-           if (e.target.matches('#start-game-btn')) startGame();
-           if (e.target.matches('#play-again-btn')) startGame();
-           if (e.target.closest('.game-card')) handleCardClick(e);
-           if (e.target.matches('#create-story-btn')) handleCreateStoryClick();
-           if (e.target.matches('#check-story-btn')) $('#story-answer-section').classList.remove('hidden');
-           if (e.target.matches('#new-story-btn')) handleCreateStoryClick();
-           if (e.target.matches('#show-settings-modal-btn')) {
-               $('#api-key-input').value = db.getApiKey();
-               $('#save-key-feedback').classList.add('hidden');
-               showModal('settings-modal');
-           }
-           if (e.target.matches('#save-api-key-btn')) {
-               db.saveApiKey($('#api-key-input').value.trim());
-               checkApiKeyStatus();
-               const feedbackEl = $('#save-key-feedback');
-               feedbackEl.textContent = 'Đã lưu khóa API thành công!';
-               feedbackEl.classList.remove('hidden');
-               setTimeout(() => {
-                   feedbackEl.classList.add('hidden');
-                   hideAllModals();
-               }, 2000);
-           }
-       });
+// ══════════════════════════════
+//             SETUP
+// ══════════════════════════════
+let pcount = 4;
+function setPCount(n) {
+  pcount = n;
+  document.querySelectorAll('#pc-chips .chip').forEach(c => c.classList.remove('sel-win'));
+  document.querySelectorAll('#pc-chips .chip')[n - 2]?.classList.add('sel-win');
+  renderPInputs();
+}
+function renderPInputs() {
+  const w = document.getElementById('pinputs');
+  w.innerHTML = '';
+  for (let i = 0; i < pcount; i++) {
+    const inp = document.createElement('input');
+    inp.type = 'text'; inp.placeholder = `Người chơi ${i+1}`; inp.id = `pi-${i}`;
+    inp.style.cssText = 'font-size:14px;padding:9px 12px';
+    w.appendChild(inp);
+  }
+}
+function renderSaved() {
+  const sec = document.getElementById('saved-sec');
+  if (!state.sessions.length) { sec.innerHTML = ''; return; }
+  sec.innerHTML = `<div class="divider">Phiên đã lưu</div><div class="sess-list">` +
+    state.sessions.map(s => {
+      const active = s.players.filter(p => p.active).map(p => esc(p.name)).join(', ');
+      return `<div class="sess-item" onclick="loadSess('${s.id}')">
+        <div>
+          <div class="ssn">${esc(s.name)}</div>
+          <div class="ssm">${active} · Ván ${s.round}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:7px">
+          <span style="color:var(--muted);font-size:11px;font-family:'Barlow Condensed',sans-serif">Tiếp →</span>
+          <button class="btn btn-ghost btn-xs" onclick="event.stopPropagation();delSess('${s.id}')">✕</button>
+        </div>
+      </div>`;
+    }).join('') + '</div>';
+}
+function loadSess(id) {
+  state.current = state.sessions.find(s => s.id === id);
+  if (state.current) showGame();
+}
+function delSess(id) {
+  state.sessions = state.sessions.filter(s => s.id !== id);
+  save(); renderSaved();
+}
+function startGame() {
+  const nm = document.getElementById('sname').value.trim() || 'Phiên chơi';
+  const db = parseInt(document.getElementById('defbet').value) || 10;
+  const players = [];
+  for (let i = 0; i < pcount; i++) {
+    const n = document.getElementById(`pi-${i}`)?.value.trim() || `Người ${i+1}`;
+    players.push({ name: n, balance: 0, active: true });
+  }
+  state.current = { id: Date.now().toString(), name: nm, players, defaultBet: db, round: 1, history: [], jackpot: 0, snapshot: null };
+  save(); showGame();
+}
 
-       $('#manager-screen').addEventListener('click', e => {
-           const { list, id } = e.target.dataset;
-           if (e.target.matches('.add-word-to-list-btn')) { $('#word-modal-title').textContent = `Thêm từ vào bộ "${list}"`; $('#word-id-input').value = ''; $('#word-list-name-input').value = list; $('#kanji-input').value = ''; $('#reading-input').value = ''; $('#meaning-input').value = ''; showModal('add-edit-word-modal');
-           } else if (e.target.matches('.edit-word-btn')) { const word = db.getWordLists()[list].find(w => w.id == id); $('#word-modal-title').textContent = 'Sửa từ'; $('#word-id-input').value = word.id; $('#word-list-name-input').value = list; $('#kanji-input').value = word.kanji; $('#reading-input').value = word.reading; $('#meaning-input').value = word.meaning; showModal('add-edit-word-modal');
-           } else if (e.target.matches('.delete-word-btn')) { if (confirm('Xóa từ này?')) { let lists = db.getWordLists(); lists[list] = lists[list].filter(w => w.id != id); db.saveWordLists(lists); renderWordManager(); }
-           } else if (e.target.matches('.delete-list-btn')) { if (confirm(`Xóa TOÀN BỘ bộ từ "${list}"?`)) { let lists = db.getWordLists(); delete lists[list]; db.saveWordLists(lists); renderWordManager(); } }
-       });
-       
-       document.body.addEventListener('change', e => {
-           if (e.target.name === 'cardA' || e.target.name === 'cardB') {
-               updateRadioStyles('#settings-screen');
-           }
-       });
+// ══════════════════════════════
+//          GAME SCREEN
+// ══════════════════════════════
+let selWinner = null, spRule = null;
 
-       // --- INITIAL LOAD ---
-       injectHTML();
-       checkApiKeyStatus();
-       showScreen('dashboard-screen');
-   });
-   </script>
+function showGame() {
+  document.getElementById('setup-screen').style.display = 'none';
+  document.getElementById('game-screen').style.display = 'block';
+  selWinner = null; spRule = null; renderGame();
+}
+function showSetup() {
+  document.getElementById('setup-screen').style.display = 'block';
+  document.getElementById('game-screen').style.display = 'none';
+  state.current = null; renderSaved();
+}
+
+function renderGame() {
+  const s = state.current;
+  document.getElementById('gs-sname').textContent = s.name;
+  const active = s.players.filter(p => p.active);
+  document.getElementById('gs-players').textContent = active.map(p => p.name).join(' · ') + ` (${active.length} người)`;
+  document.getElementById('gs-round').textContent = s.round;
+
+  const jb = document.getElementById('jpbar');
+  s.jackpot > 0 ? (jb.classList.remove('hidden'), document.getElementById('jp-amt').textContent = fmtK(s.jackpot)) : jb.classList.add('hidden');
+
+  renderScoreboard();
+  renderWinnerChips();
+  document.getElementById('bet-inp').value = s.defaultBet;
+  const rb = document.getElementById('rollback-btn');
+  rb.disabled = !s.snapshot; rb.style.opacity = s.snapshot ? '1' : '0.38';
+  renderPM();
+  renderSummary();
+  renderHistory();
+}
+
+function renderScoreboard() {
+  const s = state.current;
+  const sorted = [...s.players].sort((a, b) => b.balance - a.balance);
+  document.getElementById('scoreboard').innerHTML = sorted.map(p => {
+    const active = p.active;
+    const cls = !active ? 'out' : p.balance > 0 ? 'winner' : p.balance < 0 ? 'loser' : '';
+    const bc = p.balance > 0 ? 'pos' : p.balance < 0 ? 'neg' : 'zero';
+    const sign = p.balance > 0 ? '+' : '';
+    return `<div class="prow ${cls}">
+      <div class="avatar">${p.name.charAt(0).toUpperCase()}</div>
+      <div style="flex:1"><div class="pname">${esc(p.name)}${!active ? '<span class="out-tag">· đã ra</span>' : ''}</div></div>
+      <div class="pbal ${bc}">${sign}${fmtK(p.balance)}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderWinnerChips() {
+  const s = state.current;
+  const activePlayers = s.players.map((p, i) => ({ ...p, i })).filter(p => p.active);
+  document.getElementById('winner-chips').innerHTML =
+    activePlayers.map(p =>
+      `<button class="chip ${selWinner === p.i ? 'sel-win' : ''}" onclick="selW(${p.i})">${esc(p.name)}</button>`
+    ).join('') +
+    `<button class="chip ${selWinner === 'draw' ? 'sel-draw' : ''}" style="border-style:dashed" onclick="selW('draw')">🤝 Hòa</button>`;
+}
+function selW(idx) {
+  selWinner = idx;
+  if (idx === 'draw') { spRule = null; updSp(); }
+  renderWinnerChips();
+}
+function toggleSp(r) {
+  if (selWinner === 'draw') { toast('Hòa không có đặc biệt!', 'error'); return; }
+  spRule = spRule === r ? null : r; updSp();
+}
+function updSp() {
+  document.getElementById('sp-binh').className = 'spc' + (spRule === 'binh' ? ' a-binh' : '');
+  document.getElementById('sp-tu').className   = 'spc' + (spRule === 'tu'   ? ' a-tu'   : '');
+}
+function qbet(v) { document.getElementById('bet-inp').value = v; }
+
+function submitRound() {
+  const s = state.current;
+  if (selWinner === null) { toast('Chọn người thắng hoặc Hòa!', 'error'); return; }
+  const bet = parseInt(document.getElementById('bet-inp').value);
+  if (!bet || bet <= 0) { toast('Nhập tiền cược!', 'error'); return; }
+  const active = s.players.filter(p => p.active);
+  if (active.length < 2) { toast('Cần ít nhất 2 người đang chơi!', 'error'); return; }
+
+  s.snapshot = JSON.parse(JSON.stringify({ players: s.players, round: s.round, jackpot: s.jackpot, history: s.history }));
+
+  let h;
+  if (selWinner === 'draw') {
+    s.jackpot += bet;
+    h = { round: s.round, type: 'draw', bet, carry: bet };
+  } else {
+    const wi = selWinner;
+    const n = active.length;
+    const mult = spRule ? 2 : 1;
+    const perLoser = bet * mult;
+    const changes = [];
+    s.players.forEach((p, i) => {
+      if (!p.active) return;
+      if (i === wi) {
+        const gain = perLoser * (n - 1) + s.jackpot;
+        p.balance += gain; changes.push({ name: p.name, delta: gain });
+      } else {
+        p.balance -= perLoser; changes.push({ name: p.name, delta: -perLoser });
+      }
+    });
+    h = { round: s.round, type: 'win', winner: s.players[wi].name, bet, special: spRule, jackpotClaimed: s.jackpot, changes };
+    s.jackpot = 0;
+  }
+  s.history.unshift(h); s.round++; selWinner = null; spRule = null;
+  save(); renderGame();
+  toast(h.type === 'draw'
+    ? `🤝 Hòa! Dồn ${fmtK(h.carry)} sang ván sau`
+    : `🏆 ${h.winner} thắng!` + (h.jackpotClaimed > 0 ? ` + gộp dồn ${fmtK(h.jackpotClaimed)}` : ''),
+    h.type === 'draw' ? 'info' : 'success');
+}
+
+// ══════════════════════════════
+//       PLAYER MANAGER
+// ══════════════════════════════
+let pendingLeaveIdx = null;
+
+function renderPM() {
+  const s = state.current;
+  document.getElementById('pm-list').innerHTML = s.players.map((p, i) => {
+    const bc = p.balance > 0 ? 'pos' : p.balance < 0 ? 'neg' : 'zero';
+    const sign = p.balance > 0 ? '+' : '';
+    return `<div class="pm-item ${p.active ? '' : 'is-out'}">
+      <div class="avatar" style="width:30px;height:30px;font-size:14px">${p.name.charAt(0).toUpperCase()}</div>
+      <div class="pm-name">${esc(p.name)}${!p.active ? '<span class="out-tag" style="margin-left:6px">· đã ra</span>' : ''}</div>
+      <div class="pm-bal ${bc}">${sign}${fmtK(p.balance)}</div>
+      <div class="pm-actions">
+        ${p.active
+          ? `<button class="btn btn-ghost btn-xs" onclick="initLeave(${i})">🚪 Ra</button>`
+          : `<button class="btn btn-ghost btn-xs" onclick="rejoin(${i})">↩ Vào lại</button>`
+        }
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function addPlayer() {
+  const s = state.current;
+  const nm = document.getElementById('new-pname').value.trim();
+  if (!nm) { toast('Nhập tên người chơi!', 'error'); return; }
+  if (s.players.find(p => p.name.toLowerCase() === nm.toLowerCase())) { toast('Tên này đã có trong bàn!', 'error'); return; }
+  s.snapshot = JSON.parse(JSON.stringify({ players: s.players, round: s.round, jackpot: s.jackpot, history: s.history }));
+  s.players.push({ name: nm, balance: 0, active: true });
+  s.history.unshift({ round: s.round, type: 'join', player: nm });
+  document.getElementById('new-pname').value = '';
+  save(); renderGame();
+  toast(`✅ ${nm} vào bàn!`, 'success');
+}
+
+function rejoin(idx) {
+  const s = state.current;
+  const p = s.players[idx];
+  s.snapshot = JSON.parse(JSON.stringify({ players: s.players, round: s.round, jackpot: s.jackpot, history: s.history }));
+  p.active = true;
+  s.history.unshift({ round: s.round, type: 'join', player: p.name, rejoin: true });
+  save(); renderGame();
+  toast(`↩ ${p.name} quay lại bàn!`, 'info');
+}
+
+function initLeave(idx) {
+  const s = state.current;
+  const p = s.players[idx];
+  if (s.players.filter(pp => pp.active).length <= 2) { toast('Cần ít nhất 2 người — không thể cho ra!', 'error'); return; }
+  pendingLeaveIdx = idx;
+  document.getElementById('ml-msg').textContent = `${p.name} muốn ra bàn. Xử lý số dư thế nào?`;
+  const balEl = document.getElementById('ml-bal-info');
+  balEl.textContent = (p.balance >= 0 ? '+' : '') + fmtK(p.balance);
+  balEl.className = p.balance > 0 ? 'pos' : p.balance < 0 ? 'neg' : 'zero';
+  const others = s.players.filter((pp, i) => i !== idx && pp.active);
+  document.getElementById('ml-transfer').innerHTML = others.map(pp =>
+    `<option value="${s.players.indexOf(pp)}">${esc(pp.name)}</option>`
+  ).join('');
+  openModal('modal-leave');
+}
+
+function leaveTransfer() {
+  const s = state.current;
+  const pi = pendingLeaveIdx;
+  const ti = parseInt(document.getElementById('ml-transfer').value);
+  const p = s.players[pi], t = s.players[ti];
+  s.snapshot = JSON.parse(JSON.stringify({ players: s.players, round: s.round, jackpot: s.jackpot, history: s.history }));
+  const bal = p.balance;
+  t.balance += bal;
+  s.history.unshift({ round: s.round, type: 'leave', player: p.name, balance: bal, transferTo: t.name });
+  p.balance = 0; p.active = false;
+  save(); renderGame(); closeModal('modal-leave');
+  toast(`🚪 ${p.name} ra, ${bal >= 0 ? 'chuyển' : 'được bù'} ${fmtK(Math.abs(bal))} → ${t.name}`, 'info');
+}
+
+function leaveSettle() {
+  const s = state.current;
+  const pi = pendingLeaveIdx;
+  const p = s.players[pi];
+  s.snapshot = JSON.parse(JSON.stringify({ players: s.players, round: s.round, jackpot: s.jackpot, history: s.history }));
+  s.history.unshift({ round: s.round, type: 'leave', player: p.name, balance: p.balance, settled: true });
+  p.active = false; p.balance = 0;
+  save(); renderGame(); closeModal('modal-leave');
+  toast(`💰 ${p.name} ra, tính tiền mặt`, 'info');
+}
+
+// ══════════════════════════════
+//           ROLLBACK
+// ══════════════════════════════
+function confirmRollback() {
+  if (!state.current.snapshot) { toast('Không có gì để hoàn tác!', 'error'); return; }
+  showConfirm('Hoàn Tác', 'Quay lại trạng thái trước ván/hành động vừa rồi?', doRollback);
+}
+function doRollback() {
+  const s = state.current;
+  s.players  = s.snapshot.players;
+  s.round    = s.snapshot.round;
+  s.jackpot  = s.snapshot.jackpot;
+  s.history  = s.snapshot.history;
+  s.snapshot = null;
+  save(); renderGame(); closeModal('modal-confirm');
+  toast('↩ Đã hoàn tác!', 'info');
+}
+
+// ══════════════════════════════
+//           SUMMARY
+// ══════════════════════════════
+function renderSummary() {
+  const s = state.current;
+  const wins  = s.history.filter(h => h.type === 'win').length;
+  const draws = s.history.filter(h => h.type === 'draw').length;
+  const specs = s.history.filter(h => h.special).length;
+  document.getElementById('sum-grid').innerHTML = `
+    <div class="sum-card"><div class="sl">Tổng ván</div><div class="sv">${wins + draws}</div></div>
+    <div class="sum-card"><div class="sl">Có thắng</div><div class="sv">${wins}</div></div>
+    <div class="sum-card"><div class="sl">Hòa dồn</div><div class="sv">${draws}</div></div>
+    <div class="sum-card"><div class="sl">Đặc biệt</div><div class="sv">${specs}</div></div>`;
+}
+
+// ══════════════════════════════
+//           HISTORY
+// ══════════════════════════════
+function renderHistory() {
+  const s = state.current;
+  const list = document.getElementById('hist-list');
+  if (!s.history.length) { list.innerHTML = '<div class="empty-h">🃏 Chưa có ván nào — bắt đầu thôi!</div>'; return; }
+  list.innerHTML = s.history.map(h => {
+    let det = '';
+    if (h.type === 'draw') {
+      det = `<div class="hd">🤝 Hòa <span class="badge-dr">+${fmtK(h.carry)} dồn</span></div><div class="hm">Cược ${fmtK(h.bet)}</div>`;
+    } else if (h.type === 'win') {
+      const badge = h.special === 'binh' ? '<span class="badge-b">BINH ×2</span>' : h.special === 'tu' ? '<span class="badge-t">TỨ QUÝ ×2</span>' : '';
+      const ji = h.jackpotClaimed > 0 ? ` + dồn ${fmtK(h.jackpotClaimed)}` : '';
+      const chg = (h.changes || []).map(c => `${esc(c.name)}: ${c.delta > 0 ? '+' : ''}${fmtK(c.delta)}`).join(' · ');
+      det = `<div class="hw">🏆 ${esc(h.winner)}${badge}</div><div class="hm">Cược ${fmtK(h.bet)}${h.special ? ' ×2' : ''}${ji}</div>${chg ? `<div class="hev">${chg}</div>` : ''}`;
+    } else if (h.type === 'join') {
+      det = `<div class="hw"><span class="badge-join">VÀO BÀN</span> ${esc(h.player)}${h.rejoin ? ' (vào lại)' : ''}</div>`;
+    } else if (h.type === 'leave') {
+      const info = h.settled ? 'tính tiền mặt' : `chuyển → ${esc(h.transferTo)}`;
+      det = `<div class="hd"><span class="badge-leave">RA BÀN</span> ${esc(h.player)}</div><div class="hm">${info} · Số dư ${fmtK(h.balance)}</div>`;
+    }
+    return `<div class="hi"><div class="rn">${h.round}</div><div class="hdet">${det}</div></div>`;
+  }).join('');
+}
+
+// ══════════════════════════════
+//            EXPORT
+// ══════════════════════════════
+function buildJSON() { return JSON.stringify(state.current, null, 2); }
+
+function buildText() {
+  const s = state.current;
+  const now = new Date().toLocaleString('vi-VN');
+  let t = `══════════════════════════\nCHIA TIỀN BÀI — ${s.name}\nXuất: ${now}\n══════════════════════════\n\n`;
+  t += `📊 BẢNG ĐIỂM\n`;
+  [...s.players].sort((a, b) => b.balance - a.balance).forEach(p => {
+    const sign = p.balance >= 0 ? '+' : '';
+    t += `  ${p.active ? '●' : '○'} ${p.name.padEnd(14)} ${sign}${fmtK(p.balance)}${!p.active ? ' (đã ra)' : ''}\n`;
+  });
+  if (s.jackpot > 0) t += `\n🎰 Đang dồn: ${fmtK(s.jackpot)}\n`;
+  t += `\n📜 LỊCH SỬ (${s.history.length} sự kiện)\n`;
+  [...s.history].reverse().forEach(h => {
+    if (h.type === 'win') {
+      const sp = h.special ? ` [${h.special === 'binh' ? 'BINH' : 'TỨ QUÝ'} ×2]` : '';
+      const ji = h.jackpotClaimed > 0 ? ` +dồn ${fmtK(h.jackpotClaimed)}` : '';
+      t += `  [${h.round}] 🏆 ${h.winner}${sp} — cược ${fmtK(h.bet)}${ji}\n`;
+      (h.changes || []).forEach(c => { t += `        ${c.name}: ${c.delta > 0 ? '+' : ''}${fmtK(c.delta)}\n`; });
+    } else if (h.type === 'draw') {
+      t += `  [${h.round}] 🤝 HÒA — dồn ${fmtK(h.carry)}\n`;
+    } else if (h.type === 'join') {
+      t += `  [${h.round}] ✅ ${h.player} vào bàn${h.rejoin ? ' (lại)' : ''}\n`;
+    } else if (h.type === 'leave') {
+      const info = h.settled ? 'tiền mặt' : `→ ${h.transferTo}`;
+      t += `  [${h.round}] 🚪 ${h.player} ra (${info}, dư ${fmtK(h.balance)})\n`;
+    }
+  });
+  return t;
+}
+
+function exportJSON() { dl(buildJSON(), `baitien-${state.current.id}.json`, 'application/json'); toast('📦 Đã tải JSON!', 'success'); }
+function exportText() { dl(buildText(), `baitien-${state.current.name}.txt`, 'text/plain;charset=utf-8'); toast('📋 Đã tải text!', 'success'); }
+async function copyJSON() { await cp(buildJSON()); toast('📄 Đã copy JSON!', 'success'); }
+async function copyText() { await cp(buildText()); toast('📄 Đã copy text!', 'success'); }
+
+function dl(content, name, type) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([content], { type }));
+  a.download = name; a.click();
+}
+async function cp(text) {
+  try { await navigator.clipboard.writeText(text); }
+  catch(e) {
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+  }
+}
+
+function importSession() {
+  const raw = document.getElementById('import-json').value.trim();
+  try {
+    const s = JSON.parse(raw);
+    if (!s.id || !s.name || !Array.isArray(s.players)) throw new Error();
+    s.players.forEach(p => { if (p.active === undefined) p.active = true; });
+    const exists = state.sessions.findIndex(ss => ss.id === s.id);
+    exists >= 0 ? (state.sessions[exists] = s) : state.sessions.unshift(s);
+    save(); renderSaved();
+    document.getElementById('import-json').value = '';
+    toast('✅ Import thành công!', 'success');
+  } catch(e) { toast('❌ JSON không hợp lệ!', 'error'); }
+}
+
+// ══════════════════════════════
+//             MODAL
+// ══════════════════════════════
+let confirmCb = null;
+function showConfirm(title, msg, cb) {
+  document.getElementById('mc-title').textContent = title;
+  document.getElementById('mc-msg').textContent = msg;
+  confirmCb = cb; openModal('modal-confirm');
+}
+document.getElementById('mc-ok').onclick = () => { if (confirmCb) confirmCb(); };
+function openModal(id) { document.getElementById(id).classList.add('show'); }
+function closeModal(id) { document.getElementById(id).classList.remove('show'); if (id === 'modal-confirm') confirmCb = null; }
+document.querySelectorAll('.modal-ov').forEach(m => m.addEventListener('click', e => { if (e.target === m) closeModal(m.id); }));
+
+function confirmEnd() { showConfirm('Kết Thúc Phiên', 'Dữ liệu được lưu tự động. Bạn có thể load lại sau.', endSession); }
+function endSession() { save(); closeModal('modal-confirm'); showSetup(); toast('💾 Đã lưu phiên!', 'success'); }
+
+// ══════════════════════════════
+//             UTILS
+// ══════════════════════════════
+function fmtK(v) {
+  if (v === 0) return '0K';
+  const sg = v < 0 ? '-' : '', a = Math.abs(v);
+  return a >= 1000 ? sg + (a / 1000).toFixed(a % 1000 === 0 ? 0 : 1) + 'M' : sg + a + 'K';
+}
+function esc(s = '') {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+let toastT;
+function toast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast ' + type + ' show';
+  clearTimeout(toastT); toastT = setTimeout(() => t.className = 'toast', 2900);
+}
+
+// ══════════════════════════════
+//              INIT
+// ══════════════════════════════
+load(); setPCount(4); renderSaved();
+</script>
 </body>
 </html>
