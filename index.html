@@ -94,6 +94,13 @@ select option{background:#1f3d2a}
 .pm-item.is-out{opacity:.45;border-style:dashed}
 .prow.frozen{opacity:.65;border-color:rgba(100,180,255,.35)}
 .prow.frozen::before{background:#3a8fc4}
+.vbtn{font-size:11px;padding:3px 9px;border-radius:6px;border:1px solid var(--border);background:var(--surf2);color:var(--muted);cursor:pointer}
+.vbtn.active-vbtn{background:var(--gold-d);color:#fff;border-color:var(--gold-l)}
+.pp-card{margin-bottom:8px;background:var(--surf2);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.pp-head{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid var(--border)}
+.pp-row{display:flex;justify-content:space-between;align-items:center;padding:5px 14px;font-size:13px}
+.pp-row:not(:last-child){border-bottom:1px solid rgba(255,255,255,.04)}
+.pp-opp{color:var(--muted)}
 .pm-item.is-frozen{opacity:.6;border-style:dashed;border-color:rgba(100,180,255,.35)}
 .badge-freeze{background:rgba(60,140,220,.2);color:#7ec8f5;border-radius:4px;padding:1px 7px;font-size:10px;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px}
 .frozen-tag{font-size:10px;color:#7ec8f5;letter-spacing:1px;margin-left:6px}
@@ -245,7 +252,13 @@ select option{background:#1f3d2a}
 
     <!-- Scoreboard -->
     <div class="card" style="padding:13px">
-      <div class="ct" style="margin-bottom:9px">📊 Bảng Điểm</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px">
+        <div class="ct">📊 Bảng Điểm</div>
+        <div style="display:flex;gap:5px">
+          <button id="btn-agg"  onclick="setStatsView('aggregate')"  class="vbtn active-vbtn">Tổng hợp</button>
+          <button id="btn-indv" onclick="setStatsView('individual')" class="vbtn">Cá nhân</button>
+        </div>
+      </div>
       <div class="scoreboard" id="scoreboard"></div>
     </div>
 
@@ -564,7 +577,7 @@ function startGame() {
 // ══════════════════════════════
 //          GAME SCREEN
 // ══════════════════════════════
-let selWinner = null, spRule = null;
+let selWinner = null, spRule = null, statsView = 'aggregate';
 
 function showGame() {
   document.getElementById('setup-screen').style.display = 'none';
@@ -598,7 +611,56 @@ function renderGame() {
   renderHistory();
 }
 
+function setStatsView(v) {
+  statsView = v;
+  document.getElementById('btn-agg').className  = 'vbtn' + (v === 'aggregate'  ? ' active-vbtn' : '');
+  document.getElementById('btn-indv').className = 'vbtn' + (v === 'individual' ? ' active-vbtn' : '');
+  renderScoreboard();
+}
+
+function buildPerPlayerData() {
+  const s = state.current;
+  const data = {};
+  s.players.forEach(p => {
+    data[p.name] = {};
+    s.players.forEach(q => { if (p.name !== q.name) data[p.name][q.name] = { won: 0, lost: 0 }; });
+  });
+  s.history.filter(h => h.type === 'win').forEach(h => {
+    const winChange   = h.changes.find(c => c.delta > 0);
+    const loseChanges = h.changes.filter(c => c.delta < 0);
+    if (!winChange) return;
+    const w = winChange.name;
+    loseChanges.forEach(lc => {
+      const l = lc.name; const amt = Math.abs(lc.delta);
+      if (data[w]?.[l]) data[w][l].won  += amt;
+      if (data[l]?.[w]) data[l][w].lost += amt;
+    });
+  });
+  return data;
+}
+
+function renderIndividualStats() {
+  const s = state.current;
+  const data = buildPerPlayerData();
+  const sorted = [...s.players].sort((a, b) => b.balance - a.balance);
+  document.getElementById('scoreboard').innerHTML = sorted.map(p => {
+    const rows = Object.entries(data[p.name] || {})
+      .filter(([, v]) => v.won > 0 || v.lost > 0)
+      .map(([opp, v]) => {
+        const net = v.won - v.lost;
+        const cls = net > 0 ? 'pos' : net < 0 ? 'neg' : 'zero';
+        return `<div class="pp-row"><span class="pp-opp">vs ${esc(opp)}</span><span class="${cls}">${net >= 0 ? '+' : ''}${fmtK(net)}</span></div>`;
+      }).join('');
+    const balCls = p.balance > 0 ? 'pos' : p.balance < 0 ? 'neg' : 'zero';
+    return `<div class="pp-card">
+      <div class="pp-head"><span class="pname">${esc(p.name)}</span><span class="${balCls}">${p.balance >= 0 ? '+' : ''}${fmtK(p.balance)}</span></div>
+      ${rows || '<div class="pp-row"><span class="pp-opp" style="font-style:italic;font-size:12px">Chưa có ván thắng/thua</span></div>'}
+    </div>`;
+  }).join('');
+}
+
 function renderScoreboard() {
+  if (statsView === 'individual') { renderIndividualStats(); return; }
   const s = state.current;
   const sorted = [...s.players].sort((a, b) => b.balance - a.balance);
   document.getElementById('scoreboard').innerHTML = sorted.map(p => {
