@@ -155,6 +155,20 @@ select option{background:#1f3d2a}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
 #game-screen{display:none}
+#trip-screen{display:none}
+.todo-item{background:var(--surf2);border:1px solid var(--border);border-radius:9px;padding:10px 13px;display:flex;align-items:center;gap:10px;margin-bottom:7px;transition:opacity .2s}
+.todo-item.done{opacity:.45}
+.todo-cb{width:18px;height:18px;accent-color:var(--green-l);cursor:pointer;flex-shrink:0}
+.todo-text{flex:1;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600;letter-spacing:.5px}
+.todo-item.done .todo-text{text-decoration:line-through;color:var(--muted)}
+.txn-item{background:var(--surf2);border:1px solid var(--border);border-radius:9px;padding:11px 14px;display:flex;align-items:center;gap:10px;margin-bottom:7px}
+.txn-from{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;color:#e05050}
+.txn-to{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;color:#5dde8a}
+.txn-arrow{color:var(--muted);font-size:18px}
+.txn-amt{font-family:'Bebas Neue',sans-serif;font-size:19px;color:var(--gold-l);margin-left:auto}
+.fund-item{background:var(--surf2);border:1px solid var(--border);border-radius:9px;padding:10px 13px;display:flex;align-items:center;gap:10px;margin-bottom:7px}
+.fund-name{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;flex:1}
+.fund-amt{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--gold-l)}
 </style>
 </head>
 <body>
@@ -200,6 +214,8 @@ select option{background:#1f3d2a}
       <textarea id="import-json" style="height:80px;resize:vertical;font-family:monospace;font-size:12px" placeholder='{"id":"...","name":"...",...}'></textarea>
       <button class="btn btn-ghost" onclick="importSession()" style="width:100%;margin-top:9px">📥 IMPORT & TIẾP TỤC</button>
     </div>
+
+    <button class="btn btn-ghost" style="width:100%;margin-bottom:4px" onclick="showTrip()">🌿 QUẢN LÝ CHUYẾN ĐI</button>
 
     <div id="saved-sec"></div>
   </div>
@@ -288,6 +304,101 @@ select option{background:#1f3d2a}
       <div class="ct">📜 Lịch Sử</div>
       <div class="hist-list" id="hist-list"></div>
     </div>
+  </div>
+
+  <!-- ══════ TRIP ══════ -->
+  <div id="trip-screen">
+
+    <div class="sbar" style="margin-bottom:14px">
+      <div>
+        <div class="sn">🌿 CHUYẾN ĐI</div>
+        <div class="sm" id="trip-subtitle">Quản lý chi phí &amp; lịch trình</div>
+      </div>
+      <div class="sbar-btns">
+        <button class="btn btn-ghost btn-sm" onclick="showSetupFromTrip()">← Về nhà</button>
+      </div>
+    </div>
+
+    <!-- CARD: Thành viên -->
+    <div class="card">
+      <div class="ct">👥 Thành Viên Chuyến Đi</div>
+      <div class="chips" id="trip-member-chips" style="margin-bottom:12px;flex-wrap:wrap"></div>
+      <div class="add-player-row">
+        <input type="text" id="trip-member-inp" placeholder="Thêm thành viên mới...">
+        <button class="btn btn-green btn-sm" id="trip-member-add-btn">+ Thêm</button>
+      </div>
+    </div>
+
+    <!-- CARD: Quỹ chung -->
+    <div class="card">
+      <div class="ct">💰 Quỹ Chung</div>
+      <div class="sum-grid" id="trip-fund-summary" style="margin-bottom:12px"></div>
+      <div class="hist-list" id="trip-fund-list" style="margin-bottom:12px"></div>
+      <div class="divider">Thêm đóng góp</div>
+      <div class="ig">
+        <label>Người đóng</label>
+        <select id="trip-fund-member"></select>
+      </div>
+      <div class="ig">
+        <label>Số tiền (VNĐ)</label>
+        <input type="number" id="trip-fund-amt" placeholder="VD: 500000" min="0">
+      </div>
+      <div class="ig">
+        <label>Ghi chú (tuỳ chọn)</label>
+        <input type="text" id="trip-fund-note" placeholder="VD: Đóng quỹ ngày 1">
+      </div>
+      <button class="btn btn-green" style="width:100%" onclick="addFundEntry()">+ Thêm đóng góp</button>
+    </div>
+
+    <!-- CARD: Ghi chi tiêu -->
+    <div class="card">
+      <div class="ct">🧾 Ghi Chi Tiêu</div>
+      <div class="hist-list" id="trip-exp-list" style="margin-bottom:12px"></div>
+      <div class="divider">Thêm chi tiêu</div>
+      <div class="ig">
+        <label>Người trả</label>
+        <select id="trip-exp-payer"></select>
+      </div>
+      <div class="ig">
+        <label>Số tiền (VNĐ)</label>
+        <input type="number" id="trip-exp-amt" placeholder="VD: 350000" min="0">
+      </div>
+      <div class="ig">
+        <label>Mô tả</label>
+        <input type="text" id="trip-exp-desc" placeholder="VD: Bữa trưa Bún Bò Huế">
+      </div>
+      <div class="ig">
+        <label>Danh mục</label>
+        <select id="trip-exp-cat">
+          <option value="food">🍜 Ăn uống</option>
+          <option value="hotel">🏨 Khách sạn</option>
+          <option value="transport">🚗 Di chuyển</option>
+          <option value="ticket">🎟️ Vé tham quan</option>
+          <option value="other">📦 Khác</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" style="width:100%" onclick="addExpense()">+ Ghi chi tiêu</button>
+    </div>
+
+    <!-- CARD: Tổng kết -->
+    <div class="card">
+      <div class="ct">⚖️ Tổng Kết &amp; Chia Tiền</div>
+      <div class="sum-grid" id="trip-settle-summary" style="margin-bottom:14px"></div>
+      <div class="scoreboard" id="trip-net-board" style="margin-bottom:14px"></div>
+      <div class="divider">Giao dịch cần thực hiện</div>
+      <div id="trip-txn-list"></div>
+    </div>
+
+    <!-- CARD: Lịch trình -->
+    <div class="card">
+      <div class="ct">📍 Lịch Trình &amp; Todo</div>
+      <div id="trip-todo-list" style="margin-bottom:12px"></div>
+      <div class="add-player-row">
+        <input type="text" id="trip-todo-inp" placeholder="Thêm địa điểm hoặc việc cần làm...">
+        <button class="btn btn-green btn-sm" onclick="addTodo()">+ Thêm</button>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -817,7 +928,343 @@ function toast(msg, type = '') {
 // ══════════════════════════════
 //              INIT
 // ══════════════════════════════
-load(); setPCount(4); renderSaved();
+load(); tripLoad(); setPCount(4); renderSaved();
+
+// ══════════════════════════════
+//           TRIP STATE
+// ══════════════════════════════
+const TRIP_KEY = 'trip_v1';
+let tripState = { members: [], fund: [], expenses: [], todos: [] };
+
+function tripSave() {
+  localStorage.setItem(TRIP_KEY, JSON.stringify(tripState));
+}
+
+function tripLoad() {
+  try {
+    const r = localStorage.getItem(TRIP_KEY);
+    if (r) tripState = JSON.parse(r);
+    if (!tripState.members) tripState.members = [];
+    if (!tripState.fund) tripState.fund = [];
+    if (!tripState.expenses) tripState.expenses = [];
+    if (!tripState.todos) tripState.todos = [];
+  } catch(e) {}
+}
+
+// ══════════════════════════════
+//        TRIP NAVIGATION
+// ══════════════════════════════
+function showTrip() {
+  document.getElementById('setup-screen').style.display = 'none';
+  document.getElementById('trip-screen').style.display = 'block';
+  renderTrip();
+}
+
+function showSetupFromTrip() {
+  document.getElementById('trip-screen').style.display = 'none';
+  document.getElementById('setup-screen').style.display = 'block';
+  renderSaved();
+}
+
+// ══════════════════════════════
+//        TRIP MEMBERS
+// ══════════════════════════════
+function addTripMember() {
+  const inp = document.getElementById('trip-member-inp');
+  const nm = inp.value.trim();
+  if (!nm) { toast('Nhập tên thành viên!', 'error'); return; }
+  if (tripState.members.includes(nm)) { toast('Thành viên đã tồn tại!', 'error'); return; }
+  tripState.members.push(nm);
+  inp.value = '';
+  tripSave();
+  renderTrip();
+  toast('✅ Thêm ' + nm + '!', 'success');
+}
+
+function removeTripMember(idx) {
+  const name = tripState.members[idx];
+  if (!name) return;
+  const hasFund = tripState.fund.some(f => f.name === name);
+  const hasExp  = tripState.expenses.some(e => e.payer === name);
+  if (hasFund || hasExp) { toast(name + ' đã có giao dịch — không thể xoá!', 'error'); return; }
+  tripState.members.splice(idx, 1);
+  tripSave();
+  renderTrip();
+  toast('Đã xoá ' + name, 'info');
+}
+
+function renderTripMembers() {
+  const el = document.getElementById('trip-member-chips');
+  if (!tripState.members.length) {
+    el.innerHTML = '<span style="color:var(--muted);font-size:13px;font-family:\'Barlow Condensed\',sans-serif;letter-spacing:1px">Chưa có thành viên nào</span>';
+  } else {
+    el.innerHTML = tripState.members.map((m, i) =>
+      `<span class="chip" style="display:inline-flex;align-items:center;gap:4px">${esc(m)}<button data-midx="${i}" class="trip-rm-member" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:11px;line-height:1;padding:0 2px">✕</button></span>`
+    ).join('');
+    el.querySelectorAll('.trip-rm-member').forEach(btn => {
+      btn.addEventListener('click', () => removeTripMember(parseInt(btn.dataset.midx)));
+    });
+  }
+  const opts = tripState.members.map(m => `<option value="${esc(m)}">${esc(m)}</option>`).join('');
+  document.getElementById('trip-fund-member').innerHTML = opts || '<option value="">— Thêm thành viên trước —</option>';
+  document.getElementById('trip-exp-payer').innerHTML   = opts || '<option value="">— Thêm thành viên trước —</option>';
+}
+
+// ══════════════════════════════
+//          TRIP FUND
+// ══════════════════════════════
+function addFundEntry() {
+  if (!tripState.members.length) { toast('Thêm thành viên trước!', 'error'); return; }
+  const name   = document.getElementById('trip-fund-member').value;
+  const amount = parseInt(document.getElementById('trip-fund-amt').value) || 0;
+  const note   = document.getElementById('trip-fund-note').value.trim();
+  if (amount <= 0) { toast('Nhập số tiền hợp lệ!', 'error'); return; }
+  tripState.fund.push({ id: Date.now().toString(), name, amount, note });
+  document.getElementById('trip-fund-amt').value = '';
+  document.getElementById('trip-fund-note').value = '';
+  tripSave();
+  renderTrip();
+  toast('✅ ' + name + ' đóng ' + fmtVND(amount) + '!', 'success');
+}
+
+function removeFundEntry(id) {
+  tripState.fund = tripState.fund.filter(f => f.id !== id);
+  tripSave();
+  renderTrip();
+  toast('Đã xoá đóng góp', 'info');
+}
+
+function renderTripFund() {
+  const totalFund = tripState.fund.reduce((s, f) => s + f.amount, 0);
+  const totalExp  = tripState.expenses.reduce((s, e) => s + e.amount, 0);
+  const remaining = totalFund - totalExp;
+  document.getElementById('trip-fund-summary').innerHTML =
+    `<div class="sum-card"><div class="sl">Tổng quỹ</div><div class="sv">${fmtVND(totalFund)}</div></div>` +
+    `<div class="sum-card"><div class="sl">Đã chi</div><div class="sv" style="color:#e05050">${fmtVND(totalExp)}</div></div>` +
+    `<div class="sum-card"><div class="sl">Còn lại</div><div class="sv" style="color:${remaining >= 0 ? 'var(--gold-l)' : '#e05050'}">${fmtVND(remaining)}</div></div>` +
+    `<div class="sum-card"><div class="sl">Lần đóng</div><div class="sv">${tripState.fund.length}</div></div>`;
+
+  const list = document.getElementById('trip-fund-list');
+  if (!tripState.fund.length) {
+    list.innerHTML = '<div class="empty-h">💸 Chưa ai đóng quỹ</div>';
+    return;
+  }
+  list.innerHTML = [...tripState.fund].reverse().map(f =>
+    `<div class="fund-item">
+       <div class="avatar" style="width:30px;height:30px;font-size:13px">${esc(f.name.charAt(0).toUpperCase())}</div>
+       <div class="fund-name">${esc(f.name)}${f.note ? `<span style="color:var(--muted);font-weight:400;font-size:12px;display:block">${esc(f.note)}</span>` : ''}</div>
+       <div class="fund-amt">${fmtVND(f.amount)}</div>
+       <button class="btn btn-ghost btn-xs" data-fid="${f.id}" style="flex-shrink:0">✕</button>
+     </div>`
+  ).join('');
+  list.querySelectorAll('[data-fid]').forEach(btn => {
+    btn.addEventListener('click', () => removeFundEntry(btn.dataset.fid));
+  });
+}
+
+// ══════════════════════════════
+//        TRIP EXPENSES
+// ══════════════════════════════
+const CAT_LABELS = { food:'🍜 Ăn uống', hotel:'🏨 Khách sạn', transport:'🚗 Di chuyển', ticket:'🎟️ Vé', other:'📦 Khác' };
+
+function addExpense() {
+  if (!tripState.members.length) { toast('Thêm thành viên trước!', 'error'); return; }
+  const payer  = document.getElementById('trip-exp-payer').value;
+  const amount = parseInt(document.getElementById('trip-exp-amt').value) || 0;
+  const desc   = document.getElementById('trip-exp-desc').value.trim();
+  const cat    = document.getElementById('trip-exp-cat').value;
+  if (amount <= 0) { toast('Nhập số tiền!', 'error'); return; }
+  if (!desc) { toast('Nhập mô tả chi tiêu!', 'error'); return; }
+  tripState.expenses.push({ id: Date.now().toString(), payer, amount, desc, cat, ts: Date.now() });
+  document.getElementById('trip-exp-amt').value = '';
+  document.getElementById('trip-exp-desc').value = '';
+  tripSave();
+  renderTrip();
+  toast('✅ Ghi chi tiêu ' + fmtVND(amount) + '!', 'success');
+}
+
+function removeExpense(id) {
+  tripState.expenses = tripState.expenses.filter(e => e.id !== id);
+  tripSave();
+  renderTrip();
+  toast('Đã xoá chi tiêu', 'info');
+}
+
+function renderTripExpenses() {
+  const list = document.getElementById('trip-exp-list');
+  if (!tripState.expenses.length) {
+    list.innerHTML = '<div class="empty-h">🧾 Chưa có chi tiêu nào</div>';
+    return;
+  }
+  list.innerHTML = [...tripState.expenses].reverse().map(e => {
+    const d = new Date(e.ts);
+    const ts = d.getDate() + '/' + (d.getMonth()+1) + ' ' + d.getHours() + ':' + String(d.getMinutes()).padStart(2,'0');
+    const icon = (CAT_LABELS[e.cat] || '📦 Khác').split(' ')[0];
+    return `<div class="hi">
+      <div class="rn" style="font-size:16px;min-width:32px">${icon}</div>
+      <div class="hdet" style="flex:1">
+        <div class="hw">${esc(e.desc)}</div>
+        <div class="hm">${esc(e.payer)} trả · ${ts} · ${CAT_LABELS[e.cat] || e.cat}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--gold-l)">${fmtVND(e.amount)}</div>
+        <button class="btn btn-ghost btn-xs" data-eid="${e.id}" style="flex-shrink:0">✕</button>
+      </div>
+    </div>`;
+  }).join('');
+  list.querySelectorAll('[data-eid]').forEach(btn => {
+    btn.addEventListener('click', () => removeExpense(btn.dataset.eid));
+  });
+}
+
+// ══════════════════════════════
+//        TRIP SETTLEMENT
+// ══════════════════════════════
+function calcNetBalances() {
+  const n = tripState.members.length;
+  if (!n) return {};
+  const totalFund = tripState.fund.reduce((s, f) => s + f.amount, 0);
+  const totalExp  = tripState.expenses.reduce((s, e) => s + e.amount, 0);
+  const fairShare = (totalFund + totalExp) / n;
+  const net = {};
+  tripState.members.forEach(m => net[m] = 0);
+  tripState.fund.forEach(f => { if (net[f.name] !== undefined) net[f.name] += f.amount; });
+  tripState.expenses.forEach(e => { if (net[e.payer] !== undefined) net[e.payer] += e.amount; });
+  tripState.members.forEach(m => { net[m] -= fairShare; });
+  return net;
+}
+
+function settleDebts(netIn) {
+  const people = Object.entries(netIn).map(([name, bal]) => ({ name, bal }));
+  const txns = [];
+  for (let i = 0; i < people.length * 2; i++) {
+    people.sort((a, b) => a.bal - b.bal);
+    const debtor   = people[0];
+    const creditor = people[people.length - 1];
+    if (Math.abs(debtor.bal) < 1 || creditor.bal < 1) break;
+    const amount = Math.min(Math.abs(debtor.bal), creditor.bal);
+    txns.push({ from: debtor.name, to: creditor.name, amount: Math.round(amount) });
+    debtor.bal   += amount;
+    creditor.bal -= amount;
+  }
+  return txns;
+}
+
+function renderSettlement() {
+  const n = tripState.members.length;
+  const totalFund = tripState.fund.reduce((s, f) => s + f.amount, 0);
+  const totalExp  = tripState.expenses.reduce((s, e) => s + e.amount, 0);
+  document.getElementById('trip-settle-summary').innerHTML =
+    `<div class="sum-card"><div class="sl">Tổng quỹ</div><div class="sv">${fmtVND(totalFund)}</div></div>` +
+    `<div class="sum-card"><div class="sl">Tổng chi</div><div class="sv" style="color:#e05050">${fmtVND(totalExp)}</div></div>` +
+    `<div class="sum-card"><div class="sl">Thành viên</div><div class="sv">${n}</div></div>` +
+    `<div class="sum-card"><div class="sl">Mỗi người</div><div class="sv">${n ? fmtVND(Math.round((totalFund + totalExp) / n)) : '—'}</div></div>`;
+
+  if (!n) {
+    document.getElementById('trip-net-board').innerHTML = '<div class="empty-h">Thêm thành viên để tính!</div>';
+    document.getElementById('trip-txn-list').innerHTML = '';
+    return;
+  }
+  const net = calcNetBalances();
+  document.getElementById('trip-net-board').innerHTML =
+    Object.entries(net).sort((a, b) => b[1] - a[1]).map(([name, bal]) => {
+      const bc = bal > 1 ? 'pos' : bal < -1 ? 'neg' : 'zero';
+      const sign = bal > 0 ? '+' : '';
+      return `<div class="prow ${bal > 1 ? 'winner' : bal < -1 ? 'loser' : ''}">
+        <div class="avatar">${esc(name.charAt(0).toUpperCase())}</div>
+        <div class="pname" style="flex:1">${esc(name)}</div>
+        <div class="pbal ${bc}">${sign}${fmtVND(Math.round(bal))}</div>
+      </div>`;
+    }).join('');
+
+  const txns = settleDebts(net);
+  const txnEl = document.getElementById('trip-txn-list');
+  if (!txns.length) {
+    txnEl.innerHTML = '<div class="empty-h">✅ Không cần chuyển tiền!</div>';
+  } else {
+    txnEl.innerHTML = txns.map(t =>
+      `<div class="txn-item">
+         <div class="txn-from">${esc(t.from)}</div>
+         <div class="txn-arrow">→</div>
+         <div class="txn-to">${esc(t.to)}</div>
+         <div class="txn-amt">${fmtVND(t.amount)}</div>
+       </div>`
+    ).join('');
+  }
+}
+
+// ══════════════════════════════
+//          TRIP TODOS
+// ══════════════════════════════
+function addTodo() {
+  const inp = document.getElementById('trip-todo-inp');
+  const text = inp.value.trim();
+  if (!text) { toast('Nhập nội dung!', 'error'); return; }
+  tripState.todos.push({ id: Date.now().toString(), text, done: false });
+  inp.value = '';
+  tripSave();
+  renderTripTodos();
+  toast('✅ Thêm vào lịch trình!', 'success');
+}
+
+function toggleTodo(id) {
+  const t = tripState.todos.find(t => t.id === id);
+  if (t) { t.done = !t.done; tripSave(); renderTripTodos(); }
+}
+
+function removeTodo(id) {
+  tripState.todos = tripState.todos.filter(t => t.id !== id);
+  tripSave();
+  renderTripTodos();
+}
+
+function renderTripTodos() {
+  const el = document.getElementById('trip-todo-list');
+  if (!tripState.todos.length) {
+    el.innerHTML = '<div class="empty-h">📍 Thêm địa điểm và hoạt động!</div>';
+    return;
+  }
+  const done = tripState.todos.filter(t => t.done).length;
+  el.innerHTML =
+    `<div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">${done}/${tripState.todos.length} hoàn thành</div>` +
+    tripState.todos.map(t =>
+      `<div class="todo-item ${t.done ? 'done' : ''}">
+         <input type="checkbox" class="todo-cb" ${t.done ? 'checked' : ''} data-tid="${t.id}">
+         <span class="todo-text">${esc(t.text)}</span>
+         <button class="btn btn-ghost btn-xs" data-tdel="${t.id}">✕</button>
+       </div>`
+    ).join('');
+  el.querySelectorAll('.todo-cb').forEach(cb => {
+    cb.addEventListener('change', () => toggleTodo(cb.dataset.tid));
+  });
+  el.querySelectorAll('[data-tdel]').forEach(btn => {
+    btn.addEventListener('click', () => removeTodo(btn.dataset.tdel));
+  });
+}
+
+// ══════════════════════════════
+//       TRIP MASTER RENDER
+// ══════════════════════════════
+function renderTrip() {
+  renderTripMembers();
+  renderTripFund();
+  renderTripExpenses();
+  renderSettlement();
+  renderTripTodos();
+}
+
+function fmtVND(v) {
+  if (v === 0) return '0đ';
+  const abs = Math.abs(v), sign = v < 0 ? '-' : '';
+  if (abs >= 1000000) return sign + (abs / 1000000).toFixed(abs % 1000000 === 0 ? 0 : 1) + 'tr';
+  if (abs >= 1000)    return sign + Math.round(abs / 1000) + 'K';
+  return sign + abs + 'đ';
+}
+
+// Wire up member add button via event listener (safe for any name)
+document.getElementById('trip-member-add-btn').addEventListener('click', addTripMember);
+document.getElementById('trip-member-inp').addEventListener('keydown', e => { if (e.key === 'Enter') addTripMember(); });
+document.getElementById('trip-todo-inp').addEventListener('keydown', e => { if (e.key === 'Enter') addTodo(); });
 </script>
 </body>
 </html>
