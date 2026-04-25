@@ -315,6 +315,7 @@ select option{background:#1f3d2a}
         <div class="sm" id="trip-subtitle">Quản lý chi phí &amp; lịch trình</div>
       </div>
       <div class="sbar-btns">
+        <button class="btn btn-amber btn-sm" id="trip-undo-btn" style="display:none" onclick="tripUndo()">↩ Hoàn tác</button>
         <button class="btn btn-ghost btn-sm" onclick="showSetupFromTrip()">← Về nhà</button>
       </div>
     </div>
@@ -397,6 +398,26 @@ select option{background:#1f3d2a}
         <input type="text" id="trip-todo-inp" placeholder="Thêm địa điểm hoặc việc cần làm...">
         <button class="btn btn-green btn-sm" onclick="addTodo()">+ Thêm</button>
       </div>
+    </div>
+
+    <!-- CARD: Export & Import -->
+    <div class="card">
+      <div class="ct">⬇ Backup &amp; Phục Hồi</div>
+      <div class="export-grid" style="margin-bottom:14px">
+        <button class="btn btn-green" onclick="exportTripJSON()">📦 Tải JSON<small>Phục hồi được</small></button>
+        <button class="btn btn-ghost" onclick="exportTripText()">📋 Tải Text<small>Dễ đọc, share</small></button>
+        <button class="btn btn-ghost" onclick="copyTripJSON()">📄 Copy JSON<small>Dán vào ô dưới</small></button>
+        <button class="btn btn-ghost" onclick="copyTripText()">📄 Copy Text<small>Dán vào chat</small></button>
+      </div>
+      <div class="divider">Phục hồi từ JSON</div>
+      <textarea id="trip-import-json" style="height:70px;resize:vertical;font-family:monospace;font-size:12px;margin-bottom:9px" placeholder='Dán JSON đã export vào đây...'></textarea>
+      <button class="btn btn-amber" style="width:100%" onclick="importTripJSON()">📥 PHỤC HỒI DỮ LIỆU</button>
+    </div>
+
+    <!-- CARD: Nhật ký -->
+    <div class="card">
+      <div class="ct">📋 Nhật Ký Thao Tác</div>
+      <div id="trip-log-list"></div>
     </div>
 
   </div>
@@ -934,7 +955,7 @@ load(); tripLoad(); setPCount(4); renderSaved();
 //           TRIP STATE
 // ══════════════════════════════
 const TRIP_KEY = 'trip_v1';
-let tripState = { members: [], fund: [], expenses: [], todos: [] };
+let tripState = { members: [], fund: [], expenses: [], todos: [], log: [], undoSnap: null };
 
 function tripSave() {
   localStorage.setItem(TRIP_KEY, JSON.stringify(tripState));
@@ -944,11 +965,44 @@ function tripLoad() {
   try {
     const r = localStorage.getItem(TRIP_KEY);
     if (r) tripState = JSON.parse(r);
-    if (!tripState.members) tripState.members = [];
-    if (!tripState.fund) tripState.fund = [];
-    if (!tripState.expenses) tripState.expenses = [];
-    if (!tripState.todos) tripState.todos = [];
+    if (!tripState.members)  tripState.members  = [];
+    if (!tripState.fund)     tripState.fund      = [];
+    if (!tripState.expenses) tripState.expenses  = [];
+    if (!tripState.todos)    tripState.todos     = [];
+    if (!tripState.log)      tripState.log       = [];
+    if (tripState.undoSnap === undefined) tripState.undoSnap = null;
   } catch(e) {}
+}
+
+// ══════════════════════════════
+//      TRIP LOG & UNDO
+// ══════════════════════════════
+function tripLog(icon, text) {
+  tripState.log.unshift({ ts: Date.now(), icon, text });
+  if (tripState.log.length > 100) tripState.log.length = 100;
+}
+
+function tripBackup() {
+  tripState.undoSnap = JSON.parse(JSON.stringify({ members: tripState.members, fund: tripState.fund, expenses: tripState.expenses, todos: tripState.todos, log: tripState.log }));
+}
+
+function tripUndo() {
+  if (!tripState.undoSnap) return;
+  const snap = tripState.undoSnap;
+  tripState.members  = snap.members;
+  tripState.fund     = snap.fund;
+  tripState.expenses = snap.expenses;
+  tripState.todos    = snap.todos;
+  tripState.log      = snap.log;
+  tripState.undoSnap = null;
+  tripSave();
+  renderTrip();
+  toast('↩ Đã hoàn tác!', 'success');
+}
+
+function renderTripUndoBtn() {
+  const btn = document.getElementById('trip-undo-btn');
+  btn.style.display = tripState.undoSnap ? 'inline-flex' : 'none';
 }
 
 // ══════════════════════════════
@@ -976,6 +1030,7 @@ function addTripMember() {
   if (tripState.members.includes(nm)) { toast('Thành viên đã tồn tại!', 'error'); return; }
   tripState.members.push(nm);
   inp.value = '';
+  tripLog('👤', nm + ' vào nhóm');
   tripSave();
   renderTrip();
   toast('✅ Thêm ' + nm + '!', 'success');
@@ -987,7 +1042,9 @@ function removeTripMember(idx) {
   const hasFund = tripState.fund.some(f => f.name === name);
   const hasExp  = tripState.expenses.some(e => e.payer === name);
   if (hasFund || hasExp) { toast(name + ' đã có giao dịch — không thể xoá!', 'error'); return; }
+  tripBackup();
   tripState.members.splice(idx, 1);
+  tripLog('🗑️', 'Xoá thành viên: ' + name);
   tripSave();
   renderTrip();
   toast('Đã xoá ' + name, 'info');
@@ -1022,13 +1079,17 @@ function addFundEntry() {
   tripState.fund.push({ id: Date.now().toString(), name, amount, note });
   document.getElementById('trip-fund-amt').value = '';
   document.getElementById('trip-fund-note').value = '';
+  tripLog('💰', name + ' đóng ' + fmtVND(amount) + (note ? ' — ' + note : ''));
   tripSave();
   renderTrip();
   toast('✅ ' + name + ' đóng ' + fmtVND(amount) + '!', 'success');
 }
 
 function removeFundEntry(id) {
+  const entry = tripState.fund.find(f => f.id === id);
+  tripBackup();
   tripState.fund = tripState.fund.filter(f => f.id !== id);
+  if (entry) tripLog('🗑️', 'Xoá đóng góp: ' + entry.name + ' ' + fmtVND(entry.amount));
   tripSave();
   renderTrip();
   toast('Đã xoá đóng góp', 'info');
@@ -1078,13 +1139,17 @@ function addExpense() {
   tripState.expenses.push({ id: Date.now().toString(), payer, amount, desc, cat, ts: Date.now() });
   document.getElementById('trip-exp-amt').value = '';
   document.getElementById('trip-exp-desc').value = '';
+  tripLog('🧾', payer + ' trả ' + fmtVND(amount) + ': ' + desc);
   tripSave();
   renderTrip();
   toast('✅ Ghi chi tiêu ' + fmtVND(amount) + '!', 'success');
 }
 
 function removeExpense(id) {
+  const entry = tripState.expenses.find(e => e.id === id);
+  tripBackup();
   tripState.expenses = tripState.expenses.filter(e => e.id !== id);
+  if (entry) tripLog('🗑️', 'Xoá chi tiêu: ' + entry.desc + ' ' + fmtVND(entry.amount));
   tripSave();
   renderTrip();
   toast('Đã xoá chi tiêu', 'info');
@@ -1202,20 +1267,32 @@ function addTodo() {
   if (!text) { toast('Nhập nội dung!', 'error'); return; }
   tripState.todos.push({ id: Date.now().toString(), text, done: false });
   inp.value = '';
+  tripLog('📍', 'Thêm: ' + text);
   tripSave();
   renderTripTodos();
+  renderTripLog();
   toast('✅ Thêm vào lịch trình!', 'success');
 }
 
 function toggleTodo(id) {
   const t = tripState.todos.find(t => t.id === id);
-  if (t) { t.done = !t.done; tripSave(); renderTripTodos(); }
+  if (!t) return;
+  t.done = !t.done;
+  tripLog(t.done ? '✅' : '🔄', (t.done ? 'Xong: ' : 'Bỏ xong: ') + t.text);
+  tripSave();
+  renderTripTodos();
+  renderTripLog();
 }
 
 function removeTodo(id) {
+  const t = tripState.todos.find(t => t.id === id);
+  tripBackup();
   tripState.todos = tripState.todos.filter(t => t.id !== id);
+  if (t) tripLog('🗑️', 'Xoá todo: ' + t.text);
   tripSave();
   renderTripTodos();
+  renderTripLog();
+  renderTripUndoBtn();
 }
 
 function renderTripTodos() {
@@ -1243,6 +1320,96 @@ function renderTripTodos() {
 }
 
 // ══════════════════════════════
+//     TRIP EXPORT / IMPORT
+// ══════════════════════════════
+function buildTripJSON() {
+  return JSON.stringify(tripState, null, 2);
+}
+
+function buildTripText() {
+  const totalFund = tripState.fund.reduce((s, f) => s + f.amount, 0);
+  const totalExp  = tripState.expenses.reduce((s, e) => s + e.amount, 0);
+  const n = tripState.members.length;
+  let t = '🌿 QUẢN LÝ CHUYẾN ĐI\n';
+  t += '═'.repeat(32) + '\n';
+  t += '👥 THÀNH VIÊN: ' + (tripState.members.join(', ') || '(chưa có)') + '\n\n';
+
+  t += '💰 QUỸ CHUNG (' + fmtVND(totalFund) + ')\n';
+  tripState.fund.forEach(f => { t += '  + ' + f.name + ': ' + fmtVND(f.amount) + (f.note ? ' (' + f.note + ')' : '') + '\n'; });
+
+  t += '\n🧾 CHI TIÊU (' + fmtVND(totalExp) + ')\n';
+  [...tripState.expenses].reverse().forEach(e => {
+    const d = new Date(e.ts);
+    t += '  • ' + e.desc + ' — ' + fmtVND(e.amount) + ' (' + e.payer + ' trả, ' + d.getDate() + '/' + (d.getMonth()+1) + ')\n';
+  });
+
+  t += '\n⚖️ TỔNG KẾT\n';
+  t += '  Tổng: ' + fmtVND(totalFund + totalExp) + ' | Mỗi người: ' + (n ? fmtVND(Math.round((totalFund + totalExp) / n)) : '—') + '\n';
+  if (n) {
+    const net = calcNetBalances();
+    const txns = settleDebts(net);
+    if (txns.length) {
+      t += '  Cần chuyển:\n';
+      txns.forEach(tx => { t += '    ' + tx.from + ' → ' + tx.to + ': ' + fmtVND(tx.amount) + '\n'; });
+    } else {
+      t += '  ✅ Không cần chuyển tiền!\n';
+    }
+  }
+
+  t += '\n📍 LỊCH TRÌNH\n';
+  tripState.todos.forEach(td => { t += '  [' + (td.done ? 'x' : ' ') + '] ' + td.text + '\n'; });
+
+  return t;
+}
+
+function exportTripJSON() { dl(buildTripJSON(), 'chuyen-di.json', 'application/json'); toast('📦 Đã tải JSON!', 'success'); }
+function exportTripText() { dl(buildTripText(), 'chuyen-di.txt', 'text/plain;charset=utf-8'); toast('📋 Đã tải text!', 'success'); }
+async function copyTripJSON() { await cp(buildTripJSON()); toast('📄 Đã copy JSON!', 'success'); }
+async function copyTripText() { await cp(buildTripText()); toast('📄 Đã copy text!', 'success'); }
+
+function importTripJSON() {
+  const raw = document.getElementById('trip-import-json').value.trim();
+  if (!raw) { toast('Dán JSON vào ô trước!', 'error'); return; }
+  try {
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed.members)) throw new Error();
+    tripBackup();
+    tripState.members  = parsed.members  || [];
+    tripState.fund     = parsed.fund     || [];
+    tripState.expenses = parsed.expenses || [];
+    tripState.todos    = parsed.todos    || [];
+    tripState.log      = parsed.log      || [];
+    tripLog('📥', 'Phục hồi dữ liệu từ JSON');
+    tripSave();
+    document.getElementById('trip-import-json').value = '';
+    renderTrip();
+    toast('✅ Phục hồi thành công!', 'success');
+  } catch(e) {
+    toast('JSON không hợp lệ!', 'error');
+  }
+}
+
+// ══════════════════════════════
+//        TRIP LOG RENDER
+// ══════════════════════════════
+function renderTripLog() {
+  const el = document.getElementById('trip-log-list');
+  if (!tripState.log.length) {
+    el.innerHTML = '<div class="empty-h">📋 Chưa có hoạt động nào</div>';
+    return;
+  }
+  el.innerHTML = tripState.log.map(entry => {
+    const d = new Date(entry.ts);
+    const ts = d.getDate() + '/' + (d.getMonth()+1) + ' ' + d.getHours() + ':' + String(d.getMinutes()).padStart(2,'0');
+    return `<div class="hi">
+      <div class="rn" style="font-size:16px;min-width:32px">${entry.icon}</div>
+      <div class="hdet" style="flex:1"><div class="hw">${esc(entry.text)}</div></div>
+      <div class="hm" style="font-size:11px;white-space:nowrap">${ts}</div>
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════
 //       TRIP MASTER RENDER
 // ══════════════════════════════
 function renderTrip() {
@@ -1251,6 +1418,8 @@ function renderTrip() {
   renderTripExpenses();
   renderSettlement();
   renderTripTodos();
+  renderTripLog();
+  renderTripUndoBtn();
 }
 
 function fmtVND(v) {
