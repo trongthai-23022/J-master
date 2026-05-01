@@ -348,6 +348,27 @@ select option{background:#1f3d2a}
       <div class="ct">💰 Quỹ Chung</div>
       <div class="sum-grid" id="trip-fund-summary" style="margin-bottom:12px"></div>
       <div class="hist-list" id="trip-fund-list" style="margin-bottom:12px"></div>
+      <div class="hist-list" id="trip-fund-exp-list" style="margin-bottom:12px"></div>
+      <div class="divider">Chi từ quỹ</div>
+      <div class="ig">
+        <label>Mô tả</label>
+        <input type="text" id="trip-fexp-desc" placeholder="VD: Đặt cọc khách sạn">
+      </div>
+      <div class="ig">
+        <label>Số tiền (VNĐ)</label>
+        <input type="number" id="trip-fexp-amt" placeholder="VD: 500000" min="0">
+      </div>
+      <div class="ig">
+        <label>Danh mục</label>
+        <select id="trip-fexp-cat">
+          <option value="hotel">🏨 Khách sạn</option>
+          <option value="transport">🚗 Di chuyển</option>
+          <option value="food">🍜 Ăn uống</option>
+          <option value="ticket">🎟️ Vé tham quan</option>
+          <option value="other">📦 Khác</option>
+        </select>
+      </div>
+      <button class="btn btn-amber" style="width:100%" onclick="addFundExpense()">− Chi từ quỹ</button>
       <div class="divider">Thêm đóng góp</div>
       <div class="ig">
         <label>Người đóng</label>
@@ -1017,7 +1038,7 @@ load(); tripLoad(); setPCount(4); renderSaved();
 //           TRIP STATE
 // ══════════════════════════════
 const TRIP_KEY = 'trip_v1';
-let tripState = { members: [], fund: [], expenses: [], todos: [], log: [], undoSnap: null };
+let tripState = { members: [], fund: [], expenses: [], fundExpenses: [], todos: [], log: [], undoSnap: null };
 
 function tripSave() {
   localStorage.setItem(TRIP_KEY, JSON.stringify(tripState));
@@ -1031,7 +1052,8 @@ function tripLoad() {
     if (!tripState.fund)     tripState.fund      = [];
     if (!tripState.expenses) tripState.expenses  = [];
     if (!tripState.todos)    tripState.todos     = [];
-    if (!tripState.log)      tripState.log       = [];
+    if (!tripState.log)          tripState.log          = [];
+    if (!tripState.fundExpenses) tripState.fundExpenses = [];
     if (tripState.undoSnap === undefined) tripState.undoSnap = null;
   } catch(e) {}
 }
@@ -1045,17 +1067,18 @@ function tripLog(icon, text) {
 }
 
 function tripBackup() {
-  tripState.undoSnap = JSON.parse(JSON.stringify({ members: tripState.members, fund: tripState.fund, expenses: tripState.expenses, todos: tripState.todos, log: tripState.log }));
+  tripState.undoSnap = JSON.parse(JSON.stringify({ members: tripState.members, fund: tripState.fund, expenses: tripState.expenses, fundExpenses: tripState.fundExpenses, todos: tripState.todos, log: tripState.log }));
 }
 
 function tripUndo() {
   if (!tripState.undoSnap) return;
   const snap = tripState.undoSnap;
-  tripState.members  = snap.members;
-  tripState.fund     = snap.fund;
-  tripState.expenses = snap.expenses;
-  tripState.todos    = snap.todos;
-  tripState.log      = snap.log;
+  tripState.members      = snap.members;
+  tripState.fund         = snap.fund;
+  tripState.expenses     = snap.expenses;
+  tripState.fundExpenses = snap.fundExpenses || [];
+  tripState.todos        = snap.todos;
+  tripState.log          = snap.log;
   tripState.undoSnap = null;
   tripSave();
   renderTrip();
@@ -1157,32 +1180,85 @@ function removeFundEntry(id) {
   toast('Đã xoá đóng góp', 'info');
 }
 
+function addFundExpense() {
+  if (!tripState.members.length) { toast('Thêm thành viên trước!', 'error'); return; }
+  const desc   = document.getElementById('trip-fexp-desc').value.trim();
+  const amount = parseInt(document.getElementById('trip-fexp-amt').value) || 0;
+  const cat    = document.getElementById('trip-fexp-cat').value;
+  if (!desc) { toast('Nhập mô tả chi tiêu!', 'error'); return; }
+  if (amount <= 0) { toast('Nhập số tiền hợp lệ!', 'error'); return; }
+  const totalFund    = tripState.fund.reduce((s, f) => s + f.amount, 0);
+  const totalFundExp = tripState.fundExpenses.reduce((s, e) => s + e.amount, 0);
+  if (amount + totalFundExp > totalFund) { toast('Vượt quá số dư quỹ!', 'error'); return; }
+  tripBackup();
+  tripState.fundExpenses.push({ id: Date.now().toString(), desc, amount, cat, ts: Date.now() });
+  document.getElementById('trip-fexp-desc').value = '';
+  document.getElementById('trip-fexp-amt').value = '';
+  tripLog('💸', 'Chi từ quỹ: ' + desc + ' ' + fmtVND(amount));
+  tripSave();
+  renderTrip();
+  toast('✅ Chi từ quỹ ' + fmtVND(amount) + '!', 'success');
+}
+
+function removeFundExpense(id) {
+  const entry = tripState.fundExpenses.find(e => e.id === id);
+  tripBackup();
+  tripState.fundExpenses = tripState.fundExpenses.filter(e => e.id !== id);
+  if (entry) tripLog('🗑️', 'Xoá chi từ quỹ: ' + entry.desc + ' ' + fmtVND(entry.amount));
+  tripSave();
+  renderTrip();
+  toast('Đã xoá', 'info');
+}
+
 function renderTripFund() {
-  const totalFund = tripState.fund.reduce((s, f) => s + f.amount, 0);
-  const totalExp  = tripState.expenses.reduce((s, e) => s + e.amount, 0);
-  const remaining = totalFund - totalExp;
+  const totalFund    = tripState.fund.reduce((s, f) => s + f.amount, 0);
+  const totalFundExp = (tripState.fundExpenses || []).reduce((s, e) => s + e.amount, 0);
+  const remaining    = totalFund - totalFundExp;
   document.getElementById('trip-fund-summary').innerHTML =
     `<div class="sum-card"><div class="sl">Tổng quỹ</div><div class="sv">${fmtVND(totalFund)}</div></div>` +
-    `<div class="sum-card"><div class="sl">Đã chi</div><div class="sv" style="color:#e05050">${fmtVND(totalExp)}</div></div>` +
+    `<div class="sum-card"><div class="sl">Đã chi từ quỹ</div><div class="sv" style="color:#e05050">${fmtVND(totalFundExp)}</div></div>` +
     `<div class="sum-card"><div class="sl">Còn lại</div><div class="sv" style="color:${remaining >= 0 ? 'var(--gold-l)' : '#e05050'}">${fmtVND(remaining)}</div></div>` +
     `<div class="sum-card"><div class="sl">Lần đóng</div><div class="sv">${tripState.fund.length}</div></div>`;
 
   const list = document.getElementById('trip-fund-list');
   if (!tripState.fund.length) {
     list.innerHTML = '<div class="empty-h">💸 Chưa ai đóng quỹ</div>';
-    return;
+  } else {
+    list.innerHTML = [...tripState.fund].reverse().map(f =>
+      `<div class="fund-item">
+         <div class="avatar" style="width:30px;height:30px;font-size:13px">${esc(f.name.charAt(0).toUpperCase())}</div>
+         <div class="fund-name">${esc(f.name)}${f.note ? `<span style="color:var(--muted);font-weight:400;font-size:12px;display:block">${esc(f.note)}</span>` : ''}</div>
+         <div class="fund-amt">${fmtVND(f.amount)}</div>
+         <button class="btn btn-ghost btn-xs" data-fid="${f.id}" style="flex-shrink:0">✕</button>
+       </div>`
+    ).join('');
+    list.querySelectorAll('[data-fid]').forEach(btn => {
+      btn.addEventListener('click', () => removeFundEntry(btn.dataset.fid));
+    });
   }
-  list.innerHTML = [...tripState.fund].reverse().map(f =>
-    `<div class="fund-item">
-       <div class="avatar" style="width:30px;height:30px;font-size:13px">${esc(f.name.charAt(0).toUpperCase())}</div>
-       <div class="fund-name">${esc(f.name)}${f.note ? `<span style="color:var(--muted);font-weight:400;font-size:12px;display:block">${esc(f.note)}</span>` : ''}</div>
-       <div class="fund-amt">${fmtVND(f.amount)}</div>
-       <button class="btn btn-ghost btn-xs" data-fid="${f.id}" style="flex-shrink:0">✕</button>
-     </div>`
-  ).join('');
-  list.querySelectorAll('[data-fid]').forEach(btn => {
-    btn.addEventListener('click', () => removeFundEntry(btn.dataset.fid));
-  });
+
+  const expList = document.getElementById('trip-fund-exp-list');
+  if (!tripState.fundExpenses || !tripState.fundExpenses.length) {
+    expList.innerHTML = '';
+  } else {
+    expList.innerHTML = [...tripState.fundExpenses].reverse().map(e => {
+      const icon = (CAT_LABELS[e.cat] || '📦 Khác').split(' ')[0];
+      return `<div class="hi">
+        <div class="rn" style="font-size:16px;min-width:32px">${icon}</div>
+        <div class="hdet" style="flex:1">
+          <div class="hw">${esc(e.desc)}</div>
+          <div class="hm">Chi từ quỹ · ${CAT_LABELS[e.cat] || e.cat}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#e05050">${fmtVND(e.amount)}</div>
+          <button class="btn btn-ghost btn-xs" data-fexpid="${e.id}" style="flex-shrink:0">✕</button>
+        </div>
+      </div>`;
+    }).join('');
+    expList.querySelectorAll('[data-fexpid]').forEach(btn => {
+      btn.addEventListener('click', () => removeFundExpense(btn.dataset.fexpid));
+    });
+  }
 }
 
 // ══════════════════════════════
@@ -1250,12 +1326,16 @@ function renderTripExpenses() {
 function calcNetBalances() {
   const n = tripState.members.length;
   if (!n) return {};
-  const totalFund = tripState.fund.reduce((s, f) => s + f.amount, 0);
-  const totalExp  = tripState.expenses.reduce((s, e) => s + e.amount, 0);
-  const fairShare = (totalFund + totalExp) / n;
+  const totalFund    = tripState.fund.reduce((s, f) => s + f.amount, 0);
+  const totalFundExp = (tripState.fundExpenses || []).reduce((s, e) => s + e.amount, 0);
+  const remaining    = Math.max(0, totalFund - totalFundExp);
+  const totalIndExp  = tripState.expenses.reduce((s, e) => s + e.amount, 0);
+  const fairShare    = (remaining + totalIndExp) / n;
   const net = {};
   tripState.members.forEach(m => net[m] = 0);
-  tripState.fund.forEach(f => { if (net[f.name] !== undefined) net[f.name] += f.amount; });
+  if (totalFund > 0) {
+    tripState.fund.forEach(f => { if (net[f.name] !== undefined) net[f.name] += remaining * (f.amount / totalFund); });
+  }
   tripState.expenses.forEach(e => { if (net[e.payer] !== undefined) net[e.payer] += e.amount; });
   tripState.members.forEach(m => { net[m] -= fairShare; });
   return net;
@@ -1279,13 +1359,15 @@ function settleDebts(netIn) {
 
 function renderSettlement() {
   const n = tripState.members.length;
-  const totalFund = tripState.fund.reduce((s, f) => s + f.amount, 0);
-  const totalExp  = tripState.expenses.reduce((s, e) => s + e.amount, 0);
+  const totalFund    = tripState.fund.reduce((s, f) => s + f.amount, 0);
+  const totalFundExp = (tripState.fundExpenses || []).reduce((s, e) => s + e.amount, 0);
+  const totalIndExp  = tripState.expenses.reduce((s, e) => s + e.amount, 0);
+  const totalExp     = totalFundExp + totalIndExp;
   document.getElementById('trip-settle-summary').innerHTML =
     `<div class="sum-card"><div class="sl">Tổng quỹ</div><div class="sv">${fmtVND(totalFund)}</div></div>` +
-    `<div class="sum-card"><div class="sl">Tổng chi</div><div class="sv" style="color:#e05050">${fmtVND(totalExp)}</div></div>` +
-    `<div class="sum-card"><div class="sl">Thành viên</div><div class="sv">${n}</div></div>` +
-    `<div class="sum-card"><div class="sl">Mỗi người</div><div class="sv">${n ? fmtVND(Math.round((totalFund + totalExp) / n)) : '—'}</div></div>`;
+    `<div class="sum-card"><div class="sl">Chi từ quỹ</div><div class="sv" style="color:#e05050">${fmtVND(totalFundExp)}</div></div>` +
+    `<div class="sum-card"><div class="sl">Chi cá nhân</div><div class="sv" style="color:#e05050">${fmtVND(totalIndExp)}</div></div>` +
+    `<div class="sum-card"><div class="sl">Mỗi người</div><div class="sv">${n ? fmtVND(Math.round(totalExp / n)) : '—'}</div></div>`;
 
   if (!n) {
     document.getElementById('trip-net-board').innerHTML = '<div class="empty-h">Thêm thành viên để tính!</div>';
@@ -1396,17 +1478,29 @@ function buildTripText() {
   t += '═'.repeat(32) + '\n';
   t += '👥 THÀNH VIÊN: ' + (tripState.members.join(', ') || '(chưa có)') + '\n\n';
 
+  const totalFundExp = (tripState.fundExpenses || []).reduce((s, e) => s + e.amount, 0);
+
   t += '💰 QUỸ CHUNG (' + fmtVND(totalFund) + ')\n';
   tripState.fund.forEach(f => { t += '  + ' + f.name + ': ' + fmtVND(f.amount) + (f.note ? ' (' + f.note + ')' : '') + '\n'; });
 
-  t += '\n🧾 CHI TIÊU (' + fmtVND(totalExp) + ')\n';
+  if (tripState.fundExpenses && tripState.fundExpenses.length) {
+    t += '\n💸 CHI TỪ QUỸ (' + fmtVND(totalFundExp) + ')\n';
+    [...tripState.fundExpenses].reverse().forEach(e => {
+      const d = new Date(e.ts);
+      t += '  − ' + e.desc + ' — ' + fmtVND(e.amount) + ' (' + d.getDate() + '/' + (d.getMonth()+1) + ')\n';
+    });
+    t += '  Còn lại: ' + fmtVND(totalFund - totalFundExp) + '\n';
+  }
+
+  t += '\n🧾 CHI TIÊU CÁ NHÂN (' + fmtVND(totalExp) + ')\n';
   [...tripState.expenses].reverse().forEach(e => {
     const d = new Date(e.ts);
     t += '  • ' + e.desc + ' — ' + fmtVND(e.amount) + ' (' + e.payer + ' trả, ' + d.getDate() + '/' + (d.getMonth()+1) + ')\n';
   });
 
+  const totalAll = totalFundExp + totalExp;
   t += '\n⚖️ TỔNG KẾT\n';
-  t += '  Tổng: ' + fmtVND(totalFund + totalExp) + ' | Mỗi người: ' + (n ? fmtVND(Math.round((totalFund + totalExp) / n)) : '—') + '\n';
+  t += '  Tổng chi: ' + fmtVND(totalAll) + ' | Mỗi người: ' + (n ? fmtVND(Math.round(totalAll / n)) : '—') + '\n';
   if (n) {
     const net = calcNetBalances();
     const txns = settleDebts(net);
@@ -1436,11 +1530,12 @@ function importTripJSON() {
     const parsed = JSON.parse(raw);
     if (!Array.isArray(parsed.members)) throw new Error();
     tripBackup();
-    tripState.members  = parsed.members  || [];
-    tripState.fund     = parsed.fund     || [];
-    tripState.expenses = parsed.expenses || [];
-    tripState.todos    = parsed.todos    || [];
-    tripState.log      = parsed.log      || [];
+    tripState.members      = parsed.members      || [];
+    tripState.fund         = parsed.fund         || [];
+    tripState.expenses     = parsed.expenses     || [];
+    tripState.fundExpenses = parsed.fundExpenses || [];
+    tripState.todos        = parsed.todos        || [];
+    tripState.log          = parsed.log          || [];
     tripLog('📥', 'Phục hồi dữ liệu từ JSON');
     tripSave();
     document.getElementById('trip-import-json').value = '';
