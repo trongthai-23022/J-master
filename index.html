@@ -224,6 +224,8 @@ select option{background:#1f3d2a}
 
     <button class="btn btn-ghost" style="width:100%;margin-bottom:4px" onclick="showTrip()">🌿 QUẢN LÝ CHUYẾN ĐI</button>
 
+    <div id="saved-trips-sec"></div>
+
     <div id="saved-sec"></div>
   </div>
 
@@ -328,6 +330,8 @@ select option{background:#1f3d2a}
         <div class="sm" id="trip-subtitle">Quản lý chi phí &amp; lịch trình</div>
       </div>
       <div class="sbar-btns">
+        <button class="btn btn-green btn-sm" onclick="saveTripSession()">💾 Lưu</button>
+        <button class="btn btn-ghost btn-sm" onclick="newTripConfirm()">＋ Mới</button>
         <button class="btn btn-amber btn-sm" id="trip-undo-btn" style="display:none" onclick="tripUndo()">↩ Hoàn tác</button>
         <button class="btn btn-ghost btn-sm" onclick="showSetupFromTrip()">← Về nhà</button>
       </div>
@@ -336,6 +340,10 @@ select option{background:#1f3d2a}
     <!-- CARD: Thành viên -->
     <div class="card">
       <div class="ct">👥 Thành Viên Chuyến Đi</div>
+      <div class="ig" style="margin-bottom:10px">
+        <label>Tên chuyến đi</label>
+        <input type="text" id="trip-name-inp" placeholder="VD: Đà Lạt tháng 6, Team trip 2025..." oninput="updateTripName(this.value)">
+      </div>
       <div class="chips" id="trip-member-chips" style="margin-bottom:12px;flex-wrap:wrap"></div>
       <div class="add-player-row">
         <input type="text" id="trip-member-inp" placeholder="Thêm thành viên mới...">
@@ -1038,7 +1046,7 @@ load(); setPCount(4); renderSaved();
 //           TRIP STATE
 // ══════════════════════════════
 const TRIP_KEY = 'trip_v1';
-let tripState = { members: [], fund: [], expenses: [], fundExpenses: [], todos: [], log: [], undoSnap: null };
+let tripState = { id: '', name: '', members: [], fund: [], expenses: [], fundExpenses: [], todos: [], log: [], undoSnap: null };
 tripLoad();
 
 function tripSave() {
@@ -1049,10 +1057,12 @@ function tripLoad() {
   try {
     const r = localStorage.getItem(TRIP_KEY);
     if (r) tripState = JSON.parse(r);
-    if (!tripState.members)  tripState.members  = [];
-    if (!tripState.fund)     tripState.fund      = [];
-    if (!tripState.expenses) tripState.expenses  = [];
-    if (!tripState.todos)    tripState.todos     = [];
+    if (!tripState.id)           tripState.id           = Date.now().toString();
+    if (tripState.name === undefined) tripState.name    = '';
+    if (!tripState.members)      tripState.members      = [];
+    if (!tripState.fund)         tripState.fund         = [];
+    if (!tripState.expenses)     tripState.expenses     = [];
+    if (!tripState.todos)        tripState.todos        = [];
     if (!tripState.log)          tripState.log          = [];
     if (!tripState.fundExpenses) tripState.fundExpenses = [];
     if (tripState.undoSnap === undefined) tripState.undoSnap = null;
@@ -1092,6 +1102,119 @@ function renderTripUndoBtn() {
 }
 
 // ══════════════════════════════
+//       TRIP SESSIONS
+// ══════════════════════════════
+const TRIP_SESSIONS_KEY = 'trip_sessions_v1';
+let tripSessions = [];
+tripSessionsLoad();
+renderSavedTrips();
+
+function tripSessionsSave() {
+  localStorage.setItem(TRIP_SESSIONS_KEY, JSON.stringify(tripSessions));
+}
+
+function tripSessionsLoad() {
+  try {
+    const r = localStorage.getItem(TRIP_SESSIONS_KEY);
+    if (r) tripSessions = JSON.parse(r);
+    if (!Array.isArray(tripSessions)) tripSessions = [];
+  } catch(e) { tripSessions = []; }
+}
+
+function tripSnapshotCurrent() {
+  const hasData = tripState.members.length || tripState.fund.length || tripState.expenses.length || tripState.fundExpenses.length;
+  if (!hasData) return;
+  if (!tripState.id) tripState.id = Date.now().toString();
+  const snap = JSON.parse(JSON.stringify({
+    id: tripState.id, name: tripState.name,
+    members: tripState.members, fund: tripState.fund,
+    fundExpenses: tripState.fundExpenses, expenses: tripState.expenses,
+    todos: tripState.todos, log: tripState.log,
+    savedAt: Date.now()
+  }));
+  const idx = tripSessions.findIndex(s => s.id === snap.id);
+  if (idx >= 0) tripSessions[idx] = snap; else tripSessions.unshift(snap);
+  if (tripSessions.length > 10) tripSessions.length = 10;
+  tripSessionsSave();
+}
+
+function saveTripSession() {
+  const hasData = tripState.members.length || tripState.fund.length || tripState.expenses.length || tripState.fundExpenses.length;
+  if (!hasData) { toast('Chưa có dữ liệu để lưu!', 'error'); return; }
+  tripSnapshotCurrent();
+  tripSave();
+  renderSavedTrips();
+  toast('✅ Đã lưu chuyến đi!', 'success');
+}
+
+function newTripConfirm() {
+  const hasData = tripState.members.length || tripState.fund.length || tripState.expenses.length || tripState.fundExpenses.length;
+  const doNew = () => {
+    tripState = { id: Date.now().toString(), name: '', members: [], fund: [], fundExpenses: [], expenses: [], todos: [], log: [], undoSnap: null };
+    tripSave();
+    renderTrip();
+    toast('✅ Tạo chuyến đi mới!', 'success');
+  };
+  if (hasData) {
+    showConfirm('Tạo chuyến đi mới?', 'Chuyến đi hiện tại sẽ được lưu lại trước.', () => {
+      tripSnapshotCurrent();
+      tripSessionsSave();
+      renderSavedTrips();
+      doNew();
+    });
+  } else { doNew(); }
+}
+
+function loadTripSession(id) {
+  const s = tripSessions.find(s => s.id === id);
+  if (!s) return;
+  tripSnapshotCurrent();
+  tripState = JSON.parse(JSON.stringify(s));
+  tripState.undoSnap = null;
+  if (!tripState.fundExpenses) tripState.fundExpenses = [];
+  tripSave();
+  showTrip();
+}
+
+function deleteTripSession(id) {
+  tripSessions = tripSessions.filter(s => s.id !== id);
+  tripSessionsSave();
+  renderSavedTrips();
+}
+
+function updateTripName(v) {
+  tripState.name = v;
+  tripSave();
+}
+
+function renderSavedTrips() {
+  const el = document.getElementById('saved-trips-sec');
+  if (!el) return;
+  if (!tripSessions.length) { el.innerHTML = ''; return; }
+  const totalExp = s => ((s.expenses || []).reduce((a, e) => a + e.amount, 0)) + ((s.fundExpenses || []).reduce((a, e) => a + e.amount, 0));
+  el.innerHTML = `<div class="divider">Chuyến đi đã lưu</div><div class="sess-list">` +
+    tripSessions.map(s => {
+      const d = new Date(s.savedAt || 0);
+      const dateStr = d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear();
+      const members = (s.members || []);
+      const memberStr = members.slice(0, 3).map(m => esc(m)).join(', ') + (members.length > 3 ? '...' : '');
+      return `<div class="sess-item" data-tsid="${esc(s.id)}" style="cursor:pointer">
+        <div style="min-width:0;flex:1">
+          <div class="ssn">🌿 ${esc(s.name || 'Chuyến đi')}</div>
+          <div class="ssm">${memberStr || '(chưa có thành viên)'} · ${dateStr} · ${fmtVND(totalExp(s))}</div>
+        </div>
+        <button class="btn btn-ghost btn-xs trip-sess-del" data-tsid="${esc(s.id)}" style="flex-shrink:0">✕</button>
+      </div>`;
+    }).join('') + `</div>`;
+  el.querySelectorAll('.sess-item[data-tsid]').forEach(item => {
+    item.addEventListener('click', e => { if (!e.target.closest('.trip-sess-del')) loadTripSession(item.dataset.tsid); });
+  });
+  el.querySelectorAll('.trip-sess-del').forEach(btn => {
+    btn.addEventListener('click', e => { e.stopPropagation(); deleteTripSession(btn.dataset.tsid); });
+  });
+}
+
+// ══════════════════════════════
 //        TRIP NAVIGATION
 // ══════════════════════════════
 function showTrip() {
@@ -1104,6 +1227,7 @@ function showSetupFromTrip() {
   document.getElementById('trip-screen').style.display = 'none';
   document.getElementById('setup-screen').style.display = 'block';
   renderSaved();
+  renderSavedTrips();
 }
 
 // ══════════════════════════════
@@ -1571,8 +1695,9 @@ function renderTripLog() {
 //       TRIP MASTER RENDER
 // ══════════════════════════════
 function renderTrip() {
+  const nameInp = document.getElementById('trip-name-inp');
+  if (nameInp && nameInp !== document.activeElement) nameInp.value = tripState.name || '';
   renderTripMembers();
-  renderTripFund();
   renderTripExpenses();
   renderSettlement();
   renderTripTodos();
