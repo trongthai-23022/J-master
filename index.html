@@ -1032,13 +1032,14 @@ function toast(msg, type = '') {
 // ══════════════════════════════
 //              INIT
 // ══════════════════════════════
-load(); tripLoad(); setPCount(4); renderSaved();
+load(); setPCount(4); renderSaved();
 
 // ══════════════════════════════
 //           TRIP STATE
 // ══════════════════════════════
 const TRIP_KEY = 'trip_v1';
 let tripState = { members: [], fund: [], expenses: [], fundExpenses: [], todos: [], log: [], undoSnap: null };
+tripLoad();
 
 function tripSave() {
   localStorage.setItem(TRIP_KEY, JSON.stringify(tripState));
