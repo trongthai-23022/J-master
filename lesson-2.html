@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meditation &amp; Brain Health – English Lesson</title>
+<title>Birdwatching – English Lesson</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f4f4f7;--surface:#fff;--border:#ccc8dc;--text:#1a1820;--muted:#6a6278;
-  --accent:#2e1a4a;--accent2:#7c3aed;--light:#ede8f5;--gold:#c8962a;
+  --bg:#f4f7f2;--surface:#fff;--border:#d0dcc8;--text:#1a1f18;--muted:#6a7a62;
+  --accent:#1a4a2e;--accent2:#27ae60;--light:#e8f5ee;--gold:#c8962a;
   --red:#c0392b;--green:#1e7a3e;--blue:#1a4a7a;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;}
 
 /* HERO */
-.hero{background:linear-gradient(135deg,#2e1a4a 0%,#12092a 100%);color:white;padding:28px 20px 22px;position:relative;overflow:hidden;}
-.hero::after{content:'🧘';position:absolute;right:16px;top:14px;font-size:5rem;opacity:0.1;pointer-events:none;}
+.hero{background:linear-gradient(135deg,#1a4a2e 0%,#0a2218 100%);color:white;padding:28px 20px 22px;position:relative;overflow:hidden;}
+.hero::after{content:'🦜';position:absolute;right:16px;top:14px;font-size:5rem;opacity:0.1;pointer-events:none;}
 .hero-tag{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:2.5px;opacity:0.6;text-transform:uppercase;margin-bottom:6px;}
 .hero-title{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,5vw,2.4rem);font-weight:800;line-height:1.1;margin-bottom:5px;}
-.hero-title em{color:#c4a8f8;font-style:normal;}
+.hero-title em{color:#7ec8a0;font-style:normal;}
 .hero-sub{font-family:'Lora',serif;font-size:0.83rem;opacity:0.65;font-style:italic;}
 .hero-score{display:inline-flex;align-items:center;gap:8px;margin-top:14px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:99px;padding:6px 16px;font-family:'DM Mono',monospace;font-size:0.82rem;}
 .hero-score strong{font-size:1.1rem;}
@@ -41,7 +41,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .card-hd{display:flex;gap:10px;align-items:flex-start;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border);}
 .badge{background:var(--accent);color:white;font-family:'DM Mono',monospace;font-size:0.62rem;padding:4px 9px;border-radius:6px;flex-shrink:0;margin-top:1px;}
 .badge.gold{background:var(--gold);}
-.badge.ai{background:linear-gradient(135deg,#2e1a4a,#7c3aed);}
+.badge.ai{background:linear-gradient(135deg,#1a4a2e,#27ae60);}
 .card-ttl{font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;}
 .card-desc{font-size:0.77rem;color:var(--muted);margin-top:2px;}
 .sec{font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:18px 0 10px;}
@@ -71,13 +71,13 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .fc-tap{font-size:0.7rem;color:var(--muted);margin-top:10px;}
 .fc-viet{font-size:1.1rem;font-weight:700;color:var(--accent);}
 .fc-def{font-family:'Lora',serif;font-size:0.83rem;color:var(--muted);line-height:1.5;max-width:340px;}
-.fc-ex{font-family:'Lora',serif;font-size:0.78rem;color:#4a3060;font-style:italic;background:#f3eefb;border-radius:7px;padding:7px 12px;margin-top:5px;max-width:360px;}
-.fc-ex strong{font-style:normal;background:#d8b4fe;border-radius:2px;padding:0 2px;}
+.fc-ex{font-family:'Lora',serif;font-size:0.78rem;color:#5a4030;font-style:italic;background:#fdf6ec;border-radius:7px;padding:7px 12px;margin-top:5px;max-width:360px;}
+.fc-ex strong{font-style:normal;background:#fde68a;border-radius:2px;padding:0 2px;}
 .fc-speak{position:absolute;top:10px;right:10px;background:none;border:1.5px solid var(--border);border-radius:7px;padding:4px 9px;cursor:pointer;font-size:0.82rem;transition:all 0.14s;}
 .fc-speak:hover{background:var(--light);}
 .fc-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
 .nav-btn{padding:8px 18px;border-radius:8px;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:0.8rem;cursor:pointer;background:var(--accent);color:white;transition:all 0.14s;}
-.nav-btn:hover{background:#1a0a2e;}
+.nav-btn:hover{background:#0f2e1c;}
 .nav-btn:disabled{opacity:0.3;cursor:not-allowed;}
 .fc-dots{display:flex;gap:3px;flex-wrap:wrap;justify-content:center;max-width:280px;}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--border);cursor:pointer;transition:background 0.2s;}
@@ -108,8 +108,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .art-hl{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;line-height:1.4;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border);}
 .art-body{font-family:'Lora',serif;font-size:0.9rem;line-height:1.9;}
 .art-body p{margin-bottom:12px;}
-.hl{background:linear-gradient(180deg,transparent 58%,#c8b4f8 58%);cursor:help;font-weight:600;position:relative;}
-.hl-tt{display:none;position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);background:#1a1820;color:white;padding:4px 10px;border-radius:7px;font-size:0.7rem;white-space:nowrap;z-index:20;font-family:'DM Sans',sans-serif;pointer-events:none;}
+.hl{background:linear-gradient(180deg,transparent 58%,#b8e8c8 58%);cursor:help;font-weight:600;position:relative;}
+.hl-tt{display:none;position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);background:#1a1f18;color:white;padding:4px 10px;border-radius:7px;font-size:0.7rem;white-space:nowrap;z-index:20;font-family:'DM Sans',sans-serif;pointer-events:none;}
 .hl:hover .hl-tt, .hl:focus .hl-tt{display:block;}
 
 /* TF */
@@ -135,7 +135,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .gap.ok{border-color:var(--green);color:var(--green);}
 .gap.bad{border-color:var(--red);color:var(--red);}
 
-/* DISCUSSION */
+/* ══════════════════════════════
+   DISCUSSION — main new feature
+══════════════════════════════ */
 .disc-item{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;margin-bottom:14px;overflow:hidden;}
 .disc-top{padding:14px 16px;display:flex;align-items:flex-start;gap:10px;}
 .disc-num{font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--muted);flex-shrink:0;margin-top:3px;min-width:20px;}
@@ -144,17 +146,19 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .disc-speak{background:none;border:1.5px solid var(--border);border-radius:7px;padding:4px 9px;cursor:pointer;font-size:0.82rem;transition:all 0.13s;}
 .disc-speak:hover{border-color:var(--accent);}
 .disc-model-btn{background:var(--light);border:1.5px solid var(--border);border-radius:7px;padding:4px 10px;cursor:pointer;font-size:0.72rem;font-weight:600;color:var(--accent);transition:all 0.13s;}
-.disc-model-btn:hover{background:#d8c4f8;}
+.disc-model-btn:hover{background:#c8e8d8;}
 
-.model-box{background:linear-gradient(135deg,#f4f0fb,#ede8f5);border-top:1.5px solid var(--border);padding:14px 16px;display:none;}
+/* Model answer box */
+.model-box{background:linear-gradient(135deg,#f0f9f4,#e8f5ee);border-top:1.5px solid var(--border);padding:14px 16px;display:none;}
 .model-box.show{display:block;}
-.model-lbl{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent2);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.model-lbl{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
 .model-text{font-family:'Lora',serif;font-size:0.88rem;line-height:1.7;color:var(--text);}
-.model-text em{color:var(--accent);font-style:normal;font-weight:600;background:#c4a8f8;border-radius:3px;padding:0 3px;}
+.model-text em{color:var(--accent);font-style:normal;font-weight:600;background:#c8e8d8;border-radius:3px;padding:0 3px;}
 .model-note{font-size:0.75rem;color:var(--muted);margin-top:6px;font-style:italic;}
 .model-speak-btn{background:none;border:1.5px solid var(--border);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:0.72rem;font-weight:600;color:var(--muted);margin-top:8px;transition:all 0.13s;}
 .model-speak-btn:hover{border-color:var(--accent);color:var(--accent);}
 
+/* Answer input + AI */
 .disc-input-wrap{border-top:1.5px solid var(--border);padding:12px 16px;display:none;}
 .disc-input-wrap.show{display:block;}
 .disc-ta{width:100%;border:2px solid var(--border);border-radius:8px;padding:10px 13px;font-family:'DM Mono',monospace;font-size:0.85rem;background:var(--bg);color:var(--text);resize:vertical;min-height:62px;outline:none;transition:border-color 0.2s;line-height:1.6;}
@@ -167,13 +171,13 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .ai-track{flex:1;height:5px;background:var(--border);border-radius:99px;overflow:hidden;}
 .ai-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px;transition:width 0.7s cubic-bezier(.34,1.56,.64,1);width:0%;}
 .ai-body{font-size:0.83rem;line-height:1.7;white-space:pre-wrap;}
-.ai-model{margin-top:9px;padding:9px 12px;background:#ede8f5;border:1px solid #c4a8f8;border-radius:7px;}
-.ai-model-lbl{font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent2);margin-bottom:3px;}
+.ai-model{margin-top:9px;padding:9px 12px;background:#e8f5ee;border:1px solid #a0d8b0;border-radius:7px;}
+.ai-model-lbl{font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:3px;}
 .ai-model-txt{font-family:'DM Mono',monospace;font-size:0.85rem;}
 
 /* AI WRITING */
 .aw-block{margin-bottom:22px;}
-.prompt-block{background:linear-gradient(135deg,var(--accent),#12092a);color:white;border-radius:11px;padding:15px 18px;margin-bottom:12px;}
+.prompt-block{background:linear-gradient(135deg,var(--accent),#0a2218);color:white;border-radius:11px;padding:15px 18px;margin-bottom:12px;}
 .pb-lbl{font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:2px;opacity:0.6;text-transform:uppercase;margin-bottom:5px;}
 .pb-txt{font-family:'Lora',serif;font-size:0.98rem;font-weight:600;line-height:1.4;}
 .pb-hint{font-size:0.74rem;opacity:0.62;margin-top:5px;font-style:italic;}
@@ -183,14 +187,14 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 /* BUTTONS */
 .btn{font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;border:none;border-radius:8px;padding:9px 18px;cursor:pointer;transition:all 0.13s;}
 .btn-g{background:var(--accent);color:white;}
-.btn-g:hover{background:#1a0a2e;}
+.btn-g:hover{background:#0f2e1c;}
 .btn-g:disabled{opacity:0.35;cursor:not-allowed;}
 .btn-gh{background:transparent;color:var(--muted);border:1.5px solid var(--border);}
 .btn-gh:hover{border-color:var(--text);color:var(--text);}
 .btn-gold{background:var(--gold);color:white;}
 .btn-gold:hover{background:#a07820;}
 .btn-ai{background:var(--accent2);color:white;display:inline-flex;align-items:center;gap:6px;}
-.btn-ai:hover{background:#6d28d9;}
+.btn-ai:hover{background:#1e8040;}
 .btn-ai:disabled{opacity:0.35;cursor:not-allowed;}
 .btn-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px;}
 .next-row{display:none;margin-top:10px;}
@@ -203,9 +207,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-tag">Thu 6/11/2026 · Breaking News English Level 3</div>
-  <div class="hero-title">Meditation <em>&amp; Brain Health</em></div>
-  <div class="hero-sub">Meditation could slow brain ageing and boost memory, say scientists</div>
+  <div class="hero-tag">Fri 6/7/2026 · Breaking News English Level 3</div>
+  <div class="hero-title">Birdwatching <em>&amp; Ageing</em></div>
+  <div class="hero-sub">Birdwatching could protect against ageing, say scientists</div>
   <div class="hero-score">Điểm: <strong id="score-num">0</strong> 🏆</div>
 </div>
 
@@ -223,6 +227,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 
 <!-- ══ STAGE 0: VOCAB ══ -->
 <div class="stage on" id="s0">
+  <!-- TTS -->
   <div class="tts-bar">
     <span class="tts-lbl">🔊 TTS</span>
     <button class="tts-btn" onclick="ttsWord()">▶ Nghe từ</button>
@@ -234,6 +239,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     </div>
   </div>
 
+  <!-- Flashcard -->
   <div class="fc" id="fc" onclick="flipFC()">
     <button class="fc-speak" onclick="event.stopPropagation();ttsWord()">🔊</button>
     <div class="fc-front">
@@ -289,13 +295,13 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     <div class="tts-prog"><div class="tts-prog-fill" id="art-prog"></div></div>
   </div>
   <div class="card">
-    <div class="art-kicker">📍 Boston, USA · 11 June 2026</div>
-    <div class="art-hl">Meditation could slow brain ageing and boost memory, say scientists</div>
+    <div class="art-kicker">📍 Toronto, Canada · 26 February 2026</div>
+    <div class="art-hl">Birdwatching could protect against ageing, say scientists</div>
     <div class="art-body">
-      <p><span class="hl">Meditation<span class="hl-tt">meditation = thiền định</span></span> is good for our minds and bodies. A new study from Harvard Medical School in the United States has found that people who <span class="hl">meditate<span class="hl-tt">meditate = thiền, ngồi thiền</span></span> <span class="hl">regularly<span class="hl-tt">regularly = đều đặn, thường xuyên</span></span> have <span class="hl">healthier<span class="hl-tt">healthier = khỏe mạnh hơn</span></span> and <span class="hl">younger-looking<span class="hl-tt">younger-looking = trông trẻ hơn</span></span> brains. The <span class="hl">lead researcher<span class="hl-tt">lead researcher = nhà nghiên cứu chủ chốt</span></span>, Dr Sara Lazar, said: "Meditation is like <span class="hl">exercise<span class="hl-tt">exercise = bài tập, sự tập luyện</span></span> for the brain. It can <span class="hl">slow down<span class="hl-tt">slow down = làm chậm lại</span></span> brain <span class="hl">ageing<span class="hl-tt">ageing = sự lão hóa</span></span> and improve <span class="hl">thinking skills<span class="hl-tt">thinking skills = kỹ năng tư duy</span></span>." The scientists said meditation could be as <span class="hl">beneficial<span class="hl-tt">beneficial = có lợi</span></span> as <span class="hl">physical exercise<span class="hl-tt">physical exercise = tập thể dục thể chất</span></span> for <span class="hl">mental health<span class="hl-tt">mental health = sức khỏe tâm thần</span></span>.</p>
-      <p>Dr Lazar and her <span class="hl">colleagues<span class="hl-tt">colleagues = đồng nghiệp</span></span> compared <span class="hl">brain scans<span class="hl-tt">brain scans = ảnh chụp não</span></span> of 20 <span class="hl">experienced<span class="hl-tt">experienced = có kinh nghiệm</span></span> <span class="hl">meditators<span class="hl-tt">meditators = người thiền định</span></span> and 20 <span class="hl">non-meditators<span class="hl-tt">non-meditators = người không thiền</span></span>. They found that the brains of the meditators were <span class="hl">thicker<span class="hl-tt">thicker = dày hơn</span></span> in areas that control <span class="hl">attention<span class="hl-tt">attention = sự chú ý</span></span> and <span class="hl">memory<span class="hl-tt">memory = trí nhớ</span></span>. Dr Lazar said the meditators had a better ability to <span class="hl">focus<span class="hl-tt">focus = tập trung</span></span> and could <span class="hl">process information<span class="hl-tt">process information = xử lý thông tin</span></span> more quickly. She added that meditators also showed fewer signs of <span class="hl">stress<span class="hl-tt">stress = căng thẳng</span></span> and <span class="hl">anxiety<span class="hl-tt">anxiety = lo âu</span></span>.</p>
-      <p>The researchers believe meditation <span class="hl">benefits<span class="hl-tt">benefits = mang lại lợi ích cho</span></span> the brain in a similar way to learning a <span class="hl">musical instrument<span class="hl-tt">musical instrument = nhạc cụ</span></span>. When people meditate, the brain creates new <span class="hl">pathways<span class="hl-tt">pathways = đường dẫn thần kinh</span></span> and <span class="hl">connections<span class="hl-tt">connections = kết nối thần kinh</span></span>. <span class="hl">Regular practice<span class="hl-tt">regular practice = luyện tập đều đặn</span></span> <span class="hl">strengthens<span class="hl-tt">strengthens = củng cố, tăng cường</span></span> these connections over time. Dr Lazar explained that even 20 minutes of <span class="hl">daily<span class="hl-tt">daily = hàng ngày</span></span> meditation can make a <span class="hl">significant<span class="hl-tt">significant = đáng kể</span></span> difference to brain health.</p>
-      <p>Other scientists also <span class="hl">recommend<span class="hl-tt">recommend = khuyến nghị</span></span> meditation. They say it can reduce <span class="hl">depression<span class="hl-tt">depression = trầm cảm</span></span> and <span class="hl">improve<span class="hl-tt">improve = cải thiện</span></span> <span class="hl">sleep quality<span class="hl-tt">sleep quality = chất lượng giấc ngủ</span></span>. Many people report feeling <span class="hl">calmer<span class="hl-tt">calmer = bình tĩnh hơn</span></span> and more in control of their <span class="hl">emotions<span class="hl-tt">emotions = cảm xúc</span></span>. Another benefit is that meditation makes people more <span class="hl">aware<span class="hl-tt">aware = ý thức, nhận thức được</span></span> of their own thoughts and <span class="hl">reactions<span class="hl-tt">reactions = phản ứng</span></span>. Experts say it is a <span class="hl">technique<span class="hl-tt">technique = kỹ thuật</span></span> that anyone can learn, from complete <span class="hl">beginners<span class="hl-tt">beginners = người mới bắt đầu</span></span> to <span class="hl">experienced practitioners<span class="hl-tt">experienced practitioners = người thực hành có kinh nghiệm</span></span>.</p>
+      <p>Birds are <span class="hl">fascinating<span class="hl-tt">fascinating = cực kỳ hấp dẫn</span></span> and beautiful <span class="hl">creatures<span class="hl-tt">creatures = sinh vật</span></span>. Looking at them in the wild could be good for us. That is what <span class="hl">researchers<span class="hl-tt">researchers = các nhà nghiên cứu</span></span> in Toronto, Canada say. The scientists found that birdwatching could <span class="hl">protect<span class="hl-tt">protect = bảo vệ</span></span> our <span class="hl">brains<span class="hl-tt">brains = não bộ</span></span> against <span class="hl">age-related<span class="hl-tt">age-related = liên quan đến tuổi tác</span></span> <span class="hl">diseases<span class="hl-tt">diseases = bệnh tật</span></span>. <span class="hl">Lead researcher<span class="hl-tt">lead researcher = nhà nghiên cứu chủ chốt</span></span> Dr Erik Wing said: "Skills from birding could be <span class="hl">beneficial<span class="hl-tt">beneficial = có lợi</span></span> for <span class="hl">intelligence<span class="hl-tt">intelligence = trí tuệ</span></span> and thinking as people age."</p>
+      <p>Dr Wing and his <span class="hl">colleagues<span class="hl-tt">colleagues = đồng nghiệp</span></span> <span class="hl">compared<span class="hl-tt">compared = so sánh</span></span> <span class="hl">scans<span class="hl-tt">scans = ảnh chụp não</span></span> of the <span class="hl">brain activity<span class="hl-tt">brain activity = hoạt động não bộ</span></span> of 29 <span class="hl">veteran<span class="hl-tt">veteran = dày dặn kinh nghiệm</span></span> <span class="hl">birdwatchers<span class="hl-tt">birdwatchers = người ngắm chim</span></span> and 29 <span class="hl">newbies<span class="hl-tt">newbies = người mới bắt đầu</span></span>. The brains of the veteran birders were a lot more <span class="hl">active<span class="hl-tt">active = hoạt động tích cực</span></span>. Dr Wing said the veterans had a longer <span class="hl">attention span<span class="hl-tt">attention span = khả năng tập trung</span></span> and a better <span class="hl">memory<span class="hl-tt">memory = trí nhớ</span></span>. He added that the veterans could also <span class="hl">process information<span class="hl-tt">process information = xử lý thông tin</span></span> more quickly.</p>
+      <p>The scientists believe birdwatching <span class="hl">benefits<span class="hl-tt">benefits = mang lại lợi ích</span></span> the brain like learning a <span class="hl">musical instrument<span class="hl-tt">musical instrument = nhạc cụ</span></span>. This is because the brain learns new skills, which add new <span class="hl">pathways<span class="hl-tt">pathways = đường dẫn thần kinh</span></span> and <span class="hl">connections<span class="hl-tt">connections = kết nối thần kinh</span></span>. Dr Wing said birdwatching combines the ability to search for and <span class="hl">identify<span class="hl-tt">identify = nhận dạng</span></span> things with a <span class="hl">sensitivity<span class="hl-tt">sensitivity = sự nhạy cảm</span></span> to movement and <span class="hl">pattern detection<span class="hl-tt">pattern detection = nhận biết khuôn mẫu</span></span>.</p>
+      <p>Other scientists recommend the <span class="hl">hobby<span class="hl-tt">hobby = sở thích</span></span>. They say it is good for our <span class="hl">mental health<span class="hl-tt">mental health = sức khỏe tâm thần</span></span> and can <span class="hl">reduce stress<span class="hl-tt">reduce stress = giảm căng thẳng</span></span>. It is also good for our <span class="hl">physical health<span class="hl-tt">physical health = sức khỏe thể chất</span></span> because we are outside in the <span class="hl">fresh air<span class="hl-tt">fresh air = không khí trong lành</span></span> and <span class="hl">sunlight<span class="hl-tt">sunlight = ánh sáng mặt trời</span></span>. Other benefits include <span class="hl">connecting with nature<span class="hl-tt">connecting with nature = kết nối với thiên nhiên</span></span> and becoming <span class="hl">aware<span class="hl-tt">aware = ý thức được</span></span> of the environment. Birdwatchers say their hobby is good for their <span class="hl">social life<span class="hl-tt">social life = đời sống xã hội</span></span> because they meet many <span class="hl">like-minded people<span class="hl-tt">like-minded people = người cùng sở thích</span></span>.</p>
     </div>
   </div>
   <div class="btn-row">
@@ -306,6 +312,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 
 <!-- ══ STAGE 3: EXERCISES ══ -->
 <div class="stage" id="s3">
+  <!-- TF -->
   <div class="card">
     <div class="card-hd">
       <div class="badge">01</div>
@@ -319,6 +326,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     <div class="next-row" id="tf-next"><button class="btn btn-gold" onclick="scrollTo2('ex-gf')">Tiếp →</button></div>
   </div>
 
+  <!-- Gap fill -->
   <div class="card" id="ex-gf">
     <div class="card-hd">
       <div class="badge">02</div>
@@ -378,177 +386,165 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 // ════════════════════════════════════════
 
 const VOCAB = [
-  {w:"Meditation",pos:"noun",viet:"Thiền định",def:"The practice of focusing the mind to achieve calm and clarity",ex:"<strong>Meditation</strong> is like exercise for the brain."},
-  {w:"Meditate",pos:"verb",viet:"Ngồi thiền, thiền",def:"To practise meditation; to sit quietly and focus the mind",ex:"People who <strong>meditate</strong> regularly have healthier brains."},
-  {w:"Regularly",pos:"adverb",viet:"Đều đặn, thường xuyên",def:"Often and at the same time each day or week",ex:"People who meditate <strong>regularly</strong> live healthier lives."},
-  {w:"Healthier",pos:"adjective",viet:"Khỏe mạnh hơn",def:"In a better state of health than before or than others",ex:"Meditators have <strong>healthier</strong> and younger-looking brains."},
-  {w:"Younger-looking",pos:"adjective",viet:"Trông trẻ hơn tuổi",def:"Appearing younger than one's actual age",ex:"Regular meditators had <strong>younger-looking</strong> brains."},
-  {w:"Lead researcher",pos:"noun phrase",viet:"Nhà nghiên cứu chủ chốt",def:"The main scientist in charge of a study",ex:"<strong>Lead researcher</strong> Dr Sara Lazar ran the Harvard study."},
-  {w:"Exercise",pos:"noun",viet:"Bài tập, sự tập luyện",def:"Physical or mental activity done to stay healthy",ex:"Meditation is like <strong>exercise</strong> for the brain."},
-  {w:"Slow down",pos:"verb phrase",viet:"Làm chậm lại",def:"To reduce the speed of something",ex:"Meditation can <strong>slow down</strong> brain ageing."},
-  {w:"Ageing",pos:"noun",viet:"Sự lão hóa",def:"The process of growing old",ex:"Meditation slows down brain <strong>ageing</strong>."},
-  {w:"Thinking skills",pos:"noun phrase",viet:"Kỹ năng tư duy",def:"The ability to understand, analyse, and solve problems",ex:"Meditation can improve our <strong>thinking skills</strong>."},
-  {w:"Beneficial",pos:"adjective",viet:"Có lợi, có ích",def:"Producing good results; helpful",ex:"Meditation is as <strong>beneficial</strong> as physical exercise."},
-  {w:"Physical exercise",pos:"noun phrase",viet:"Tập thể dục thể chất",def:"Movement of the body to stay physically fit",ex:"It is as beneficial as <strong>physical exercise</strong> for health."},
-  {w:"Mental health",pos:"noun phrase",viet:"Sức khỏe tâm thần",def:"The health of a person's mind and emotions",ex:"Meditation is excellent for <strong>mental health</strong>."},
-  {w:"Colleagues",pos:"noun",viet:"Đồng nghiệp",def:"People you work with professionally",ex:"Dr Lazar and her <strong>colleagues</strong> studied 40 people."},
-  {w:"Brain scans",pos:"noun phrase",viet:"Ảnh chụp não",def:"Medical images that show the inside of the brain",ex:"They compared <strong>brain scans</strong> of meditators and non-meditators."},
-  {w:"Experienced",pos:"adjective",viet:"Có kinh nghiệm, dày dặn",def:"Having a lot of knowledge or skill from practice",ex:"They studied 20 <strong>experienced</strong> meditators."},
-  {w:"Meditators",pos:"noun",viet:"Người thiền định",def:"People who practise meditation regularly",ex:"The brains of the <strong>meditators</strong> were thicker."},
-  {w:"Non-meditators",pos:"noun",viet:"Người không thiền",def:"People who do not practise meditation",ex:"They compared meditators and <strong>non-meditators</strong>."},
-  {w:"Thicker",pos:"adjective",viet:"Dày hơn",def:"Having a greater depth or width",ex:"Meditators had <strong>thicker</strong> brains in some areas."},
-  {w:"Attention",pos:"noun",viet:"Sự chú ý",def:"The act of focusing on one thing carefully",ex:"Meditation trains areas that control <strong>attention</strong>."},
-  {w:"Memory",pos:"noun",viet:"Trí nhớ",def:"The ability to remember information and experiences",ex:"Meditators had a better <strong>memory</strong> than non-meditators."},
-  {w:"Focus",pos:"verb/noun",viet:"Tập trung",def:"To direct attention onto one thing; the state of concentration",ex:"Meditators had a better ability to <strong>focus</strong>."},
-  {w:"Process information",pos:"verb phrase",viet:"Xử lý thông tin",def:"To understand and use information",ex:"They could <strong>process information</strong> more quickly."},
-  {w:"Stress",pos:"noun",viet:"Căng thẳng",def:"A feeling of worry or pressure caused by difficult situations",ex:"Meditators showed fewer signs of <strong>stress</strong>."},
-  {w:"Anxiety",pos:"noun",viet:"Lo âu, lo lắng",def:"A feeling of worry and nervousness about the future",ex:"Meditation reduces <strong>anxiety</strong> and depression."},
-  {w:"Benefits",pos:"verb",viet:"Mang lại lợi ích cho",def:"To be helpful or useful to someone or something",ex:"Meditation <strong>benefits</strong> the brain like learning music."},
-  {w:"Musical instrument",pos:"noun phrase",viet:"Nhạc cụ",def:"A device used to make music, such as a piano or guitar",ex:"It is similar to learning a <strong>musical instrument</strong>."},
-  {w:"Pathways",pos:"noun",viet:"Đường dẫn thần kinh",def:"Routes in the brain along which signals travel",ex:"Meditation creates new <strong>pathways</strong> in the brain."},
-  {w:"Connections",pos:"noun",viet:"Kết nối thần kinh",def:"Links between different parts of the brain",ex:"New <strong>connections</strong> form through regular practice."},
-  {w:"Regular practice",pos:"noun phrase",viet:"Luyện tập đều đặn",def:"Doing something consistently over a long period",ex:"<strong>Regular practice</strong> strengthens brain connections."},
-  {w:"Strengthens",pos:"verb",viet:"Củng cố, tăng cường",def:"Makes something stronger or more powerful",ex:"Meditation <strong>strengthens</strong> neural connections over time."},
-  {w:"Daily",pos:"adjective",viet:"Hàng ngày",def:"Happening or done every day",ex:"Even 20 minutes of <strong>daily</strong> meditation helps the brain."},
-  {w:"Significant",pos:"adjective",viet:"Đáng kể, quan trọng",def:"Large or important enough to notice or have an effect",ex:"It makes a <strong>significant</strong> difference to brain health."},
-  {w:"Recommend",pos:"verb",viet:"Khuyến nghị, đề xuất",def:"To suggest that something is good or should be done",ex:"Experts <strong>recommend</strong> meditation for better health."},
-  {w:"Depression",pos:"noun",viet:"Trầm cảm",def:"A mental illness that makes people feel very sad and hopeless",ex:"Meditation can reduce anxiety and <strong>depression</strong>."},
-  {w:"Sleep quality",pos:"noun phrase",viet:"Chất lượng giấc ngủ",def:"How well a person sleeps, including depth and length",ex:"Meditation improves <strong>sleep quality</strong>."},
-  {w:"Calmer",pos:"adjective",viet:"Bình tĩnh hơn",def:"More relaxed and less worried",ex:"People feel <strong>calmer</strong> after meditating."},
-  {w:"Emotions",pos:"noun",viet:"Cảm xúc",def:"Feelings such as happiness, sadness, or fear",ex:"Meditation helps people control their <strong>emotions</strong>."},
-  {w:"Technique",pos:"noun",viet:"Kỹ thuật, phương pháp",def:"A specific way of doing something",ex:"Meditation is a <strong>technique</strong> anyone can learn."},
+  {w:"Fascinating",pos:"adjective",viet:"Cực kỳ hấp dẫn",def:"Extremely interesting or attractive",ex:"Birds are <strong>fascinating</strong> and beautiful creatures."},
+  {w:"Creatures",pos:"noun",viet:"Sinh vật, loài vật",def:"Animals or living beings",ex:"Birds are fascinating and beautiful <strong>creatures</strong>."},
+  {w:"Researchers",pos:"noun",viet:"Các nhà nghiên cứu",def:"Scientists who study a topic in detail",ex:"<strong>Researchers</strong> in Toronto studied birdwatchers' brains."},
+  {w:"Protect",pos:"verb",viet:"Bảo vệ",def:"To keep something safe from harm",ex:"Birdwatching could <strong>protect</strong> our brains against diseases."},
+  {w:"Brains",pos:"noun",viet:"Não bộ",def:"The organ inside the head that controls the body",ex:"The veteran birders had more active <strong>brains</strong>."},
+  {w:"Age-related",pos:"adjective",viet:"Liên quan đến tuổi tác",def:"Caused by or connected to getting older",ex:"Birdwatching protects against <strong>age-related</strong> diseases."},
+  {w:"Diseases",pos:"noun",viet:"Bệnh tật",def:"Illnesses that make people sick",ex:"Scientists want to prevent age-related <strong>diseases</strong>."},
+  {w:"Lead researcher",pos:"noun phrase",viet:"Nhà nghiên cứu chủ chốt",def:"The main scientist leading a study",ex:"<strong>Lead researcher</strong> Dr Erik Wing led the study."},
+  {w:"Beneficial",pos:"adjective",viet:"Có lợi, có ích",def:"Good for you; producing a good effect",ex:"Skills from birding could be <strong>beneficial</strong> for intelligence."},
+  {w:"Intelligence",pos:"noun",viet:"Trí tuệ",def:"The ability to learn and understand things",ex:"Birdwatching could boost <strong>intelligence</strong>."},
+  {w:"Colleagues",pos:"noun",viet:"Đồng nghiệp",def:"People you work with",ex:"Dr Wing and his <strong>colleagues</strong> compared brain scans."},
+  {w:"Compared",pos:"verb",viet:"So sánh",def:"Looked at similarities and differences between things",ex:"They <strong>compared</strong> brain scans of veterans and newbies."},
+  {w:"Scans",pos:"noun",viet:"Ảnh chụp não (MRI/CT)",def:"Medical images of the inside of the body",ex:"The researchers looked at brain <strong>scans</strong>."},
+  {w:"Brain activity",pos:"noun phrase",viet:"Hoạt động não bộ",def:"How active and busy the brain is",ex:"They measured the <strong>brain activity</strong> of all participants."},
+  {w:"Veteran",pos:"noun / adj",viet:"Người dày dặn kinh nghiệm",def:"A person with a lot of experience in something",ex:"29 <strong>veteran</strong> birdwatchers joined the study."},
+  {w:"Birdwatchers",pos:"noun",viet:"Người ngắm chim",def:"People whose hobby is watching birds in nature",ex:"58 <strong>birdwatchers</strong> took part in the research."},
+  {w:"Newbies",pos:"noun (informal)",viet:"Người mới bắt đầu",def:"People who are new to an activity",ex:"They compared veterans with 29 <strong>newbies</strong>."},
+  {w:"Active",pos:"adjective",viet:"Hoạt động tích cực hơn",def:"Doing a lot; working hard",ex:"Veteran brains were a lot more <strong>active</strong>."},
+  {w:"Attention span",pos:"noun phrase",viet:"Khả năng tập trung lâu dài",def:"How long someone can concentrate on one thing",ex:"Veterans had a longer <strong>attention span</strong>."},
+  {w:"Memory",pos:"noun",viet:"Trí nhớ",def:"The ability to remember things",ex:"Veterans had a better <strong>memory</strong> than newbies."},
+  {w:"Pattern detection",pos:"noun phrase",viet:"Nhận biết khuôn mẫu",def:"The ability to notice repeating shapes or forms",ex:"Birdwatching trains <strong>pattern detection</strong> skills."},
+  {w:"Mental health",pos:"noun phrase",viet:"Sức khỏe tâm thần",def:"The health of the mind and emotions",ex:"Birdwatching is good for <strong>mental health</strong>."},
+  {w:"Reduce stress",pos:"verb phrase",viet:"Giảm căng thẳng",def:"To make stress smaller or less intense",ex:"Birdwatching can <strong>reduce stress</strong>."},
+  {w:"Physical health",pos:"noun phrase",viet:"Sức khỏe thể chất",def:"The health of the body",ex:"It also benefits <strong>physical health</strong>."},
+  {w:"Fresh air",pos:"noun phrase",viet:"Không khí trong lành",def:"Clean, cool outdoor air",ex:"We benefit from being in the <strong>fresh air</strong>."},
+  {w:"Sunlight",pos:"noun",viet:"Ánh sáng mặt trời",def:"Light and warmth from the sun",ex:"Being outside in the <strong>sunlight</strong> is healthy."},
+  {w:"Connecting with nature",pos:"phrase",viet:"Kết nối với thiên nhiên",def:"Feeling close to the natural world",ex:"Benefits include <strong>connecting with nature</strong>."},
+  {w:"Aware",pos:"adjective",viet:"Ý thức, nhận thức được",def:"Knowing that something exists or is important",ex:"Birdwatching makes us more <strong>aware</strong> of the environment."},
+  {w:"Environment",pos:"noun",viet:"Môi trường",def:"The natural world around us",ex:"We become more aware of the <strong>environment</strong>."},
+  {w:"Like-minded people",pos:"noun phrase",viet:"Người cùng sở thích",def:"People who share the same interests or opinions",ex:"Birdwatchers meet many <strong>like-minded people</strong>."},
+  {w:"Social life",pos:"noun phrase",viet:"Đời sống xã hội",def:"The activities a person does with other people",ex:"The hobby is great for their <strong>social life</strong>."},
+  {w:"Hobby",pos:"noun",viet:"Sở thích, thú vui",def:"An activity done for enjoyment in free time",ex:"Birdwatching is a popular <strong>hobby</strong>."},
+  {w:"Process information",pos:"verb phrase",viet:"Xử lý thông tin",def:"To understand, analyse and use information",ex:"Veterans could <strong>process information</strong> more quickly."},
+  {w:"Benefits",pos:"verb",viet:"Mang lại lợi ích cho",def:"Helps or is good for something",ex:"Birdwatching <strong>benefits</strong> the brain like music."},
+  {w:"Musical instrument",pos:"noun phrase",viet:"Nhạc cụ",def:"A device used to make music",ex:"It is like learning a <strong>musical instrument</strong>."},
+  {w:"Pathways",pos:"noun",viet:"Đường dẫn thần kinh",def:"Routes in the brain that signals travel along",ex:"New skills add new <strong>pathways</strong> in the brain."},
+  {w:"Connections",pos:"noun",viet:"Các kết nối thần kinh",def:"Links between different parts of the brain",ex:"New skills add new pathways and <strong>connections</strong>."},
+  {w:"Identify",pos:"verb",viet:"Nhận dạng, xác định",def:"To find out or recognise what something is",ex:"Birdwatching helps you <strong>identify</strong> different species."},
+  {w:"Sensitivity",pos:"noun",viet:"Sự nhạy cảm, nhạy bén",def:"The ability to notice small details or changes",ex:"It develops a <strong>sensitivity</strong> to movement."},
 ];
 
 const TF_DATA = [
-  {text:"The research was carried out at Harvard Medical School in the United States.",ans:"T",exp:"ĐÚNG — nguyên văn trong bài."},
-  {text:"The scientists studied 40 people in total.",ans:"T",exp:"ĐÚNG — 20 meditators + 20 non-meditators = 40 người."},
-  {text:"Non-meditators had thicker brains than meditators.",ans:"F",exp:"SAI — MEDITATORS had THICKER brains, not non-meditators."},
-  {text:"The scientists compared meditation to playing a sport.",ans:"F",exp:"SAI — meditation was compared to learning a MUSICAL INSTRUMENT."},
-  {text:"Dr Lazar said that 20 minutes of daily meditation can make a significant difference.",ans:"T",exp:"ĐÚNG — nguyên văn trong bài."},
-  {text:"Meditation can reduce depression and improve sleep quality.",ans:"T",exp:"ĐÚNG — bài đề cập đến cả hai lợi ích này."},
-  {text:"Meditation can only be practised by people with many years of experience.",ans:"F",exp:"SAI — bài nói anyone can learn, from complete beginners to experienced practitioners."},
+  {text:"The research says birdwatching can protect our brains against age-related diseases.",ans:"T",exp:"ĐÚNG — nguyên văn trong bài."},
+  {text:"58 people in total had their brains scanned in the study.",ans:"T",exp:"ĐÚNG — 29 veterans + 29 newbies = 58 người."},
+  {text:"Newbies had more active brains than veteran birdwatchers.",ans:"F",exp:"SAI — VETERAN birders had MORE active brains."},
+  {text:"Birdwatching is compared to watching an action movie.",ans:"F",exp:"SAI — birdwatching is compared to learning a MUSICAL INSTRUMENT."},
+  {text:"Birdwatching is only good for mental health, not physical health.",ans:"F",exp:"SAI — bài nói birdwatching cũng tốt cho physical health."},
+  {text:"Birdwatching can help people connect with nature.",ans:"T",exp:"ĐÚNG — \"benefits include connecting with nature\"."},
+  {text:"Birdwatchers say the hobby can improve their social life.",ans:"T",exp:"ĐÚNG — they meet many like-minded people."},
 ];
 
 const GF = {
-  bank:["regularly","thicker","anxiety","sleep quality","slow down","significant","mental health","focus"],
+  bank:["fascinating","protect","veteran","attention span","musical instrument","mental health","fresh air","like-minded"],
   parts:[
-    "People who meditate (1)____ have healthier and younger-looking brains.",
-    "Meditation can (2)____ brain ageing and improve thinking skills.",
-    "The brains of the meditators were (3)____ in areas that control attention.",
-    "Meditators had a better ability to (4)____ than non-meditators.",
-    "Even 20 minutes of daily meditation makes a (5)____ difference.",
-    "Meditation can reduce (6)____ and depression.",
-    "Scientists say meditation is excellent for our (7)____.",
-    "Many people report that meditation improves their (8)____.",
+    "Birds are (1)____ and beautiful creatures.",
+    "Birdwatching could (2)____ our brains against age-related diseases.",
+    "(3)____ birdwatchers had a longer (4)____ and a better memory.",
+    "Birdwatching benefits the brain like learning a (5)____.",
+    "It is good for our (6)____ and can reduce stress.",
+    "We are outside in the (7)____ and sunlight.",
+    "They meet many (8)____ people.",
   ],
-  ans:["regularly","slow down","thicker","focus","significant","anxiety","mental health","sleep quality"]
+  ans:["fascinating","protect","Veteran","attention span","musical instrument","mental health","fresh air","like-minded"]
 };
 
+// DISCUSSION — each has question, modelAnswer, grammarNote
 const DISC_COMP = [
   {
     q:"Where did the research take place?",
-    model:"The research took place at Harvard Medical School in the United States.",
-    note:"'Take place' = xảy ra, diễn ra. Tự nhiên hơn 'happen' trong văn học thuật."
+    model:"The research took place in Toronto, Canada.",
+    note:"Dùng 'take place' thay vì 'happen' nghe tự nhiên hơn trong học thuật."
   },
   {
-    q:"What did the scientists study?",
-    model:"The scientists studied the effects of meditation on the brain, particularly in experienced meditators.",
-    note:"'The effects of A on B' = tác động của A lên B. Cấu trúc học thuật quan trọng."
+    q:"What hobby did the scientists study?",
+    model:"The scientists studied birdwatching.",
+    note:"Simple past + direct object. Ngắn gọn là tốt nhất."
   },
   {
-    q:"How many people were involved in the study?",
-    model:"Forty people were involved in the study — twenty experienced meditators and twenty non-meditators.",
-    note:"'Were involved in' = tham gia vào. Viết số từ 1–99 bằng chữ trong văn viết trang trọng."
+    q:"How many veteran birdwatchers were involved in the study?",
+    model:"Twenty-nine veteran birdwatchers were involved in the study.",
+    note:"'Were involved in' = cách diễn đạt học thuật cho 'took part in'."
   },
   {
-    q:"What did the scientists find about the brains of meditators?",
-    model:"The scientists found that the brains of meditators were thicker in areas that control attention and memory.",
-    note:"'Found that + mệnh đề' = phát hiện rằng. Cấu trúc báo cáo nghiên cứu rất phổ biến."
+    q:"What did the scientists compare in the study?",
+    model:"The scientists compared brain scans of veteran birdwatchers and newbies to measure their brain activity.",
+    note:"Thêm 'to measure brain activity' giải thích mục đích → câu đầy đủ hơn."
   },
   {
-    q:"What skills did experienced meditators have better than non-meditators?",
-    model:"Experienced meditators had a better ability to focus and could process information more quickly than non-meditators.",
-    note:"'Had a better ability to + V' = có khả năng tốt hơn để làm gì. 'Could process' = khả năng trong quá khứ."
+    q:"How were the brains of veteran birdwatchers different from the newbies?",
+    model:"The brains of veteran birdwatchers were a lot more active than those of the newbies.",
+    note:"'Those of' tránh lặp 'brains of the newbies'. Dùng comparative 'more active than'."
   },
   {
-    q:"What did the scientists compare meditation to?",
-    model:"The scientists compared meditation to learning a musical instrument because both create new pathways and connections in the brain.",
-    note:"'Compare A to B' + 'because' giải thích lý do → câu hoàn chỉnh và thuyết phục hơn."
+    q:"What skills did veteran birdwatchers have better than beginners?",
+    model:"Veteran birdwatchers had a longer attention span, a better memory, and could process information more quickly.",
+    note:"Liệt kê 3 điểm với serial comma. 'Could process' = khả năng trong quá khứ."
   },
   {
-    q:"How long should a person meditate each day, according to Dr Lazar?",
-    model:"According to Dr Lazar, even 20 minutes of daily meditation can make a significant difference to brain health.",
-    note:"'According to...' = theo... Cách trích dẫn nguồn trang trọng và chính xác."
+    q:"What did the scientists compare birdwatching to?",
+    model:"The scientists compared birdwatching to learning a musical instrument.",
+    note:"'Compare A to B' = so sánh A với B (điểm giống nhau)."
   },
   {
-    q:"What mental health problems can meditation help with?",
-    model:"Meditation can help reduce anxiety and depression, and it also improves overall mental health.",
-    note:"'Help reduce' (không có 'to') = giúp giảm. 'Overall' = tổng thể, toàn diện."
+    q:"Why does birdwatching help the brain, according to the article?",
+    model:"According to the article, birdwatching helps the brain because it teaches new skills, which create new pathways and connections in the brain.",
+    note:"'According to the article' → cách trích dẫn nguồn chuẩn. 'Which create' = mệnh đề quan hệ."
   },
   {
-    q:"How does meditation affect sleep?",
-    model:"Meditation improves sleep quality, helping people sleep more deeply and feel more rested.",
-    note:"'Helping people + V' là participle phrase bổ sung ý → câu đa dạng hơn."
+    q:"Besides mental health, what other type of health can birdwatching improve?",
+    model:"Besides mental health, birdwatching can also improve physical health because it involves being outside in fresh air and sunlight.",
+    note:"'Besides... also' = cặp từ nối bổ sung ý kiến. 'Involves being' = V + gerund."
   },
   {
-    q:"Who can learn to meditate, according to the article?",
-    model:"According to the article, anyone can learn to meditate, from complete beginners to experienced practitioners.",
-    note:"'From A to B' = từ A đến B. Liệt kê phạm vi rất hiệu quả trong tiếng Anh."
+    q:"How can birdwatching help people socially?",
+    model:"Birdwatching can help people socially because they get to meet many like-minded people who share the same hobby.",
+    note:"'Get to do something' = có cơ hội làm gì. 'Like-minded' là key vocab."
   },
 ];
 
 const DISC_OPEN = [
   {
-    q:"Do you think meditation sounds interesting? Why or why not?",
-    model:"Personally, I find meditation quite interesting because it is a simple yet powerful way to improve both mental and physical health. However, I think it requires a lot of patience and consistency, which can be challenging for busy people.",
-    note:"'Simple yet powerful' = đơn giản nhưng mạnh mẽ. 'Yet' = nhưng (mạnh hơn 'but')."
+    q:"Do you think birdwatching sounds interesting? Why or why not?",
+    model:"Personally, I find birdwatching quite interesting because it combines outdoor exercise with learning about nature. However, I think it requires a lot of patience, which can be challenging for people with a busy lifestyle.",
+    note:"'Personally, I find...' mở đầu ý kiến cá nhân. 'However' thể hiện balanced view."
   },
   {
-    q:"Have you ever tried meditation or any breathing exercises?",
-    model:"Yes, I have tried meditation a few times using a guided app. I found it quite relaxing, but I struggled to maintain a consistent daily habit. I think the key is to start with just a few minutes and gradually increase the time.",
-    note:"'I struggled to + V' = tôi gặp khó khăn khi làm gì. 'Gradually' = dần dần, từng bước."
+    q:"What hobbies are good for keeping the brain healthy?",
+    model:"In my opinion, hobbies such as learning a new language, playing chess, or practicing a musical instrument are excellent for keeping the brain healthy, as they all require focus and memory.",
+    note:"'Such as' liệt kê ví dụ. 'As they all require' = mệnh đề nguyên nhân."
   },
   {
-    q:"What do you do to reduce stress in your daily life?",
-    model:"To reduce stress, I usually go for a walk, listen to music, or spend time with friends and family. I also try to get enough sleep, as I find that being well-rested makes me feel much calmer and more focused.",
-    note:"'As I find that...' = vì tôi thấy rằng... Liên kết ý kiến với kinh nghiệm cá nhân."
+    q:"Do you enjoy spending time in nature? Why?",
+    model:"Yes, I really enjoy spending time in nature because it helps me clear my mind and feel more relaxed. Being surrounded by greenery and fresh air is a great way to escape from the stress of daily life.",
+    note:"'Being surrounded by' = gerund phrase làm chủ ngữ. 'Escape from' = thoát khỏi."
   },
   {
-    q:"Do you think schools should teach meditation to students? Why?",
-    model:"I strongly believe that schools should teach meditation to students because it can help them manage exam stress, improve concentration, and develop better emotional control. These are skills that are useful both in school and in adult life.",
-    note:"'These are skills that...' = cách tổng kết và nhấn mạnh lý do. 'Both A and B' rất tự nhiên."
+    q:"What activities help reduce stress in your life?",
+    model:"For me, the most effective ways to reduce stress are going for a walk, listening to music, and talking to close friends. These activities help me reset mentally and feel more energized.",
+    note:"'The most effective ways to...' = superlative + infinitive. 'Reset mentally' hay và tự nhiên."
   },
   {
-    q:"What other habits do you think are good for brain health?",
-    model:"In my opinion, habits such as regular physical exercise, reading, learning a new language, and getting enough sleep are all excellent for brain health, as they keep the mind active and build new neural connections.",
-    note:"'Such as' liệt kê ví dụ. 'As they keep the mind active' = giải thích lý do bằng mệnh đề nguyên nhân."
+    q:"Would you rather learn birdwatching or a musical instrument? Why?",
+    model:"I would rather learn a musical instrument than take up birdwatching, because I think music has a more immediate creative outlet. That said, birdwatching seems like a wonderful way to connect with nature.",
+    note:"'Would rather A than B' = cấu trúc so sánh lựa chọn. 'That said' = however nhẹ hơn."
   },
   {
-    q:"Do you think technology, like meditation apps, helps people adopt healthy habits? Why?",
-    model:"I think technology can be very helpful for adopting healthy habits because apps provide structure, reminders, and guidance that make it easier to get started. However, the danger is that people may rely too much on technology and forget to practise on their own.",
-    note:"'The danger is that...' = nguy cơ là... Cách trình bày balanced view: lợi ích + nguy cơ."
+    q:"Do you think technology has reduced people's connection with nature? Why?",
+    model:"I strongly believe that technology has reduced people's connection with nature, especially among younger generations. Many people spend most of their time on screens indoors rather than exploring the outdoors.",
+    note:"'Especially among' nhấn mạnh đối tượng cụ thể. 'Rather than' = thay vì."
   },
 ];
 
 const AW_PROMPTS = [
-  {
-    viet:"Thiền định có thể làm chậm quá trình lão hóa não bộ và cải thiện kỹ năng tư duy.",
-    hint:"meditation / slow down / brain ageing / improve / thinking skills",
-    grammar:"S + can + V + O + and + V + O"
-  },
-  {
-    viet:"Những người thiền định đều đặn có não dày hơn ở những vùng kiểm soát sự chú ý và trí nhớ.",
-    hint:"people who meditate regularly / thicker brains / areas that control / attention and memory",
-    grammar:"People who + V + adverb + have + comparative adjective + noun + in + noun phrase"
-  },
-  {
-    viet:"Thiền định không chỉ tốt cho sức khỏe tâm thần mà còn giúp cải thiện chất lượng giấc ngủ.",
-    hint:"not only mental health / but also / improve / sleep quality",
-    grammar:"Not only is A good for B, but it also + V + O"
-  },
+  {viet:"Ngắm chim có thể bảo vệ não bộ khỏi các bệnh liên quan đến tuổi tác.",hint:"birdwatching / protect / brains / age-related diseases",grammar:"S + can + V + O + against + noun phrase"},
+  {viet:"Những người ngắm chim lâu năm có trí nhớ tốt hơn và khoảng chú ý dài hơn so với người mới.",hint:"veteran birdwatchers / better memory / longer attention span / than newbies",grammar:"So sánh hơn: S + have + comparative + than + O"},
+  {viet:"Ngắm chim không chỉ tốt cho sức khỏe tâm thần mà còn giúp bạn gặp gỡ những người cùng sở thích.",hint:"not only mental health / but also / meet / like-minded people",grammar:"Not only ... but also ..."},
 ];
 
-const ART_PLAIN = `Meditation is good for our minds and bodies. A new study from Harvard Medical School in the United States has found that people who meditate regularly have healthier and younger-looking brains. The lead researcher, Dr Sara Lazar, said: "Meditation is like exercise for the brain. It can slow down brain ageing and improve thinking skills." The scientists said meditation could be as beneficial as physical exercise for mental health. Dr Lazar and her colleagues compared brain scans of 20 experienced meditators and 20 non-meditators. They found that the brains of the meditators were thicker in areas that control attention and memory. Dr Lazar said the meditators had a better ability to focus and could process information more quickly. She added that meditators also showed fewer signs of stress and anxiety. The researchers believe meditation benefits the brain in a similar way to learning a musical instrument. When people meditate, the brain creates new pathways and connections. Regular practice strengthens these connections over time. Dr Lazar explained that even 20 minutes of daily meditation can make a significant difference to brain health. Other scientists also recommend meditation. They say it can reduce depression and improve sleep quality. Many people report feeling calmer and more in control of their emotions. Another benefit is that meditation makes people more aware of their own thoughts and reactions. Experts say it is a technique that anyone can learn, from complete beginners to experienced practitioners.`;
+const ART_PLAIN = `Birds are fascinating and beautiful creatures. Looking at them in the wild could be good for us. That is what researchers in Toronto, Canada say. The scientists found that birdwatching could protect our brains against age-related diseases. Lead researcher Dr Erik Wing said: "Skills from birding could be beneficial for intelligence and thinking as people age." Dr Wing and his colleagues compared scans of the brain activity of 29 veteran birdwatchers and 29 newbies. The brains of the veteran birders were a lot more active. Dr Wing said the veterans had a longer attention span and a better memory than those new to the hobby. He added that the veterans could also process information more quickly. The scientists believe birdwatching benefits the brain like learning a musical instrument. This is because the brain learns new skills, which add new pathways and connections. Dr Wing said birdwatching combines the ability to search for and identify things with a sensitivity to movement and pattern detection. Other scientists recommend the hobby. They say it is good for our mental health and can reduce stress. It is also good for our physical health because we are outside in the fresh air and sunlight. Other benefits include connecting with nature and becoming aware of the environment. Birdwatchers say their hobby is good for their social life because they meet many like-minded people.`;
 
 // ════════════════════════════════════════
 // STATE
@@ -767,12 +763,16 @@ function renderDiscSection(id, items){
           <button class="disc-model-btn" onclick="toggleModel('${uid}')">📖 Mẫu</button>
         </div>
       </div>
+
+      <!-- Model answer -->
       <div class="model-box" id="model-${uid}">
         <div class="model-lbl">✅ Câu trả lời mẫu <span style="opacity:0.6;font-size:0.55rem;">(nhấn 🔊 để nghe)</span></div>
         <div class="model-text">${formatModel(item.model)}</div>
         <div class="model-note">💡 ${esc(item.note)}</div>
         <button class="model-speak-btn" onclick="ttsSay('${esc(item.model)}')">🔊 Nghe câu mẫu</button>
       </div>
+
+      <!-- User answer + AI -->
       <div class="disc-input-wrap" id="inp-${uid}">
         <div style="font-size:0.75rem;color:var(--muted);margin-bottom:6px;">✍️ Viết câu trả lời của bạn → AI chấm điểm</div>
         <textarea class="disc-ta" id="ta-${uid}" placeholder="Viết câu trả lời tiếng Anh của bạn…"></textarea>
@@ -794,6 +794,8 @@ function renderDiscSection(id, items){
           </div>
         </div>
       </div>
+
+      <!-- Toggle write button -->
       <div style="padding:0 16px 12px;">
         <button class="btn btn-gh" style="font-size:0.75rem;width:100%;" onclick="toggleWrite('${uid}')">✍️ Viết &amp; nhận AI chấm điểm</button>
       </div>
@@ -802,7 +804,9 @@ function renderDiscSection(id, items){
 }
 
 function formatModel(text){
-  return esc(text).replace(/(Personally|I strongly believe|I think|In my opinion|According to|I find|I have tried|To reduce|Yes, I|However|That said|I also|These are|Such as|As I find)/g,'<em>$1</em>');
+  // Highlight key phrases
+  return esc(text).replace(/(In my opinion|Personally|According to|I strongly believe|I would rather|That said|However|Besides|For me|Yes, I|Not only|In addition|Furthermore|As a result)/g,
+    '<em>$1</em>');
 }
 
 function toggleModel(uid){
@@ -827,8 +831,12 @@ async function checkDiscAI(uid, question, modelAns){
   btn.disabled=true;
   document.getElementById(`aiic-${uid}`).innerHTML='<span class="spin"></span>';
   document.getElementById(`ailb-${uid}`).textContent='Đang chấm…';
-  const SYS=`You are an English teacher helping a Vietnamese student practice discussion questions. Evaluate their spoken English answer. Respond ONLY with valid JSON (no backticks): {"score":<0-100>,"feedback_viet":"<2-3 sentences Vietnamese: what's good, what to improve>","corrections":"<specific grammar/vocab corrections in Vietnamese, empty string if none>","better_version":"<a more natural or complete English answer>"}`;
+
+  const SYS=`You are an English teacher helping a Vietnamese student practice discussion questions.
+Evaluate their spoken English answer. Respond ONLY with valid JSON (no backticks):
+{"score":<0-100>,"feedback_viet":"<2-3 sentences Vietnamese: what's good, what to improve>","corrections":"<specific grammar/vocab corrections in Vietnamese, empty string if none>","better_version":"<a more natural or complete English answer>"}`;
   const USR=`Discussion question: "${question}"\nModel answer reference: "${modelAns}"\nStudent's answer: "${input}"`;
+
   try{
     const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:500,system:SYS,messages:[{role:"user",content:USR}]})});
     const data=await res.json();
@@ -843,7 +851,10 @@ async function checkDiscAI(uid, question, modelAns){
     let txt=p.feedback_viet;
     if(p.corrections) txt+=`\n\n⚠️ Sửa lỗi: ${p.corrections}`;
     document.getElementById(`aitx-${uid}`).textContent=txt;
-    if(p.better_version){document.getElementById(`aimo-${uid}`).style.display='';document.getElementById(`aimt-${uid}`).textContent=p.better_version;}
+    if(p.better_version){
+      document.getElementById(`aimo-${uid}`).style.display='';
+      document.getElementById(`aimt-${uid}`).textContent=p.better_version;
+    }
     addScore(Math.max(0,Math.floor(p.score/10)));
   }catch(e){
     document.getElementById(`aitx-${uid}`).textContent='Lỗi kết nối. Thử lại.';
