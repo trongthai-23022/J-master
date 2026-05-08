@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meditation &amp; Brain Health – English Lesson</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f4f7;--surface:#fff;--border:#ccc8dc;--text:#1a1820;--muted:#6a6278;
+  --accent:#2e1a4a;--accent2:#7c3aed;--light:#ede8f5;--gold:#c8962a;
+  --red:#c0392b;--green:#1e7a3e;--blue:#1a4a7a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#2e1a4a 0%,#12092a 100%);color:white;padding:28px 20px 22px;position:relative;overflow:hidden;}
+.hero::after{content:'🧘';position:absolute;right:16px;top:14px;font-size:5rem;opacity:0.1;pointer-events:none;}
+.hero-tag{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:2.5px;opacity:0.6;text-transform:uppercase;margin-bottom:6px;}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,5vw,2.4rem);font-weight:800;line-height:1.1;margin-bottom:5px;}
+.hero-title em{color:#c4a8f8;font-style:normal;}
+.hero-sub{font-family:'Lora',serif;font-size:0.83rem;opacity:0.65;font-style:italic;}
+.hero-score{display:inline-flex;align-items:center;gap:8px;margin-top:14px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:99px;padding:6px 16px;font-family:'DM Mono',monospace;font-size:0.82rem;}
+.hero-score strong{font-size:1.1rem;}
+
+/* STAGE NAV */
+.stage-nav{display:flex;background:var(--surface);border-bottom:2px solid var(--border);overflow-x:auto;scrollbar-width:none;}
+.stage-nav::-webkit-scrollbar{display:none;}
+.snav{flex:1;min-width:72px;padding:10px 6px;text-align:center;font-size:0.7rem;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;cursor:pointer;transition:all 0.15s;white-space:nowrap;}
+.snav .si{display:block;font-size:1rem;margin-bottom:2px;}
+.snav.on{color:var(--accent);border-bottom-color:var(--accent);}
+.snav.done{color:var(--green);}
+
+.wrap{max-width:800px;margin:0 auto;padding:20px 16px 80px;}
+.stage{display:none;}.stage.on{display:block;animation:fadein 0.25s ease;}
+@keyframes fadein{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* CARDS */
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:22px 20px;margin-bottom:18px;}
+.card-hd{display:flex;gap:10px;align-items:flex-start;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.badge{background:var(--accent);color:white;font-family:'DM Mono',monospace;font-size:0.62rem;padding:4px 9px;border-radius:6px;flex-shrink:0;margin-top:1px;}
+.badge.gold{background:var(--gold);}
+.badge.ai{background:linear-gradient(135deg,#2e1a4a,#7c3aed);}
+.card-ttl{font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;}
+.card-desc{font-size:0.77rem;color:var(--muted);margin-top:2px;}
+.sec{font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:18px 0 10px;}
+
+/* TTS BAR */
+.tts-bar{background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.tts-lbl{font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
+.tts-btn{padding:6px 14px;border:1.5px solid var(--border);border-radius:7px;background:var(--bg);font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.78rem;cursor:pointer;transition:all 0.14s;display:flex;align-items:center;gap:5px;}
+.tts-btn:hover{border-color:var(--accent);}
+.tts-btn.on{background:var(--accent);color:white;border-color:var(--accent);}
+.spd{font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--muted);margin-left:auto;display:flex;align-items:center;gap:5px;}
+.spd-btn{padding:3px 7px;border-radius:5px;border:1px solid var(--border);background:var(--bg);cursor:pointer;font-size:0.68rem;font-family:'DM Mono',monospace;}
+.spd-btn.on{background:var(--accent);color:white;border-color:var(--accent);}
+.tts-prog{flex-basis:100%;height:3px;background:var(--border);border-radius:99px;overflow:hidden;margin-top:2px;}
+.tts-prog-fill{height:100%;background:var(--accent2);width:0%;transition:width 0.3s;border-radius:99px;}
+
+/* FLASHCARD */
+.fc{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;min-height:170px;padding:24px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;transition:box-shadow 0.2s;box-shadow:0 2px 12px rgba(0,0,0,0.06);position:relative;margin-bottom:12px;}
+.fc:hover{box-shadow:0 4px 20px rgba(0,0,0,0.1);}
+.fc-front,.fc-back{width:100%;}
+.fc.flipped .fc-front{display:none;}
+.fc-back{display:none;}
+.fc.flipped .fc-back{display:flex;flex-direction:column;align-items:center;gap:6px;}
+.fc-n{font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--muted);margin-bottom:8px;}
+.fc-word{font-family:'Syne',sans-serif;font-size:1.9rem;font-weight:800;color:var(--accent);}
+.fc-pos{font-family:'DM Mono',monospace;font-size:0.65rem;background:var(--light);color:var(--accent);padding:3px 9px;border-radius:99px;margin:6px 0;}
+.fc-tap{font-size:0.7rem;color:var(--muted);margin-top:10px;}
+.fc-viet{font-size:1.1rem;font-weight:700;color:var(--accent);}
+.fc-def{font-family:'Lora',serif;font-size:0.83rem;color:var(--muted);line-height:1.5;max-width:340px;}
+.fc-ex{font-family:'Lora',serif;font-size:0.78rem;color:#4a3060;font-style:italic;background:#f3eefb;border-radius:7px;padding:7px 12px;margin-top:5px;max-width:360px;}
+.fc-ex strong{font-style:normal;background:#d8b4fe;border-radius:2px;padding:0 2px;}
+.fc-speak{position:absolute;top:10px;right:10px;background:none;border:1.5px solid var(--border);border-radius:7px;padding:4px 9px;cursor:pointer;font-size:0.82rem;transition:all 0.14s;}
+.fc-speak:hover{background:var(--light);}
+.fc-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.nav-btn{padding:8px 18px;border-radius:8px;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:0.8rem;cursor:pointer;background:var(--accent);color:white;transition:all 0.14s;}
+.nav-btn:hover{background:#1a0a2e;}
+.nav-btn:disabled{opacity:0.3;cursor:not-allowed;}
+.fc-dots{display:flex;gap:3px;flex-wrap:wrap;justify-content:center;max-width:280px;}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--border);cursor:pointer;transition:background 0.2s;}
+.dot.seen{background:var(--accent);}
+
+/* VOCAB LIST */
+.vl{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:7px;margin-bottom:16px;}
+.vl-item{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;gap:6px;cursor:pointer;transition:border-color 0.14s;}
+.vl-item:hover{border-color:var(--accent);}
+.vl-w{font-weight:600;font-size:0.82rem;}
+.vl-v{font-size:0.7rem;color:var(--muted);}
+.vl-sp{font-size:0.85rem;opacity:0.45;flex-shrink:0;border:none;background:none;cursor:pointer;}
+.vl-sp:hover{opacity:1;}
+
+/* QUIZ */
+.vq{background:var(--surface);border:1.5px solid var(--border);border-radius:11px;padding:18px;margin-bottom:12px;}
+.vq-q{font-weight:700;font-size:0.9rem;margin-bottom:10px;}
+.vq-opts{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+@media(max-width:420px){.vq-opts{grid-template-columns:1fr;}}
+.vq-o{padding:9px 12px;background:var(--bg);border:1.5px solid var(--border);border-radius:7px;font-size:0.82rem;cursor:pointer;text-align:left;transition:all 0.13s;font-family:'DM Sans',sans-serif;}
+.vq-o:hover:not(:disabled){border-color:var(--accent);}
+.vq-o.ok{background:#e8f5ee;border-color:var(--green);color:var(--green);font-weight:700;}
+.vq-o.bad{background:#fde8e8;border-color:var(--red);color:var(--red);}
+.vq-res{font-size:0.73rem;font-style:italic;margin-top:7px;min-height:14px;}
+
+/* ARTICLE */
+.art-kicker{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:7px;}
+.art-hl{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;line-height:1.4;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.art-body{font-family:'Lora',serif;font-size:0.9rem;line-height:1.9;}
+.art-body p{margin-bottom:12px;}
+.hl{background:linear-gradient(180deg,transparent 58%,#c8b4f8 58%);cursor:help;font-weight:600;position:relative;}
+.hl-tt{display:none;position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);background:#1a1820;color:white;padding:4px 10px;border-radius:7px;font-size:0.7rem;white-space:nowrap;z-index:20;font-family:'DM Sans',sans-serif;pointer-events:none;}
+.hl:hover .hl-tt, .hl:focus .hl-tt{display:block;}
+
+/* TF */
+.tf-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);}
+.tf-row:last-of-type{border-bottom:none;}
+.tf-txt{flex:1;font-size:0.86rem;line-height:1.5;}
+.tf-exp{font-size:0.72rem;font-style:italic;color:var(--muted);margin-top:3px;}
+.tf-btns{display:flex;gap:5px;flex-shrink:0;}
+.tf-b{padding:5px 11px;font-size:0.7rem;font-weight:700;border:1.5px solid var(--border);border-radius:6px;background:var(--bg);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.13s;}
+.tf-b:hover{border-color:var(--accent);}
+.tf-b.selT{background:#e0f0ff;border-color:#2980b9;color:#2980b9;}
+.tf-b.selF{background:#fde8e8;border-color:var(--red);color:var(--red);}
+.tf-b.ok{background:#e8f5ee;border-color:var(--green);color:var(--green);font-weight:800;}
+.tf-b.bad{background:#fde8e8;border-color:var(--red);color:var(--red);}
+
+/* GAP FILL */
+.gf-bank{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+.gf-chip{padding:5px 12px;background:var(--light);border:1.5px solid var(--border);border-radius:7px;font-family:'DM Mono',monospace;font-size:0.75rem;cursor:pointer;transition:all 0.12s;user-select:none;}
+.gf-chip:hover{border-color:var(--accent);}
+.gf-chip.used{opacity:0.22;pointer-events:none;text-decoration:line-through;}
+.gf-p{font-family:'Lora',serif;font-size:0.88rem;line-height:2.4;margin-bottom:10px;}
+.gap{border:none;border-bottom:2px solid var(--accent);background:transparent;font-family:'DM Mono',monospace;font-size:0.8rem;width:130px;text-align:center;outline:none;color:var(--text);padding:0 2px;}
+.gap.ok{border-color:var(--green);color:var(--green);}
+.gap.bad{border-color:var(--red);color:var(--red);}
+
+/* DISCUSSION */
+.disc-item{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;margin-bottom:14px;overflow:hidden;}
+.disc-top{padding:14px 16px;display:flex;align-items:flex-start;gap:10px;}
+.disc-num{font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--muted);flex-shrink:0;margin-top:3px;min-width:20px;}
+.disc-q{flex:1;font-size:0.9rem;line-height:1.5;font-weight:500;}
+.disc-actions{display:flex;gap:6px;flex-shrink:0;align-items:center;}
+.disc-speak{background:none;border:1.5px solid var(--border);border-radius:7px;padding:4px 9px;cursor:pointer;font-size:0.82rem;transition:all 0.13s;}
+.disc-speak:hover{border-color:var(--accent);}
+.disc-model-btn{background:var(--light);border:1.5px solid var(--border);border-radius:7px;padding:4px 10px;cursor:pointer;font-size:0.72rem;font-weight:600;color:var(--accent);transition:all 0.13s;}
+.disc-model-btn:hover{background:#d8c4f8;}
+
+.model-box{background:linear-gradient(135deg,#f4f0fb,#ede8f5);border-top:1.5px solid var(--border);padding:14px 16px;display:none;}
+.model-box.show{display:block;}
+.model-lbl{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent2);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.model-text{font-family:'Lora',serif;font-size:0.88rem;line-height:1.7;color:var(--text);}
+.model-text em{color:var(--accent);font-style:normal;font-weight:600;background:#c4a8f8;border-radius:3px;padding:0 3px;}
+.model-note{font-size:0.75rem;color:var(--muted);margin-top:6px;font-style:italic;}
+.model-speak-btn{background:none;border:1.5px solid var(--border);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:0.72rem;font-weight:600;color:var(--muted);margin-top:8px;transition:all 0.13s;}
+.model-speak-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+.disc-input-wrap{border-top:1.5px solid var(--border);padding:12px 16px;display:none;}
+.disc-input-wrap.show{display:block;}
+.disc-ta{width:100%;border:2px solid var(--border);border-radius:8px;padding:10px 13px;font-family:'DM Mono',monospace;font-size:0.85rem;background:var(--bg);color:var(--text);resize:vertical;min-height:62px;outline:none;transition:border-color 0.2s;line-height:1.6;}
+.disc-ta:focus{border-color:var(--accent);}
+.disc-ta-row{display:flex;gap:7px;margin-top:8px;align-items:center;flex-wrap:wrap;}
+.ai-fb{background:var(--bg);border:1.5px solid var(--border);border-radius:9px;padding:14px;margin-top:10px;display:none;}
+.ai-fb.show{display:block;animation:fadein 0.25s ease;}
+.ai-fb-top{display:flex;gap:10px;align-items:center;margin-bottom:8px;}
+.ai-sc{font-family:'DM Mono',monospace;font-size:1.6rem;font-weight:700;color:var(--accent);line-height:1;}
+.ai-track{flex:1;height:5px;background:var(--border);border-radius:99px;overflow:hidden;}
+.ai-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px;transition:width 0.7s cubic-bezier(.34,1.56,.64,1);width:0%;}
+.ai-body{font-size:0.83rem;line-height:1.7;white-space:pre-wrap;}
+.ai-model{margin-top:9px;padding:9px 12px;background:#ede8f5;border:1px solid #c4a8f8;border-radius:7px;}
+.ai-model-lbl{font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent2);margin-bottom:3px;}
+.ai-model-txt{font-family:'DM Mono',monospace;font-size:0.85rem;}
+
+/* AI WRITING */
+.aw-block{margin-bottom:22px;}
+.prompt-block{background:linear-gradient(135deg,var(--accent),#12092a);color:white;border-radius:11px;padding:15px 18px;margin-bottom:12px;}
+.pb-lbl{font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:2px;opacity:0.6;text-transform:uppercase;margin-bottom:5px;}
+.pb-txt{font-family:'Lora',serif;font-size:0.98rem;font-weight:600;line-height:1.4;}
+.pb-hint{font-size:0.74rem;opacity:0.62;margin-top:5px;font-style:italic;}
+.aw-ta{width:100%;border:2px solid var(--border);border-radius:9px;padding:11px 13px;font-family:'DM Mono',monospace;font-size:0.87rem;background:var(--bg);color:var(--text);resize:vertical;min-height:64px;outline:none;transition:border-color 0.2s;line-height:1.6;}
+.aw-ta:focus{border-color:var(--accent);}
+
+/* BUTTONS */
+.btn{font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;border:none;border-radius:8px;padding:9px 18px;cursor:pointer;transition:all 0.13s;}
+.btn-g{background:var(--accent);color:white;}
+.btn-g:hover{background:#1a0a2e;}
+.btn-g:disabled{opacity:0.35;cursor:not-allowed;}
+.btn-gh{background:transparent;color:var(--muted);border:1.5px solid var(--border);}
+.btn-gh:hover{border-color:var(--text);color:var(--text);}
+.btn-gold{background:var(--gold);color:white;}
+.btn-gold:hover{background:#a07820;}
+.btn-ai{background:var(--accent2);color:white;display:inline-flex;align-items:center;gap:6px;}
+.btn-ai:hover{background:#6d28d9;}
+.btn-ai:disabled{opacity:0.35;cursor:not-allowed;}
+.btn-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px;}
+.next-row{display:none;margin-top:10px;}
+.next-row.show{display:flex;gap:7px;flex-wrap:wrap;}
+.spin{display:inline-block;width:12px;height:12px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:rot 0.7s linear infinite;}
+@keyframes rot{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Thu 6/11/2026 · Breaking News English Level 3</div>
+  <div class="hero-title">Meditation <em>&amp; Brain Health</em></div>
+  <div class="hero-sub">Meditation could slow brain ageing and boost memory, say scientists</div>
+  <div class="hero-score">Điểm: <strong id="score-num">0</strong> 🏆</div>
+</div>
+
+<!-- STAGE NAV -->
+<div class="stage-nav">
+  <div class="snav on" id="sn0" onclick="gS(0)"><span class="si">📚</span>Từ vựng</div>
+  <div class="snav" id="sn1" onclick="gS(1)"><span class="si">🎯</span>Quiz</div>
+  <div class="snav" id="sn2" onclick="gS(2)"><span class="si">📰</span>Bài đọc</div>
+  <div class="snav" id="sn3" onclick="gS(3)"><span class="si">✏️</span>Bài tập</div>
+  <div class="snav" id="sn4" onclick="gS(4)"><span class="si">💬</span>Thảo luận</div>
+  <div class="snav" id="sn5" onclick="gS(5)"><span class="si">✍️</span>AI Viết</div>
+</div>
+
+<div class="wrap">
+
+<!-- ══ STAGE 0: VOCAB ══ -->
+<div class="stage on" id="s0">
+  <div class="tts-bar">
+    <span class="tts-lbl">🔊 TTS</span>
+    <button class="tts-btn" onclick="ttsWord()">▶ Nghe từ</button>
+    <button class="tts-btn" onclick="ttsEx()">▶ Nghe ví dụ</button>
+    <div class="spd">Tốc độ:
+      <button class="spd-btn on" onclick="setSp(0.8,this)">0.8×</button>
+      <button class="spd-btn" onclick="setSp(1.0,this)">1×</button>
+      <button class="spd-btn" onclick="setSp(1.2,this)">1.2×</button>
+    </div>
+  </div>
+
+  <div class="fc" id="fc" onclick="flipFC()">
+    <button class="fc-speak" onclick="event.stopPropagation();ttsWord()">🔊</button>
+    <div class="fc-front">
+      <div class="fc-n" id="fc-n">1 / 39</div>
+      <div class="fc-word" id="fc-word">—</div>
+      <div class="fc-pos" id="fc-pos">—</div>
+      <div class="fc-tap">👆 Nhấn để xem nghĩa</div>
+    </div>
+    <div class="fc-back">
+      <div class="fc-viet" id="fc-viet">—</div>
+      <div class="fc-def" id="fc-def">—</div>
+      <div class="fc-ex" id="fc-ex">—</div>
+    </div>
+  </div>
+  <div class="fc-nav">
+    <button class="nav-btn" id="fc-prev" onclick="fcMv(-1)" disabled>← Trước</button>
+    <div class="fc-dots" id="fc-dots"></div>
+    <button class="nav-btn" id="fc-next" onclick="fcMv(1)">Tiếp →</button>
+  </div>
+
+  <div class="sec">📋 Tất cả từ vựng</div>
+  <div class="vl" id="vl"></div>
+  <div class="btn-row">
+    <button class="btn btn-g" onclick="gS(1)">Làm Quiz →</button>
+  </div>
+</div>
+
+<!-- ══ STAGE 1: QUIZ ══ -->
+<div class="stage" id="s1">
+  <div class="sec">🎯 Quiz — Chọn nghĩa đúng (12 câu ngẫu nhiên)</div>
+  <div id="vq-wrap"></div>
+  <div class="btn-row">
+    <button class="btn btn-g" id="vq-check" onclick="checkVQ()">Kiểm tra</button>
+    <button class="btn btn-gh" onclick="buildVQ()">Làm lại</button>
+  </div>
+  <div id="vq-out" style="margin-top:10px;font-size:0.88rem;display:none;"></div>
+  <div class="next-row" id="vq-next">
+    <button class="btn btn-gold" onclick="gS(2)">📰 Đọc bài →</button>
+  </div>
+</div>
+
+<!-- ══ STAGE 2: READING ══ -->
+<div class="stage" id="s2">
+  <div class="tts-bar">
+    <span class="tts-lbl">🔊 Nghe bài đọc</span>
+    <button class="tts-btn" id="art-play-btn" onclick="ttsArt()">▶ Đọc toàn bài</button>
+    <button class="tts-btn" onclick="ttsStop()">⏹ Dừng</button>
+    <div class="spd">Tốc độ:
+      <button class="spd-btn on" onclick="setSp(0.8,this)">0.8×</button>
+      <button class="spd-btn" onclick="setSp(1.0,this)">1×</button>
+      <button class="spd-btn" onclick="setSp(1.2,this)">1.2×</button>
+    </div>
+    <div class="tts-prog"><div class="tts-prog-fill" id="art-prog"></div></div>
+  </div>
+  <div class="card">
+    <div class="art-kicker">📍 Boston, USA · 11 June 2026</div>
+    <div class="art-hl">Meditation could slow brain ageing and boost memory, say scientists</div>
+    <div class="art-body">
+      <p><span class="hl">Meditation<span class="hl-tt">meditation = thiền định</span></span> is good for our minds and bodies. A new study from Harvard Medical School in the United States has found that people who <span class="hl">meditate<span class="hl-tt">meditate = thiền, ngồi thiền</span></span> <span class="hl">regularly<span class="hl-tt">regularly = đều đặn, thường xuyên</span></span> have <span class="hl">healthier<span class="hl-tt">healthier = khỏe mạnh hơn</span></span> and <span class="hl">younger-looking<span class="hl-tt">younger-looking = trông trẻ hơn</span></span> brains. The <span class="hl">lead researcher<span class="hl-tt">lead researcher = nhà nghiên cứu chủ chốt</span></span>, Dr Sara Lazar, said: "Meditation is like <span class="hl">exercise<span class="hl-tt">exercise = bài tập, sự tập luyện</span></span> for the brain. It can <span class="hl">slow down<span class="hl-tt">slow down = làm chậm lại</span></span> brain <span class="hl">ageing<span class="hl-tt">ageing = sự lão hóa</span></span> and improve <span class="hl">thinking skills<span class="hl-tt">thinking skills = kỹ năng tư duy</span></span>." The scientists said meditation could be as <span class="hl">beneficial<span class="hl-tt">beneficial = có lợi</span></span> as <span class="hl">physical exercise<span class="hl-tt">physical exercise = tập thể dục thể chất</span></span> for <span class="hl">mental health<span class="hl-tt">mental health = sức khỏe tâm thần</span></span>.</p>
+      <p>Dr Lazar and her <span class="hl">colleagues<span class="hl-tt">colleagues = đồng nghiệp</span></span> compared <span class="hl">brain scans<span class="hl-tt">brain scans = ảnh chụp não</span></span> of 20 <span class="hl">experienced<span class="hl-tt">experienced = có kinh nghiệm</span></span> <span class="hl">meditators<span class="hl-tt">meditators = người thiền định</span></span> and 20 <span class="hl">non-meditators<span class="hl-tt">non-meditators = người không thiền</span></span>. They found that the brains of the meditators were <span class="hl">thicker<span class="hl-tt">thicker = dày hơn</span></span> in areas that control <span class="hl">attention<span class="hl-tt">attention = sự chú ý</span></span> and <span class="hl">memory<span class="hl-tt">memory = trí nhớ</span></span>. Dr Lazar said the meditators had a better ability to <span class="hl">focus<span class="hl-tt">focus = tập trung</span></span> and could <span class="hl">process information<span class="hl-tt">process information = xử lý thông tin</span></span> more quickly. She added that meditators also showed fewer signs of <span class="hl">stress<span class="hl-tt">stress = căng thẳng</span></span> and <span class="hl">anxiety<span class="hl-tt">anxiety = lo âu</span></span>.</p>
+      <p>The researchers believe meditation <span class="hl">benefits<span class="hl-tt">benefits = mang lại lợi ích cho</span></span> the brain in a similar way to learning a <span class="hl">musical instrument<span class="hl-tt">musical instrument = nhạc cụ</span></span>. When people meditate, the brain creates new <span class="hl">pathways<span class="hl-tt">pathways = đường dẫn thần kinh</span></span> and <span class="hl">connections<span class="hl-tt">connections = kết nối thần kinh</span></span>. <span class="hl">Regular practice<span class="hl-tt">regular practice = luyện tập đều đặn</span></span> <span class="hl">strengthens<span class="hl-tt">strengthens = củng cố, tăng cường</span></span> these connections over time. Dr Lazar explained that even 20 minutes of <span class="hl">daily<span class="hl-tt">daily = hàng ngày</span></span> meditation can make a <span class="hl">significant<span class="hl-tt">significant = đáng kể</span></span> difference to brain health.</p>
+      <p>Other scientists also <span class="hl">recommend<span class="hl-tt">recommend = khuyến nghị</span></span> meditation. They say it can reduce <span class="hl">depression<span class="hl-tt">depression = trầm cảm</span></span> and <span class="hl">improve<span class="hl-tt">improve = cải thiện</span></span> <span class="hl">sleep quality<span class="hl-tt">sleep quality = chất lượng giấc ngủ</span></span>. Many people report feeling <span class="hl">calmer<span class="hl-tt">calmer = bình tĩnh hơn</span></span> and more in control of their <span class="hl">emotions<span class="hl-tt">emotions = cảm xúc</span></span>. Another benefit is that meditation makes people more <span class="hl">aware<span class="hl-tt">aware = ý thức, nhận thức được</span></span> of their own thoughts and <span class="hl">reactions<span class="hl-tt">reactions = phản ứng</span></span>. Experts say it is a <span class="hl">technique<span class="hl-tt">technique = kỹ thuật</span></span> that anyone can learn, from complete <span class="hl">beginners<span class="hl-tt">beginners = người mới bắt đầu</span></span> to <span class="hl">experienced practitioners<span class="hl-tt">experienced practitioners = người thực hành có kinh nghiệm</span></span>.</p>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-gold" onclick="gS(3)">✏️ Làm bài tập →</button>
+    <button class="btn btn-gh" onclick="gS(0)">← Từ vựng</button>
+  </div>
+</div>
+
+<!-- ══ STAGE 3: EXERCISES ══ -->
+<div class="stage" id="s3">
+  <div class="card">
+    <div class="card-hd">
+      <div class="badge">01</div>
+      <div><div class="card-ttl">True / False</div><div class="card-desc">Đúng hay sai dựa theo bài đọc?</div></div>
+    </div>
+    <div id="tf-list"></div>
+    <div class="btn-row">
+      <button class="btn btn-g" onclick="checkTF()">Kiểm tra</button>
+      <button class="btn btn-gh" onclick="buildTF()">Làm lại</button>
+    </div>
+    <div class="next-row" id="tf-next"><button class="btn btn-gold" onclick="scrollTo2('ex-gf')">Tiếp →</button></div>
+  </div>
+
+  <div class="card" id="ex-gf">
+    <div class="card-hd">
+      <div class="badge">02</div>
+      <div><div class="card-ttl">Gap Fill — Điền từ vào chỗ trống</div><div class="card-desc">Nhấn từ trong ngân hàng để điền</div></div>
+    </div>
+    <div class="gf-bank" id="gf-bank"></div>
+    <div id="gf-text"></div>
+    <div class="btn-row">
+      <button class="btn btn-g" onclick="checkGF()">Kiểm tra</button>
+      <button class="btn btn-gh" onclick="buildGF()">Làm lại</button>
+    </div>
+    <div class="next-row" id="gf-next"><button class="btn btn-gold" onclick="gS(4)">💬 Thảo luận →</button></div>
+  </div>
+</div>
+
+<!-- ══ STAGE 4: DISCUSSION ══ -->
+<div class="stage" id="s4">
+  <div class="card-hd" style="background:var(--light);border-radius:10px;padding:12px 16px;margin-bottom:16px;border:1.5px solid var(--border);">
+    <div class="badge ai">AI</div>
+    <div>
+      <div class="card-ttl">Câu hỏi thảo luận</div>
+      <div class="card-desc">Xem câu trả lời mẫu 📖 · Viết câu trả lời của bạn ✍️ · AI chấm điểm ✨</div>
+    </div>
+  </div>
+
+  <div class="sec">COMPREHENSION QUESTIONS</div>
+  <div id="disc-comp"></div>
+
+  <div class="sec" style="margin-top:20px;">DISCUSSION QUESTIONS</div>
+  <div id="disc-open"></div>
+
+  <div class="btn-row" style="margin-top:20px;">
+    <button class="btn btn-gold" onclick="gS(5)">✍️ AI Writing →</button>
+  </div>
+</div>
+
+<!-- ══ STAGE 5: AI WRITING ══ -->
+<div class="stage" id="s5">
+  <div class="card-hd" style="background:var(--light);border-radius:10px;padding:12px 16px;margin-bottom:16px;border:1.5px solid var(--border);">
+    <div class="badge ai">✨ AI</div>
+    <div>
+      <div class="card-ttl">Luyện viết câu — AI chấm bài</div>
+      <div class="card-desc">Dịch câu tiếng Việt sang tiếng Anh, AI nhận xét chi tiết bằng tiếng Việt</div>
+    </div>
+  </div>
+  <div id="aw-wrap"></div>
+  <div class="next-row" id="aw-done">
+    <button class="btn btn-gold" onclick="alert('🏆 Tổng điểm: ' + score + ' điểm! Xuất sắc!')">🏆 Xem kết quả</button>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+// ════════════════════════════════════════
+// DATA
+// ════════════════════════════════════════
+
+const VOCAB = [
+  {w:"Meditation",pos:"noun",viet:"Thiền định",def:"The practice of focusing the mind to achieve calm and clarity",ex:"<strong>Meditation</strong> is like exercise for the brain."},
+  {w:"Meditate",pos:"verb",viet:"Ngồi thiền, thiền",def:"To practise meditation; to sit quietly and focus the mind",ex:"People who <strong>meditate</strong> regularly have healthier brains."},
+  {w:"Regularly",pos:"adverb",viet:"Đều đặn, thường xuyên",def:"Often and at the same time each day or week",ex:"People who meditate <strong>regularly</strong> live healthier lives."},
+  {w:"Healthier",pos:"adjective",viet:"Khỏe mạnh hơn",def:"In a better state of health than before or than others",ex:"Meditators have <strong>healthier</strong> and younger-looking brains."},
+  {w:"Younger-looking",pos:"adjective",viet:"Trông trẻ hơn tuổi",def:"Appearing younger than one's actual age",ex:"Regular meditators had <strong>younger-looking</strong> brains."},
+  {w:"Lead researcher",pos:"noun phrase",viet:"Nhà nghiên cứu chủ chốt",def:"The main scientist in charge of a study",ex:"<strong>Lead researcher</strong> Dr Sara Lazar ran the Harvard study."},
+  {w:"Exercise",pos:"noun",viet:"Bài tập, sự tập luyện",def:"Physical or mental activity done to stay healthy",ex:"Meditation is like <strong>exercise</strong> for the brain."},
+  {w:"Slow down",pos:"verb phrase",viet:"Làm chậm lại",def:"To reduce the speed of something",ex:"Meditation can <strong>slow down</strong> brain ageing."},
+  {w:"Ageing",pos:"noun",viet:"Sự lão hóa",def:"The process of growing old",ex:"Meditation slows down brain <strong>ageing</strong>."},
+  {w:"Thinking skills",pos:"noun phrase",viet:"Kỹ năng tư duy",def:"The ability to understand, analyse, and solve problems",ex:"Meditation can improve our <strong>thinking skills</strong>."},
+  {w:"Beneficial",pos:"adjective",viet:"Có lợi, có ích",def:"Producing good results; helpful",ex:"Meditation is as <strong>beneficial</strong> as physical exercise."},
+  {w:"Physical exercise",pos:"noun phrase",viet:"Tập thể dục thể chất",def:"Movement of the body to stay physically fit",ex:"It is as beneficial as <strong>physical exercise</strong> for health."},
+  {w:"Mental health",pos:"noun phrase",viet:"Sức khỏe tâm thần",def:"The health of a person's mind and emotions",ex:"Meditation is excellent for <strong>mental health</strong>."},
+  {w:"Colleagues",pos:"noun",viet:"Đồng nghiệp",def:"People you work with professionally",ex:"Dr Lazar and her <strong>colleagues</strong> studied 40 people."},
+  {w:"Brain scans",pos:"noun phrase",viet:"Ảnh chụp não",def:"Medical images that show the inside of the brain",ex:"They compared <strong>brain scans</strong> of meditators and non-meditators."},
+  {w:"Experienced",pos:"adjective",viet:"Có kinh nghiệm, dày dặn",def:"Having a lot of knowledge or skill from practice",ex:"They studied 20 <strong>experienced</strong> meditators."},
+  {w:"Meditators",pos:"noun",viet:"Người thiền định",def:"People who practise meditation regularly",ex:"The brains of the <strong>meditators</strong> were thicker."},
+  {w:"Non-meditators",pos:"noun",viet:"Người không thiền",def:"People who do not practise meditation",ex:"They compared meditators and <strong>non-meditators</strong>."},
+  {w:"Thicker",pos:"adjective",viet:"Dày hơn",def:"Having a greater depth or width",ex:"Meditators had <strong>thicker</strong> brains in some areas."},
+  {w:"Attention",pos:"noun",viet:"Sự chú ý",def:"The act of focusing on one thing carefully",ex:"Meditation trains areas that control <strong>attention</strong>."},
+  {w:"Memory",pos:"noun",viet:"Trí nhớ",def:"The ability to remember information and experiences",ex:"Meditators had a better <strong>memory</strong> than non-meditators."},
+  {w:"Focus",pos:"verb/noun",viet:"Tập trung",def:"To direct attention onto one thing; the state of concentration",ex:"Meditators had a better ability to <strong>focus</strong>."},
+  {w:"Process information",pos:"verb phrase",viet:"Xử lý thông tin",def:"To understand and use information",ex:"They could <strong>process information</strong> more quickly."},
+  {w:"Stress",pos:"noun",viet:"Căng thẳng",def:"A feeling of worry or pressure caused by difficult situations",ex:"Meditators showed fewer signs of <strong>stress</strong>."},
+  {w:"Anxiety",pos:"noun",viet:"Lo âu, lo lắng",def:"A feeling of worry and nervousness about the future",ex:"Meditation reduces <strong>anxiety</strong> and depression."},
+  {w:"Benefits",pos:"verb",viet:"Mang lại lợi ích cho",def:"To be helpful or useful to someone or something",ex:"Meditation <strong>benefits</strong> the brain like learning music."},
+  {w:"Musical instrument",pos:"noun phrase",viet:"Nhạc cụ",def:"A device used to make music, such as a piano or guitar",ex:"It is similar to learning a <strong>musical instrument</strong>."},
+  {w:"Pathways",pos:"noun",viet:"Đường dẫn thần kinh",def:"Routes in the brain along which signals travel",ex:"Meditation creates new <strong>pathways</strong> in the brain."},
+  {w:"Connections",pos:"noun",viet:"Kết nối thần kinh",def:"Links between different parts of the brain",ex:"New <strong>connections</strong> form through regular practice."},
+  {w:"Regular practice",pos:"noun phrase",viet:"Luyện tập đều đặn",def:"Doing something consistently over a long period",ex:"<strong>Regular practice</strong> strengthens brain connections."},
+  {w:"Strengthens",pos:"verb",viet:"Củng cố, tăng cường",def:"Makes something stronger or more powerful",ex:"Meditation <strong>strengthens</strong> neural connections over time."},
+  {w:"Daily",pos:"adjective",viet:"Hàng ngày",def:"Happening or done every day",ex:"Even 20 minutes of <strong>daily</strong> meditation helps the brain."},
+  {w:"Significant",pos:"adjective",viet:"Đáng kể, quan trọng",def:"Large or important enough to notice or have an effect",ex:"It makes a <strong>significant</strong> difference to brain health."},
+  {w:"Recommend",pos:"verb",viet:"Khuyến nghị, đề xuất",def:"To suggest that something is good or should be done",ex:"Experts <strong>recommend</strong> meditation for better health."},
+  {w:"Depression",pos:"noun",viet:"Trầm cảm",def:"A mental illness that makes people feel very sad and hopeless",ex:"Meditation can reduce anxiety and <strong>depression</strong>."},
+  {w:"Sleep quality",pos:"noun phrase",viet:"Chất lượng giấc ngủ",def:"How well a person sleeps, including depth and length",ex:"Meditation improves <strong>sleep quality</strong>."},
+  {w:"Calmer",pos:"adjective",viet:"Bình tĩnh hơn",def:"More relaxed and less worried",ex:"People feel <strong>calmer</strong> after meditating."},
+  {w:"Emotions",pos:"noun",viet:"Cảm xúc",def:"Feelings such as happiness, sadness, or fear",ex:"Meditation helps people control their <strong>emotions</strong>."},
+  {w:"Technique",pos:"noun",viet:"Kỹ thuật, phương pháp",def:"A specific way of doing something",ex:"Meditation is a <strong>technique</strong> anyone can learn."},
+];
+
+const TF_DATA = [
+  {text:"The research was carried out at Harvard Medical School in the United States.",ans:"T",exp:"ĐÚNG — nguyên văn trong bài."},
+  {text:"The scientists studied 40 people in total.",ans:"T",exp:"ĐÚNG — 20 meditators + 20 non-meditators = 40 người."},
+  {text:"Non-meditators had thicker brains than meditators.",ans:"F",exp:"SAI — MEDITATORS had THICKER brains, not non-meditators."},
+  {text:"The scientists compared meditation to playing a sport.",ans:"F",exp:"SAI — meditation was compared to learning a MUSICAL INSTRUMENT."},
+  {text:"Dr Lazar said that 20 minutes of daily meditation can make a significant difference.",ans:"T",exp:"ĐÚNG — nguyên văn trong bài."},
+  {text:"Meditation can reduce depression and improve sleep quality.",ans:"T",exp:"ĐÚNG — bài đề cập đến cả hai lợi ích này."},
+  {text:"Meditation can only be practised by people with many years of experience.",ans:"F",exp:"SAI — bài nói anyone can learn, from complete beginners to experienced practitioners."},
+];
+
+const GF = {
+  bank:["regularly","thicker","anxiety","sleep quality","slow down","significant","mental health","focus"],
+  parts:[
+    "People who meditate (1)____ have healthier and younger-looking brains.",
+    "Meditation can (2)____ brain ageing and improve thinking skills.",
+    "The brains of the meditators were (3)____ in areas that control attention.",
+    "Meditators had a better ability to (4)____ than non-meditators.",
+    "Even 20 minutes of daily meditation makes a (5)____ difference.",
+    "Meditation can reduce (6)____ and depression.",
+    "Scientists say meditation is excellent for our (7)____.",
+    "Many people report that meditation improves their (8)____.",
+  ],
+  ans:["regularly","slow down","thicker","focus","significant","anxiety","mental health","sleep quality"]
+};
+
+const DISC_COMP = [
+  {
+    q:"Where did the research take place?",
+    model:"The research took place at Harvard Medical School in the United States.",
+    note:"'Take place' = xảy ra, diễn ra. Tự nhiên hơn 'happen' trong văn học thuật."
+  },
+  {
+    q:"What did the scientists study?",
+    model:"The scientists studied the effects of meditation on the brain, particularly in experienced meditators.",
+    note:"'The effects of A on B' = tác động của A lên B. Cấu trúc học thuật quan trọng."
+  },
+  {
+    q:"How many people were involved in the study?",
+    model:"Forty people were involved in the study — twenty experienced meditators and twenty non-meditators.",
+    note:"'Were involved in' = tham gia vào. Viết số từ 1–99 bằng chữ trong văn viết trang trọng."
+  },
+  {
+    q:"What did the scientists find about the brains of meditators?",
+    model:"The scientists found that the brains of meditators were thicker in areas that control attention and memory.",
+    note:"'Found that + mệnh đề' = phát hiện rằng. Cấu trúc báo cáo nghiên cứu rất phổ biến."
+  },
+  {
+    q:"What skills did experienced meditators have better than non-meditators?",
+    model:"Experienced meditators had a better ability to focus and could process information more quickly than non-meditators.",
+    note:"'Had a better ability to + V' = có khả năng tốt hơn để làm gì. 'Could process' = khả năng trong quá khứ."
+  },
+  {
+    q:"What did the scientists compare meditation to?",
+    model:"The scientists compared meditation to learning a musical instrument because both create new pathways and connections in the brain.",
+    note:"'Compare A to B' + 'because' giải thích lý do → câu hoàn chỉnh và thuyết phục hơn."
+  },
+  {
+    q:"How long should a person meditate each day, according to Dr Lazar?",
+    model:"According to Dr Lazar, even 20 minutes of daily meditation can make a significant difference to brain health.",
+    note:"'According to...' = theo... Cách trích dẫn nguồn trang trọng và chính xác."
+  },
+  {
+    q:"What mental health problems can meditation help with?",
+    model:"Meditation can help reduce anxiety and depression, and it also improves overall mental health.",
+    note:"'Help reduce' (không có 'to') = giúp giảm. 'Overall' = tổng thể, toàn diện."
+  },
+  {
+    q:"How does meditation affect sleep?",
+    model:"Meditation improves sleep quality, helping people sleep more deeply and feel more rested.",
+    note:"'Helping people + V' là participle phrase bổ sung ý → câu đa dạng hơn."
+  },
+  {
+    q:"Who can learn to meditate, according to the article?",
+    model:"According to the article, anyone can learn to meditate, from complete beginners to experienced practitioners.",
+    note:"'From A to B' = từ A đến B. Liệt kê phạm vi rất hiệu quả trong tiếng Anh."
+  },
+];
+
+const DISC_OPEN = [
+  {
+    q:"Do you think meditation sounds interesting? Why or why not?",
+    model:"Personally, I find meditation quite interesting because it is a simple yet powerful way to improve both mental and physical health. However, I think it requires a lot of patience and consistency, which can be challenging for busy people.",
+    note:"'Simple yet powerful' = đơn giản nhưng mạnh mẽ. 'Yet' = nhưng (mạnh hơn 'but')."
+  },
+  {
+    q:"Have you ever tried meditation or any breathing exercises?",
+    model:"Yes, I have tried meditation a few times using a guided app. I found it quite relaxing, but I struggled to maintain a consistent daily habit. I think the key is to start with just a few minutes and gradually increase the time.",
+    note:"'I struggled to + V' = tôi gặp khó khăn khi làm gì. 'Gradually' = dần dần, từng bước."
+  },
+  {
+    q:"What do you do to reduce stress in your daily life?",
+    model:"To reduce stress, I usually go for a walk, listen to music, or spend time with friends and family. I also try to get enough sleep, as I find that being well-rested makes me feel much calmer and more focused.",
+    note:"'As I find that...' = vì tôi thấy rằng... Liên kết ý kiến với kinh nghiệm cá nhân."
+  },
+  {
+    q:"Do you think schools should teach meditation to students? Why?",
+    model:"I strongly believe that schools should teach meditation to students because it can help them manage exam stress, improve concentration, and develop better emotional control. These are skills that are useful both in school and in adult life.",
+    note:"'These are skills that...' = cách tổng kết và nhấn mạnh lý do. 'Both A and B' rất tự nhiên."
+  },
+  {
+    q:"What other habits do you think are good for brain health?",
+    model:"In my opinion, habits such as regular physical exercise, reading, learning a new language, and getting enough sleep are all excellent for brain health, as they keep the mind active and build new neural connections.",
+    note:"'Such as' liệt kê ví dụ. 'As they keep the mind active' = giải thích lý do bằng mệnh đề nguyên nhân."
+  },
+  {
+    q:"Do you think technology, like meditation apps, helps people adopt healthy habits? Why?",
+    model:"I think technology can be very helpful for adopting healthy habits because apps provide structure, reminders, and guidance that make it easier to get started. However, the danger is that people may rely too much on technology and forget to practise on their own.",
+    note:"'The danger is that...' = nguy cơ là... Cách trình bày balanced view: lợi ích + nguy cơ."
+  },
+];
+
+const AW_PROMPTS = [
+  {
+    viet:"Thiền định có thể làm chậm quá trình lão hóa não bộ và cải thiện kỹ năng tư duy.",
+    hint:"meditation / slow down / brain ageing / improve / thinking skills",
+    grammar:"S + can + V + O + and + V + O"
+  },
+  {
+    viet:"Những người thiền định đều đặn có não dày hơn ở những vùng kiểm soát sự chú ý và trí nhớ.",
+    hint:"people who meditate regularly / thicker brains / areas that control / attention and memory",
+    grammar:"People who + V + adverb + have + comparative adjective + noun + in + noun phrase"
+  },
+  {
+    viet:"Thiền định không chỉ tốt cho sức khỏe tâm thần mà còn giúp cải thiện chất lượng giấc ngủ.",
+    hint:"not only mental health / but also / improve / sleep quality",
+    grammar:"Not only is A good for B, but it also + V + O"
+  },
+];
+
+const ART_PLAIN = `Meditation is good for our minds and bodies. A new study from Harvard Medical School in the United States has found that people who meditate regularly have healthier and younger-looking brains. The lead researcher, Dr Sara Lazar, said: "Meditation is like exercise for the brain. It can slow down brain ageing and improve thinking skills." The scientists said meditation could be as beneficial as physical exercise for mental health. Dr Lazar and her colleagues compared brain scans of 20 experienced meditators and 20 non-meditators. They found that the brains of the meditators were thicker in areas that control attention and memory. Dr Lazar said the meditators had a better ability to focus and could process information more quickly. She added that meditators also showed fewer signs of stress and anxiety. The researchers believe meditation benefits the brain in a similar way to learning a musical instrument. When people meditate, the brain creates new pathways and connections. Regular practice strengthens these connections over time. Dr Lazar explained that even 20 minutes of daily meditation can make a significant difference to brain health. Other scientists also recommend meditation. They say it can reduce depression and improve sleep quality. Many people report feeling calmer and more in control of their emotions. Another benefit is that meditation makes people more aware of their own thoughts and reactions. Experts say it is a technique that anyone can learn, from complete beginners to experienced practitioners.`;
+
+// ════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════
+let score = 0, fcIdx = 0, fcSeen = new Set();
+let vqAns = {}, tfAns = {};
+let ttsRate = 0.8, ttsU = null;
+let awDone = new Set();
+
+// ════════════════════════════════════════
+// SCORE
+// ════════════════════════════════════════
+function addScore(n){ score+=n; document.getElementById('score-num').textContent=score; }
+
+// ════════════════════════════════════════
+// STAGE NAV
+// ════════════════════════════════════════
+function gS(n){
+  for(let i=0;i<=5;i++){
+    document.getElementById(`s${i}`).classList.toggle('on',i===n);
+    document.getElementById(`sn${i}`).className='snav'+(i===n?' on':(i<n?' done':''));
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function scrollTo2(id){const el=document.getElementById(id);if(el)window.scrollTo({top:el.offsetTop-10,behavior:'smooth'});}
+
+// ════════════════════════════════════════
+// TTS
+// ════════════════════════════════════════
+function setSp(r,btn){ ttsRate=r; document.querySelectorAll('.spd-btn').forEach(b=>b.classList.remove('on')); btn.classList.add('on'); }
+function ttsSay(text,onEnd){
+  ttsStop();
+  if(!window.speechSynthesis)return;
+  ttsU=new SpeechSynthesisUtterance(text);
+  ttsU.lang='en-US'; ttsU.rate=ttsRate;
+  if(onEnd) ttsU.onend=onEnd;
+  window.speechSynthesis.speak(ttsU);
+}
+function ttsStop(){ if(window.speechSynthesis)window.speechSynthesis.cancel(); document.getElementById('art-play-btn').classList.remove('on'); }
+function ttsWord(){ ttsSay(VOCAB[fcIdx].w.replace(/\(.*\)/,'').trim()); }
+function ttsEx(){ ttsSay(VOCAB[fcIdx].ex.replace(/<[^>]+>/g,'')); }
+function ttsArt(){
+  const btn=document.getElementById('art-play-btn');
+  btn.classList.add('on');
+  const sents=ART_PLAIN.split(/(?<=[.!?"])\s+/);
+  let i=0;
+  const prog=document.getElementById('art-prog');
+  function next(){ if(i>=sents.length){btn.classList.remove('on');prog.style.width='0%';return;} prog.style.width=Math.round(i/sents.length*100)+'%'; ttsSay(sents[i++],next); }
+  next();
+}
+
+// ════════════════════════════════════════
+// FLASHCARDS
+// ════════════════════════════════════════
+function buildFC(){
+  const dots=document.getElementById('fc-dots');
+  dots.innerHTML='';
+  VOCAB.forEach((_,i)=>{const d=document.createElement('div');d.className='dot';d.id=`dot-${i}`;d.onclick=()=>{fcIdx=i;renderFC();};dots.appendChild(d);});
+  const vl=document.getElementById('vl');
+  vl.innerHTML='';
+  VOCAB.forEach((v,i)=>{
+    vl.innerHTML+=`<div class="vl-item" onclick="fcIdx=${i};renderFC();gS(0)"><div><div class="vl-w">${v.w}</div><div class="vl-v">${v.viet}</div></div><button class="vl-sp" onclick="event.stopPropagation();ttsSay('${esc(v.w)}')">🔊</button></div>`;
+  });
+  renderFC();
+}
+function renderFC(){
+  const v=VOCAB[fcIdx];
+  document.getElementById('fc').classList.remove('flipped');
+  document.getElementById('fc-n').textContent=`${fcIdx+1} / ${VOCAB.length}`;
+  document.getElementById('fc-word').textContent=v.w;
+  document.getElementById('fc-pos').textContent=v.pos;
+  document.getElementById('fc-viet').textContent=v.viet;
+  document.getElementById('fc-def').textContent=v.def;
+  document.getElementById('fc-ex').innerHTML=v.ex;
+  document.getElementById('fc-prev').disabled=fcIdx===0;
+  document.getElementById('fc-next').textContent=fcIdx===VOCAB.length-1?'⟳ Đầu':'Tiếp →';
+  fcSeen.add(fcIdx);
+  VOCAB.forEach((_,i)=>{const d=document.getElementById(`dot-${i}`);if(d)d.className='dot'+(fcSeen.has(i)?' seen':'');});
+}
+function flipFC(){ document.getElementById('fc').classList.toggle('flipped'); }
+function fcMv(d){ fcIdx=(fcIdx+d+VOCAB.length)%VOCAB.length; renderFC(); }
+
+// ════════════════════════════════════════
+// VOCAB QUIZ
+// ════════════════════════════════════════
+function buildVQ(){
+  vqAns={};
+  const wrap=document.getElementById('vq-wrap');
+  wrap.innerHTML='';
+  document.getElementById('vq-out').style.display='none';
+  document.getElementById('vq-next').classList.remove('show');
+  const pool=shuffleArr([...VOCAB]).slice(0,12);
+  pool.forEach((item,i)=>{
+    const wrongs=shuffleArr(VOCAB.filter(v=>v.w!==item.w)).slice(0,3).map(v=>v.viet);
+    const opts=shuffleArr([item.viet,...wrongs]);
+    wrap.innerHTML+=`<div class="vq" id="vqc-${i}" data-correct="${esc(item.viet)}">
+      <div class="vq-q">Từ "<strong>${esc(item.w)}</strong>" (${esc(item.pos)}) nghĩa là gì?</div>
+      <div class="vq-opts">${opts.map(o=>`<button class="vq-o" id="vqo-${i}-${esc(o)}" onclick="selVQ(${i},'${esc(o)}')">${esc(o)}</button>`).join('')}</div>
+      <div class="vq-res" id="vqr-${i}"></div>
+    </div>`;
+  });
+}
+function selVQ(i,val){
+  vqAns[i]=val;
+  const card=document.getElementById(`vqc-${i}`);
+  card.querySelectorAll('.vq-o').forEach(b=>{b.className='vq-o';});
+  document.getElementById(`vqo-${i}-${val}`)?.classList.add('selected');
+}
+function checkVQ(){
+  let c=0,tot=0;
+  document.querySelectorAll('.vq').forEach((card,i)=>{
+    tot++;
+    const correct=card.dataset.correct;
+    const ans=vqAns[i];
+    card.querySelectorAll('.vq-o').forEach(b=>b.disabled=true);
+    const res=document.getElementById(`vqr-${i}`);
+    if(ans===correct){c++;document.getElementById(`vqo-${i}-${correct}`)?.classList.add('ok');res.innerHTML=`<span style="color:var(--green)">✓ Đúng!</span>`;}
+    else{if(ans)document.getElementById(`vqo-${i}-${ans}`)?.classList.add('bad');document.getElementById(`vqo-${i}-${correct}`)?.classList.add('ok');res.innerHTML=`<span style="color:var(--red)">✗ Đáp án: ${esc(correct)}</span>`;}
+  });
+  addScore(c*3);
+  const out=document.getElementById('vq-out');
+  out.style.display='';
+  out.innerHTML=`✅ <strong>${c}/${tot}</strong> đúng · +${c*3} điểm ${c>=9?'🎉':'💪'}`;
+  document.getElementById('vq-next').classList.add('show');
+}
+
+// ════════════════════════════════════════
+// TRUE / FALSE
+// ════════════════════════════════════════
+function buildTF(){
+  tfAns={};
+  const wrap=document.getElementById('tf-list');
+  wrap.innerHTML='';
+  document.getElementById('tf-next').classList.remove('show');
+  TF_DATA.forEach((item,i)=>{
+    wrap.innerHTML+=`<div class="tf-row">
+      <div><div class="tf-txt">${i+1}. ${esc(item.text)}</div><div class="tf-exp" id="tfe-${i}"></div></div>
+      <div class="tf-btns">
+        <button class="tf-b" id="tfT-${i}" onclick="selTF(${i},'T')">True</button>
+        <button class="tf-b" id="tfF-${i}" onclick="selTF(${i},'F')">False</button>
+      </div>
+    </div>`;
+  });
+}
+function selTF(i,v){
+  if(document.getElementById(`tfT-${i}`).disabled)return;
+  tfAns[i]=v;
+  document.getElementById(`tfT-${i}`).className='tf-b'+(v==='T'?' selT':'');
+  document.getElementById(`tfF-${i}`).className='tf-b'+(v==='F'?' selF':'');
+}
+function checkTF(){
+  let c=0;
+  TF_DATA.forEach((item,i)=>{
+    const a=tfAns[i];
+    document.getElementById(`tfT-${i}`).disabled=document.getElementById(`tfF-${i}`).disabled=true;
+    const exp=document.getElementById(`tfe-${i}`);
+    if(a===item.ans){c++;document.getElementById(`tf${item.ans}-${i}`).classList.add('ok');exp.innerHTML=`<span style="color:var(--green)">✓ ${esc(item.exp)}</span>`;}
+    else{if(a)document.getElementById(`tf${a}-${i}`).classList.add('bad');document.getElementById(`tf${item.ans}-${i}`).classList.add('ok');exp.innerHTML=`<span style="color:var(--red)">✗ ${esc(item.exp)}</span>`;}
+  });
+  addScore(c*5);
+  document.getElementById('tf-next').classList.add('show');
+}
+
+// ════════════════════════════════════════
+// GAP FILL
+// ════════════════════════════════════════
+function buildGF(){
+  document.getElementById('gf-next').classList.remove('show');
+  const bk=document.getElementById('gf-bank');
+  bk.innerHTML='';
+  shuffleArr([...GF.bank]).forEach(w=>{bk.innerHTML+=`<div class="gf-chip" id="gfc-${esc(w)}" onclick="fillGap('${esc(w)}')">${esc(w)}</div>`;});
+  const txt=document.getElementById('gf-text');
+  txt.innerHTML='';
+  GF.parts.forEach(part=>{
+    const p=document.createElement('p');
+    p.className='gf-p';
+    p.innerHTML=part.replace(/\((\d+)\)____/g,(_,n)=>`<input class="gap" id="gap-${n}" placeholder="${n}" readonly/>`);
+    txt.appendChild(p);
+  });
+}
+function fillGap(w){
+  for(let n=1;n<=GF.ans.length;n++){const inp=document.getElementById(`gap-${n}`);if(inp&&!inp.value){inp.value=w;document.getElementById(`gfc-${w}`)?.classList.add('used');return;}}
+}
+function checkGF(){
+  let c=0;
+  GF.ans.forEach((ans,i)=>{
+    const inp=document.getElementById(`gap-${i+1}`);
+    if(!inp)return;inp.readOnly=true;
+    if(inp.value.trim().toLowerCase()===ans.toLowerCase()){inp.classList.add('ok');c++;}
+    else{inp.classList.add('bad');inp.title=`Đáp án: ${ans}`;}
+  });
+  addScore(c*4);
+  document.getElementById('gf-next').classList.add('show');
+}
+
+// ════════════════════════════════════════
+// DISCUSSION
+// ════════════════════════════════════════
+function buildDisc(){
+  renderDiscSection('disc-comp', DISC_COMP);
+  renderDiscSection('disc-open', DISC_OPEN);
+}
+
+function renderDiscSection(id, items){
+  const wrap=document.getElementById(id);
+  wrap.innerHTML='';
+  items.forEach((item,i)=>{
+    const uid=`${id}-${i}`;
+    wrap.innerHTML+=`
+    <div class="disc-item" id="ditem-${uid}">
+      <div class="disc-top">
+        <div class="disc-num">${i+1}</div>
+        <div class="disc-q">${esc(item.q)}</div>
+        <div class="disc-actions">
+          <button class="disc-speak" onclick="ttsSay('${esc(item.q)}')" title="Nghe câu hỏi">🔊</button>
+          <button class="disc-model-btn" onclick="toggleModel('${uid}')">📖 Mẫu</button>
+        </div>
+      </div>
+      <div class="model-box" id="model-${uid}">
+        <div class="model-lbl">✅ Câu trả lời mẫu <span style="opacity:0.6;font-size:0.55rem;">(nhấn 🔊 để nghe)</span></div>
+        <div class="model-text">${formatModel(item.model)}</div>
+        <div class="model-note">💡 ${esc(item.note)}</div>
+        <button class="model-speak-btn" onclick="ttsSay('${esc(item.model)}')">🔊 Nghe câu mẫu</button>
+      </div>
+      <div class="disc-input-wrap" id="inp-${uid}">
+        <div style="font-size:0.75rem;color:var(--muted);margin-bottom:6px;">✍️ Viết câu trả lời của bạn → AI chấm điểm</div>
+        <textarea class="disc-ta" id="ta-${uid}" placeholder="Viết câu trả lời tiếng Anh của bạn…"></textarea>
+        <div class="disc-ta-row">
+          <button class="btn btn-ai" id="aibtn-${uid}" onclick="checkDiscAI('${uid}','${esc(item.q)}','${esc(item.model)}')">
+            <span id="aiic-${uid}">✨</span><span id="ailb-${uid}">AI chấm</span>
+          </button>
+          <button class="btn btn-gh" style="font-size:0.75rem;" onclick="ttsSay(document.getElementById('ta-${uid}').value)">🔊 Nghe lại</button>
+        </div>
+        <div class="ai-fb" id="aifb-${uid}">
+          <div class="ai-fb-top">
+            <div class="ai-sc" id="aisc-${uid}">—</div>
+            <div class="ai-track"><div class="ai-fill" id="aifl-${uid}"></div></div>
+          </div>
+          <div class="ai-body" id="aitx-${uid}"></div>
+          <div class="ai-model" id="aimo-${uid}" style="display:none">
+            <div class="ai-model-lbl">✅ Gợi ý câu tốt hơn</div>
+            <div class="ai-model-txt" id="aimt-${uid}"></div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:0 16px 12px;">
+        <button class="btn btn-gh" style="font-size:0.75rem;width:100%;" onclick="toggleWrite('${uid}')">✍️ Viết &amp; nhận AI chấm điểm</button>
+      </div>
+    </div>`;
+  });
+}
+
+function formatModel(text){
+  return esc(text).replace(/(Personally|I strongly believe|I think|In my opinion|According to|I find|I have tried|To reduce|Yes, I|However|That said|I also|These are|Such as|As I find)/g,'<em>$1</em>');
+}
+
+function toggleModel(uid){
+  const box=document.getElementById(`model-${uid}`);
+  box.classList.toggle('show');
+  const btn=document.querySelector(`#ditem-${uid} .disc-model-btn`);
+  btn.textContent=box.classList.contains('show')?'✕ Ẩn':'📖 Mẫu';
+}
+
+function toggleWrite(uid){
+  const wrap=document.getElementById(`inp-${uid}`);
+  wrap.classList.toggle('show');
+  const btn=event.target;
+  btn.textContent=wrap.classList.contains('show')?'▲ Thu gọn':'✍️ Viết & nhận AI chấm điểm';
+  if(wrap.classList.contains('show')) document.getElementById(`ta-${uid}`)?.focus();
+}
+
+async function checkDiscAI(uid, question, modelAns){
+  const input=document.getElementById(`ta-${uid}`).value.trim();
+  if(!input){alert('Hãy viết câu trả lời trước nhé!');return;}
+  const btn=document.getElementById(`aibtn-${uid}`);
+  btn.disabled=true;
+  document.getElementById(`aiic-${uid}`).innerHTML='<span class="spin"></span>';
+  document.getElementById(`ailb-${uid}`).textContent='Đang chấm…';
+  const SYS=`You are an English teacher helping a Vietnamese student practice discussion questions. Evaluate their spoken English answer. Respond ONLY with valid JSON (no backticks): {"score":<0-100>,"feedback_viet":"<2-3 sentences Vietnamese: what's good, what to improve>","corrections":"<specific grammar/vocab corrections in Vietnamese, empty string if none>","better_version":"<a more natural or complete English answer>"}`;
+  const USR=`Discussion question: "${question}"\nModel answer reference: "${modelAns}"\nStudent's answer: "${input}"`;
+  try{
+    const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:500,system:SYS,messages:[{role:"user",content:USR}]})});
+    const data=await res.json();
+    const raw=data.content.map(c=>c.text||'').join('').trim();
+    let p;
+    try{p=JSON.parse(raw.replace(/```json|```/g,'').trim());}
+    catch{p={score:50,feedback_viet:"Không phân tích được.",corrections:"",better_version:""};}
+    const fb=document.getElementById(`aifb-${uid}`);
+    fb.classList.add('show');
+    document.getElementById(`aisc-${uid}`).textContent=p.score+'/100';
+    setTimeout(()=>{document.getElementById(`aifl-${uid}`).style.width=p.score+'%';},80);
+    let txt=p.feedback_viet;
+    if(p.corrections) txt+=`\n\n⚠️ Sửa lỗi: ${p.corrections}`;
+    document.getElementById(`aitx-${uid}`).textContent=txt;
+    if(p.better_version){document.getElementById(`aimo-${uid}`).style.display='';document.getElementById(`aimt-${uid}`).textContent=p.better_version;}
+    addScore(Math.max(0,Math.floor(p.score/10)));
+  }catch(e){
+    document.getElementById(`aitx-${uid}`).textContent='Lỗi kết nối. Thử lại.';
+    document.getElementById(`aifb-${uid}`).classList.add('show');
+    btn.disabled=false;
+  }finally{
+    document.getElementById(`aiic-${uid}`).textContent='✨';
+    document.getElementById(`ailb-${uid}`).textContent='Chấm lại';
+  }
+}
+
+// ════════════════════════════════════════
+// AI WRITING
+// ════════════════════════════════════════
+function buildAW(){
+  const wrap=document.getElementById('aw-wrap');
+  wrap.innerHTML='';
+  AW_PROMPTS.forEach((p,i)=>{
+    wrap.innerHTML+=`<div class="aw-block">
+      <div class="prompt-block">
+        <div class="pb-lbl">Dịch sang tiếng Anh</div>
+        <div class="pb-txt">${esc(p.viet)}</div>
+        <div class="pb-hint">💡 ${esc(p.hint)} · 📌 ${esc(p.grammar)}</div>
+      </div>
+      <div style="display:flex;gap:7px;align-items:flex-start;">
+        <textarea class="aw-ta" id="aw-ta-${i}" placeholder="Viết câu tiếng Anh…"></textarea>
+        <button onclick="ttsSay(document.getElementById('aw-ta-${i}').value)" title="Nghe lại" style="padding:8px;border:1.5px solid var(--border);border-radius:7px;background:var(--bg);cursor:pointer;font-size:0.9rem;flex-shrink:0;margin-top:2px;">🔊</button>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-ai" id="awbtn-${i}" onclick="checkAW(${i})">
+          <span id="awic-${i}">✨</span><span id="awlb-${i}">AI chấm bài</span>
+        </button>
+      </div>
+      <div class="ai-fb" id="awfb-${i}">
+        <div class="ai-fb-top">
+          <div class="ai-sc" id="awsc-${i}">—</div>
+          <div class="ai-track"><div class="ai-fill" id="awfl-${i}"></div></div>
+        </div>
+        <div class="ai-body" id="awtx-${i}"></div>
+        <div class="ai-model" id="awmo-${i}" style="display:none">
+          <div class="ai-model-lbl">✅ Câu mẫu</div>
+          <div class="ai-model-txt" id="awmt-${i}"></div>
+        </div>
+      </div>
+    </div>`;
+  });
+}
+
+async function checkAW(i){
+  const input=document.getElementById(`aw-ta-${i}`).value.trim();
+  if(!input){alert('Hãy viết câu trước nhé!');return;}
+  const btn=document.getElementById(`awbtn-${i}`);
+  btn.disabled=true;
+  document.getElementById(`awic-${i}`).innerHTML='<span class="spin"></span>';
+  document.getElementById(`awlb-${i}`).textContent='Đang chấm…';
+  const p=AW_PROMPTS[i];
+  const SYS=`You are an English teacher helping a Vietnamese student. Evaluate their English sentence translation. Respond ONLY with valid JSON (no backticks): {"score":<0-100>,"feedback_viet":"<2-3 sentences Vietnamese>","corrections":"<corrections Vietnamese or empty>","better_version":"<natural English sentence>"}`;
+  const USR=`Vietnamese: "${p.viet}"\nStudent wrote: "${input}"\nGrammar focus: ${p.grammar}`;
+  try{
+    const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:500,system:SYS,messages:[{role:"user",content:USR}]})});
+    const data=await res.json();
+    const raw=data.content.map(c=>c.text||'').join('').trim();
+    let p2;
+    try{p2=JSON.parse(raw.replace(/```json|```/g,'').trim());}
+    catch{p2={score:50,feedback_viet:"Không phân tích được.",corrections:"",better_version:""};}
+    const fb=document.getElementById(`awfb-${i}`);
+    fb.classList.add('show');
+    document.getElementById(`awsc-${i}`).textContent=p2.score+'/100';
+    setTimeout(()=>{document.getElementById(`awfl-${i}`).style.width=p2.score+'%';},80);
+    let txt=p2.feedback_viet;
+    if(p2.corrections) txt+=`\n\n⚠️ Sửa: ${p2.corrections}`;
+    document.getElementById(`awtx-${i}`).textContent=txt;
+    if(p2.better_version){document.getElementById(`awmo-${i}`).style.display='';document.getElementById(`awmt-${i}`).textContent=p2.better_version;}
+    addScore(Math.max(0,Math.floor(p2.score/10)));
+    awDone.add(i);
+    if(awDone.size===AW_PROMPTS.length) document.getElementById('aw-done').classList.add('show');
+  }catch(e){
+    document.getElementById(`awtx-${i}`).textContent='Lỗi kết nối. Thử lại.';
+    document.getElementById(`awfb-${i}`).classList.add('show');
+    btn.disabled=false;
+  }finally{
+    document.getElementById(`awic-${i}`).textContent='✨';
+    document.getElementById(`awlb-${i}`).textContent='Chấm lại';
+  }
+}
+
+// ════════════════════════════════════════
+// UTILS
+// ════════════════════════════════════════
+function shuffleArr(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+// INIT
+buildFC(); buildVQ(); buildTF(); buildGF(); buildDisc(); buildAW();
+</script>
+</body>
+</html>
