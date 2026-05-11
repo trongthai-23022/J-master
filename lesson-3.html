@@ -3,133 +3,126 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Music Therapy – English Lesson 3</title>
+<title>Music Therapy &amp; Anaesthesia – English Lesson</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f3f7f9;--surface:#fff;--border:#cfdde3;--text:#16242b;--muted:#5f7783;
-  --accent:#2a6478;--accent2:#4aa3b8;--light:#e6f1f4;--gold:#c8962a;
+  --bg:#f3f6f9;--surface:#fff;--border:#cdd9e3;--text:#1a1f24;--muted:#67737f;
+  --accent:#2a6478;--accent2:#4aa3b8;--light:#e6f1f5;--gold:#c8962a;
   --red:#c0392b;--green:#1e7a3e;--blue:#1a4a7a;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;}
 
 /* HERO */
-.hero{background:linear-gradient(135deg,#2a6478 0%,#0e2730 100%);color:white;padding:28px 20px 22px;position:relative;overflow:hidden;}
-.hero::after{content:'🎵';position:absolute;right:16px;top:14px;font-size:5rem;opacity:0.13;pointer-events:none;}
-.hero-tag{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:2.5px;opacity:0.65;text-transform:uppercase;margin-bottom:6px;}
+.hero{background:linear-gradient(135deg,#2a6478 0%,#11303a 100%);color:white;padding:28px 20px 22px;position:relative;overflow:hidden;}
+.hero::after{content:'🎵';position:absolute;right:16px;top:14px;font-size:5rem;opacity:0.12;pointer-events:none;}
+.hero-tag{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:2.5px;opacity:0.6;text-transform:uppercase;margin-bottom:6px;}
 .hero-title{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,5vw,2.4rem);font-weight:800;line-height:1.1;margin-bottom:5px;}
-.hero-title em{color:#9ed5e2;font-style:normal;}
-.hero-sub{font-family:'Lora',serif;font-size:0.85rem;opacity:0.72;font-style:italic;line-height:1.4;}
-.hero-score{display:inline-flex;align-items:center;gap:8px;margin-top:14px;background:rgba(255,255,255,0.13);border:1px solid rgba(255,255,255,0.22);border-radius:99px;padding:6px 16px;font-family:'DM Mono',monospace;font-size:0.82rem;}
+.hero-title em{color:#9ed7e3;font-style:normal;}
+.hero-sub{font-family:'Lora',serif;font-size:0.83rem;opacity:0.7;font-style:italic;}
+.hero-score{display:inline-flex;align-items:center;gap:8px;margin-top:14px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:99px;padding:6px 16px;font-family:'DM Mono',monospace;font-size:0.82rem;}
 .hero-score strong{font-size:1.1rem;}
 
 /* STAGE NAV */
 .stage-nav{display:flex;background:var(--surface);border-bottom:2px solid var(--border);overflow-x:auto;scrollbar-width:none;position:sticky;top:0;z-index:30;}
 .stage-nav::-webkit-scrollbar{display:none;}
-.snav{flex:1;min-width:84px;min-height:52px;padding:8px 6px;text-align:center;font-size:0.74rem;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;cursor:pointer;transition:all 0.15s;white-space:nowrap;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;}
-.snav .si{display:block;font-size:1.05rem;}
+.snav{flex:1;min-width:74px;min-height:48px;padding:9px 6px;text-align:center;font-size:0.72rem;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;cursor:pointer;transition:all 0.15s;white-space:nowrap;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;}
+.snav .si{font-size:1.05rem;}
 .snav.on{color:var(--accent);border-bottom-color:var(--accent);background:var(--light);}
 .snav.done{color:var(--green);}
 
-.wrap{max-width:800px;margin:0 auto;padding:20px 16px 100px;}
+.wrap{max-width:800px;margin:0 auto;padding:20px 16px 80px;}
 .stage{display:none;}.stage.on{display:block;animation:fadein 0.25s ease;}
 @keyframes fadein{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 
 /* CARDS */
-.card{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:22px 20px;margin-bottom:18px;}
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:20px 18px;margin-bottom:18px;}
 .card-hd{display:flex;gap:10px;align-items:flex-start;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border);}
-.badge{background:var(--accent);color:white;font-family:'DM Mono',monospace;font-size:0.62rem;padding:5px 10px;border-radius:6px;flex-shrink:0;margin-top:1px;}
+.badge{background:var(--accent);color:white;font-family:'DM Mono',monospace;font-size:0.62rem;padding:4px 9px;border-radius:6px;flex-shrink:0;margin-top:1px;}
 .badge.gold{background:var(--gold);}
-.card-ttl{font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;}
-.card-desc{font-size:0.78rem;color:var(--muted);margin-top:2px;line-height:1.45;}
-.sec{font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:18px 0 10px;}
+.card-ttl{font-family:'Syne',sans-serif;font-weight:700;font-size:0.98rem;}
+.card-desc{font-size:0.78rem;color:var(--muted);margin-top:2px;}
+.sec{font-family:'DM Mono',monospace;font-size:0.64rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:18px 0 10px;}
 
 /* TTS BAR */
-.tts-bar{background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:18px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.tts-bar{background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;margin-bottom:18px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .tts-lbl{font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
-.tts-btn{min-height:40px;padding:8px 14px;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.82rem;cursor:pointer;transition:all 0.14s;display:inline-flex;align-items:center;gap:5px;}
-.tts-btn:active{transform:scale(0.97);}
+.tts-btn{min-height:40px;padding:8px 14px;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.82rem;cursor:pointer;transition:all 0.14s;display:flex;align-items:center;gap:5px;}
+.tts-btn:hover,.tts-btn:active{border-color:var(--accent);}
 .tts-btn.on{background:var(--accent);color:white;border-color:var(--accent);}
-.spd{font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--muted);margin-left:auto;display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
-.spd-btn{min-height:36px;min-width:48px;padding:6px 10px;border-radius:6px;border:1.5px solid var(--border);background:var(--bg);cursor:pointer;font-size:0.74rem;font-family:'DM Mono',monospace;font-weight:600;}
+.spd{font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);margin-left:auto;display:flex;align-items:center;gap:5px;}
+.spd-btn{min-height:36px;min-width:46px;padding:6px 9px;border-radius:6px;border:1px solid var(--border);background:var(--bg);cursor:pointer;font-size:0.72rem;font-family:'DM Mono',monospace;}
 .spd-btn.on{background:var(--accent);color:white;border-color:var(--accent);}
-.tts-prog{flex-basis:100%;height:4px;background:var(--border);border-radius:99px;overflow:hidden;margin-top:4px;}
+.tts-prog{flex-basis:100%;height:3px;background:var(--border);border-radius:99px;overflow:hidden;margin-top:2px;}
 .tts-prog-fill{height:100%;background:var(--accent2);width:0%;transition:width 0.3s;border-radius:99px;}
 
 /* FLASHCARD */
-.fc{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;min-height:200px;padding:30px 20px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;transition:box-shadow 0.2s;box-shadow:0 2px 12px rgba(0,0,0,0.06);position:relative;margin-bottom:14px;}
-.fc:active{box-shadow:0 4px 18px rgba(0,0,0,0.1);}
+.fc{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;min-height:200px;padding:24px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;transition:box-shadow 0.2s;box-shadow:0 2px 12px rgba(0,0,0,0.06);position:relative;margin-bottom:12px;}
+.fc:active{box-shadow:0 4px 20px rgba(0,0,0,0.1);}
 .fc-front,.fc-back{width:100%;}
 .fc.flipped .fc-front{display:none;}
 .fc-back{display:none;}
-.fc.flipped .fc-back{display:flex;flex-direction:column;align-items:center;gap:8px;}
+.fc.flipped .fc-back{display:flex;flex-direction:column;align-items:center;gap:6px;}
 .fc-n{font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--muted);margin-bottom:8px;}
-.fc-word{font-family:'Syne',sans-serif;font-size:1.9rem;font-weight:800;color:var(--accent);line-height:1.15;}
-.fc-pos{font-family:'DM Mono',monospace;font-size:0.65rem;background:var(--light);color:var(--accent);padding:4px 10px;border-radius:99px;margin:8px 0;}
-.fc-tap{font-size:0.72rem;color:var(--muted);margin-top:12px;}
+.fc-word{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--accent);}
+.fc-pos{font-family:'DM Mono',monospace;font-size:0.68rem;background:var(--light);color:var(--accent);padding:4px 11px;border-radius:99px;margin:6px 0;}
+.fc-tap{font-size:0.74rem;color:var(--muted);margin-top:10px;}
 .fc-viet{font-size:1.15rem;font-weight:700;color:var(--accent);}
-.fc-def{font-family:'Lora',serif;font-size:0.85rem;color:var(--muted);line-height:1.55;max-width:340px;}
-.fc-ex{font-family:'Lora',serif;font-size:0.8rem;color:#5a4030;font-style:italic;background:#fdf6ec;border-radius:8px;padding:8px 12px;margin-top:5px;max-width:360px;line-height:1.5;}
-.fc-ex strong{font-style:normal;background:#fde68a;border-radius:3px;padding:0 3px;}
-.fc-speak{position:absolute;top:10px;right:10px;min-width:42px;min-height:42px;background:var(--bg);border:1.5px solid var(--border);border-radius:9px;padding:6px 10px;cursor:pointer;font-size:0.95rem;transition:all 0.14s;}
+.fc-def{font-family:'Lora',serif;font-size:0.86rem;color:var(--muted);line-height:1.5;max-width:340px;}
+.fc-ex{font-family:'Lora',serif;font-size:0.82rem;color:#3a4a55;font-style:italic;background:#f0f6fa;border-radius:7px;padding:8px 12px;margin-top:5px;max-width:360px;}
+.fc-ex strong{font-style:normal;background:#cde6ef;border-radius:2px;padding:0 3px;color:var(--accent);}
+.fc-speak{position:absolute;top:10px;right:10px;background:none;border:1.5px solid var(--border);border-radius:8px;min-width:44px;min-height:36px;padding:4px 10px;cursor:pointer;font-size:0.95rem;transition:all 0.14s;}
 .fc-speak:active{background:var(--light);}
-.fc-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px;}
-.nav-btn{min-height:44px;padding:10px 18px;border-radius:9px;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;background:var(--accent);color:white;transition:all 0.14s;}
-.nav-btn:active{transform:scale(0.97);}
+.fc-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:8px;}
+.nav-btn{min-height:44px;padding:10px 18px;border-radius:9px;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;cursor:pointer;background:var(--accent);color:white;transition:all 0.14s;}
+.nav-btn:active{background:#11303a;}
 .nav-btn:disabled{opacity:0.3;cursor:not-allowed;}
-.fc-dots{display:flex;gap:4px;flex-wrap:wrap;justify-content:center;max-width:260px;}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--border);cursor:pointer;transition:background 0.2s;}
+.fc-dots{display:flex;gap:4px;flex-wrap:wrap;justify-content:center;max-width:280px;}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--border);cursor:pointer;transition:background 0.2s;}
 .dot.seen{background:var(--accent);}
 
 /* VOCAB LIST */
-.vl{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-bottom:16px;}
-.vl-item{background:var(--surface);border:1.5px solid var(--border);border-radius:9px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer;transition:border-color 0.14s;min-height:54px;}
-.vl-item:active{border-color:var(--accent);background:var(--light);}
-.vl-w{font-weight:700;font-size:0.85rem;}
-.vl-v{font-size:0.72rem;color:var(--muted);margin-top:2px;}
-.vl-sp{min-width:36px;min-height:36px;font-size:0.95rem;opacity:0.55;flex-shrink:0;border:1px solid var(--border);background:var(--bg);cursor:pointer;border-radius:7px;}
+.vl{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;margin-bottom:16px;}
+.vl-item{background:var(--surface);border:1.5px solid var(--border);border-radius:9px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:6px;cursor:pointer;transition:border-color 0.14s;min-height:54px;}
+.vl-item:active{border-color:var(--accent);}
+.vl-w{font-weight:600;font-size:0.86rem;}
+.vl-v{font-size:0.72rem;color:var(--muted);margin-top:1px;}
+.vl-sp{font-size:1rem;opacity:0.55;flex-shrink:0;border:none;background:none;cursor:pointer;min-width:36px;min-height:36px;border-radius:6px;}
 .vl-sp:active{opacity:1;background:var(--light);}
 
-/* PROGRESS HINT */
-.ex-hdr{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:1px;color:var(--muted);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;}
-.ex-hdr-bar{flex:1;height:4px;background:var(--border);border-radius:99px;margin:0 10px;overflow:hidden;}
-.ex-hdr-fill{height:100%;background:var(--accent2);width:0%;transition:width 0.3s;border-radius:99px;}
-
 /* QUIZ */
-.vq{background:var(--surface);border:1.5px solid var(--border);border-radius:11px;padding:18px;margin-bottom:12px;}
-.vq-q{font-weight:700;font-size:0.95rem;margin-bottom:12px;line-height:1.4;}
+.vq{background:var(--surface);border:1.5px solid var(--border);border-radius:11px;padding:16px;margin-bottom:12px;}
+.vq-q{font-weight:700;font-size:0.94rem;margin-bottom:10px;line-height:1.4;}
 .vq-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-@media(max-width:480px){.vq-opts{grid-template-columns:1fr;}}
-.vq-o{min-height:52px;padding:12px 14px;background:var(--bg);border:1.5px solid var(--border);border-radius:9px;font-size:0.88rem;cursor:pointer;text-align:left;transition:all 0.13s;font-family:'DM Sans',sans-serif;line-height:1.4;}
+@media(max-width:520px){.vq-opts{grid-template-columns:1fr;}}
+.vq-o{min-height:48px;padding:11px 14px;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;font-size:0.86rem;cursor:pointer;text-align:left;transition:all 0.13s;font-family:'DM Sans',sans-serif;}
 .vq-o:active:not(:disabled){border-color:var(--accent);background:var(--light);}
 .vq-o.selected{border-color:var(--accent);background:var(--light);font-weight:600;}
 .vq-o.ok{background:#e8f5ee;border-color:var(--green);color:var(--green);font-weight:700;}
 .vq-o.bad{background:#fde8e8;border-color:var(--red);color:var(--red);}
-.vq-res{font-size:0.78rem;font-style:italic;margin-top:8px;min-height:14px;line-height:1.5;}
+.vq-res{font-size:0.76rem;font-style:italic;margin-top:7px;min-height:14px;}
 
 /* ARTICLE */
 .art-kicker{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:7px;}
 .art-hl{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;line-height:1.4;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border);}
 .art-body{font-family:'Lora',serif;font-size:0.95rem;line-height:1.95;}
 .art-body p{margin-bottom:14px;}
-.hl{background:linear-gradient(180deg,transparent 58%,#c2e6f0 58%);cursor:pointer;font-weight:600;position:relative;padding:0 1px;border-radius:2px;}
-.hl.open{background:linear-gradient(180deg,transparent 58%,#4aa3b8 58%);color:white;}
-.hl-tt{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#16242b;color:white;padding:10px 14px;border-radius:9px;font-size:0.82rem;white-space:normal;min-width:200px;max-width:260px;z-index:25;font-family:'DM Sans',sans-serif;text-align:left;box-shadow:0 4px 14px rgba(0,0,0,0.25);}
-.hl-tt::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#16242b;}
-.hl-tt .tt-w{font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;color:#9ed5e2;display:block;margin-bottom:2px;}
-.hl-tt .tt-v{font-size:0.85rem;color:#fff;display:block;}
-.hl-tt .tt-sp{margin-top:8px;background:rgba(255,255,255,0.16);border:1px solid rgba(255,255,255,0.3);color:#fff;border-radius:7px;padding:6px 10px;font-size:0.78rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:5px;}
-.hl-tt .tt-sp:active{background:rgba(255,255,255,0.3);}
+.hl{background:linear-gradient(180deg,transparent 58%,#bce0eb 58%);font-weight:600;position:relative;cursor:pointer;color:var(--accent);padding:0 1px;border-radius:2px;}
+.hl-tt{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1a1f24;color:white;padding:8px 12px;border-radius:9px;font-size:0.78rem;z-index:25;font-family:'DM Sans',sans-serif;min-width:180px;max-width:260px;line-height:1.4;box-shadow:0 6px 24px rgba(0,0,0,0.25);white-space:normal;text-align:center;font-weight:500;}
+.hl-tt::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#1a1f24;}
+.hl-tt .hl-tt-w{font-family:'Syne',sans-serif;font-weight:700;color:#9ed7e3;font-size:0.82rem;display:block;margin-bottom:2px;}
+.hl-tt .hl-tt-sp{display:inline-block;margin-top:6px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:white;padding:4px 10px;border-radius:6px;font-size:0.72rem;cursor:pointer;font-family:'DM Mono',monospace;}
+.hl-tt .hl-tt-sp:active{background:rgba(255,255,255,0.22);}
 .hl.open .hl-tt{display:block;}
 
 /* TF */
-.tf-row{display:flex;align-items:flex-start;gap:10px;padding:14px 0;border-bottom:1px solid var(--border);}
+.tf-row{display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px solid var(--border);}
 .tf-row:last-of-type{border-bottom:none;}
 .tf-txt{flex:1;font-size:0.9rem;line-height:1.5;}
-.tf-exp{font-size:0.75rem;font-style:italic;color:var(--muted);margin-top:5px;line-height:1.4;}
+.tf-exp{font-size:0.76rem;font-style:italic;color:var(--muted);margin-top:4px;}
 .tf-btns{display:flex;gap:6px;flex-shrink:0;}
-.tf-b{min-height:48px;min-width:54px;padding:8px 14px;font-size:0.8rem;font-weight:700;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.13s;}
+.tf-b{min-height:44px;min-width:54px;padding:8px 14px;font-size:0.82rem;font-weight:700;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.13s;}
 .tf-b:active{border-color:var(--accent);}
 .tf-b.selT{background:#e0f0ff;border-color:#2980b9;color:#2980b9;}
 .tf-b.selF{background:#fde8e8;border-color:var(--red);color:var(--red);}
@@ -137,58 +130,66 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .tf-b.bad{background:#fde8e8;border-color:var(--red);color:var(--red);}
 
 /* SYNONYM MATCH */
-.syn-bank{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;background:var(--bg);border:1.5px dashed var(--border);border-radius:10px;padding:12px;min-height:60px;}
-.syn-bank::before{content:'Kho từ đồng nghĩa — chạm để chọn';font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;width:100%;margin-bottom:2px;}
-.syn-chip{min-height:44px;padding:10px 16px;background:var(--surface);border:1.5px solid var(--border);border-radius:9px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.88rem;cursor:pointer;transition:all 0.12s;user-select:none;}
-.syn-chip:active{border-color:var(--accent);background:var(--light);}
-.syn-chip.placed{display:none;}
-.syn-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);}
+.syn-hint{font-size:0.78rem;color:var(--muted);margin-bottom:12px;font-style:italic;}
+.syn-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);flex-wrap:wrap;}
 .syn-row:last-of-type{border-bottom:none;}
-.syn-w{flex:0 0 auto;min-width:110px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;color:var(--accent);}
-.syn-arrow{color:var(--muted);font-size:0.9rem;flex-shrink:0;}
-.syn-slot{flex:1;min-height:48px;border:2px dashed var(--border);border-radius:9px;display:flex;align-items:center;justify-content:center;padding:6px 10px;background:var(--bg);cursor:pointer;transition:all 0.14s;font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--muted);}
-.syn-slot.filled{border-style:solid;background:var(--surface);color:var(--text);font-weight:600;cursor:pointer;}
-.syn-slot.filled:active{background:var(--light);}
-.syn-slot.ok{background:#e8f5ee;border-color:var(--green);color:var(--green);font-weight:700;}
-.syn-slot.bad{background:#fde8e8;border-color:var(--red);color:var(--red);}
-.syn-slot .syn-correct{font-size:0.72rem;font-style:italic;color:var(--muted);margin-left:6px;}
+.syn-left{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--accent);min-width:130px;flex-shrink:0;display:flex;align-items:center;gap:6px;}
+.syn-select{flex:1;min-width:180px;}
+.syn-opts{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+@media(max-width:520px){.syn-opts{grid-template-columns:1fr;}.syn-left{min-width:100%;}}
+.syn-o{min-height:42px;padding:9px 12px;background:var(--bg);border:1.5px solid var(--border);border-radius:7px;font-size:0.85rem;cursor:pointer;text-align:left;transition:all 0.13s;font-family:'DM Sans',sans-serif;}
+.syn-o:active:not(:disabled){border-color:var(--accent);background:var(--light);}
+.syn-o.selected{border-color:var(--accent);background:var(--light);font-weight:600;}
+.syn-o.ok{background:#e8f5ee;border-color:var(--green);color:var(--green);font-weight:700;}
+.syn-o.bad{background:#fde8e8;border-color:var(--red);color:var(--red);}
+
+/* DISCUSSION (no AI — show model only) */
+.disc-item{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;margin-bottom:12px;overflow:hidden;}
+.disc-top{padding:14px 16px;display:flex;align-items:flex-start;gap:10px;}
+.disc-num{font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);flex-shrink:0;margin-top:3px;min-width:24px;font-weight:600;}
+.disc-q{flex:1;font-size:0.92rem;line-height:1.5;font-weight:500;}
+.disc-actions{display:flex;gap:6px;flex-shrink:0;align-items:center;flex-wrap:wrap;}
+.disc-speak{background:none;border:1.5px solid var(--border);border-radius:8px;min-width:44px;min-height:40px;padding:6px 11px;cursor:pointer;font-size:0.95rem;transition:all 0.13s;}
+.disc-speak:active{border-color:var(--accent);background:var(--light);}
+.disc-model-btn{background:var(--light);border:1.5px solid var(--border);border-radius:8px;min-height:40px;padding:6px 13px;cursor:pointer;font-size:0.78rem;font-weight:600;color:var(--accent);transition:all 0.13s;}
+.disc-model-btn:active{background:#cde6ef;}
+
+.model-box{background:linear-gradient(135deg,#f0f7fa,#e6f1f5);border-top:1.5px solid var(--border);padding:14px 16px;display:none;}
+.model-box.show{display:block;}
+.model-lbl{font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.model-text{font-family:'Lora',serif;font-size:0.92rem;line-height:1.7;color:var(--text);}
+.model-text em{color:var(--accent);font-style:normal;font-weight:700;background:#cde6ef;border-radius:3px;padding:1px 4px;}
+.model-note{font-size:0.8rem;color:var(--muted);margin-top:8px;font-style:italic;line-height:1.55;}
+.model-speak-btn{background:none;border:1.5px solid var(--border);border-radius:7px;min-height:38px;padding:6px 12px;cursor:pointer;font-size:0.76rem;font-weight:600;color:var(--muted);margin-top:10px;transition:all 0.13s;}
+.model-speak-btn:active{border-color:var(--accent);color:var(--accent);}
 
 /* BUTTONS */
-.btn{font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;border:none;border-radius:9px;padding:12px 18px;cursor:pointer;transition:all 0.13s;min-height:46px;}
-.btn:active{transform:scale(0.97);}
+.btn{font-family:'Syne',sans-serif;font-weight:700;font-size:0.86rem;border:none;border-radius:9px;min-height:46px;padding:12px 20px;cursor:pointer;transition:all 0.13s;}
 .btn-g{background:var(--accent);color:white;}
-.btn-g:active{background:#1d4a58;}
+.btn-g:active{background:#11303a;}
 .btn-g:disabled{opacity:0.35;cursor:not-allowed;}
 .btn-gh{background:transparent;color:var(--muted);border:1.5px solid var(--border);}
 .btn-gh:active{border-color:var(--text);color:var(--text);}
 .btn-gold{background:var(--gold);color:white;}
 .btn-gold:active{background:#a07820;}
 .btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
-.next-row{display:none;margin-top:12px;}
+.next-row{display:none;margin-top:10px;}
 .next-row.show{display:flex;gap:8px;flex-wrap:wrap;}
 
-/* MOBILE TWEAKS */
-@media(max-width:480px){
-  .hero{padding:22px 16px 18px;}
-  .wrap{padding:16px 12px 100px;}
-  .card{padding:18px 16px;}
-  .syn-w{min-width:90px;font-size:0.88rem;}
-  .syn-slot{font-size:0.85rem;}
-  .vl{grid-template-columns:1fr 1fr;}
-  .fc-word{font-size:1.7rem;}
-  .tts-bar{padding:10px 12px;}
-  .spd{margin-left:0;width:100%;justify-content:flex-end;margin-top:4px;}
-}
-@media(max-width:360px){
-  .vl{grid-template-columns:1fr;}
-}
+/* EXERCISE HEADER PROGRESS */
+.ex-hdr{font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);margin-bottom:10px;letter-spacing:0.5px;}
+.ex-hdr strong{color:var(--accent);font-weight:700;}
 
-/* FINAL RESULT */
-.final-card{background:linear-gradient(135deg,var(--accent),#0e2730);color:white;border-radius:14px;padding:24px 20px;text-align:center;margin-top:14px;display:none;}
-.final-card.show{display:block;animation:fadein 0.3s ease;}
-.final-card .fn-sc{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;}
-.final-card .fn-lb{font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;opacity:0.7;margin-top:4px;}
-.final-card .fn-msg{font-family:'Lora',serif;font-size:0.95rem;margin-top:10px;opacity:0.88;}
+/* Mobile tweaks */
+@media(max-width:480px){
+  .hero{padding:24px 16px 18px;}
+  .card{padding:18px 14px;}
+  .wrap{padding:16px 12px 70px;}
+  .vq-q,.disc-q{font-size:0.92rem;}
+  .vq-o,.syn-o{font-size:0.88rem;}
+  .tf-txt{font-size:0.88rem;}
+  .art-body{font-size:0.95rem;line-height:1.9;}
+}
 </style>
 </head>
 <body>
@@ -197,7 +198,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 <div class="hero">
   <div class="hero-tag">Thu 27/11/2025 · Breaking News English Level 3</div>
   <div class="hero-title">Music Therapy <em>&amp; Anaesthesia</em></div>
-  <div class="hero-sub">Music can help quicker recovery after surgery</div>
+  <div class="hero-sub">Music played during surgery helps patients recover faster</div>
   <div class="hero-score">Điểm: <strong id="score-num">0</strong> 🏆</div>
 </div>
 
@@ -207,6 +208,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
   <div class="snav" id="sn1" onclick="gS(1)"><span class="si">🎯</span>Quiz</div>
   <div class="snav" id="sn2" onclick="gS(2)"><span class="si">📰</span>Bài đọc</div>
   <div class="snav" id="sn3" onclick="gS(3)"><span class="si">✏️</span>Bài tập</div>
+  <div class="snav" id="sn4" onclick="gS(4)"><span class="si">💬</span>Thảo luận</div>
 </div>
 
 <div class="wrap">
@@ -230,7 +232,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
       <div class="fc-n" id="fc-n">1 / 14</div>
       <div class="fc-word" id="fc-word">—</div>
       <div class="fc-pos" id="fc-pos">—</div>
-      <div class="fc-tap">👆 Chạm để xem nghĩa</div>
+      <div class="fc-tap">👆 Nhấn để xem nghĩa</div>
     </div>
     <div class="fc-back">
       <div class="fc-viet" id="fc-viet">—</div>
@@ -244,7 +246,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     <button class="nav-btn" id="fc-next" onclick="fcMv(1)">Tiếp →</button>
   </div>
 
-  <div class="sec">📋 Tất cả 14 từ vựng</div>
+  <div class="sec">📋 Tất cả từ vựng</div>
   <div class="vl" id="vl"></div>
   <div class="btn-row">
     <button class="btn btn-g" onclick="gS(1)">Làm Quiz →</button>
@@ -253,20 +255,14 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 
 <!-- ══ STAGE 1: QUIZ ══ -->
 <div class="stage" id="s1">
-  <div class="card-hd" style="border:none;padding:0;margin-bottom:10px;">
-    <div class="badge">🎯</div>
-    <div><div class="card-ttl">Quiz — 8 câu trắc nghiệm</div><div class="card-desc">Chọn đáp án đúng theo bài đọc</div></div>
-  </div>
-  <div class="ex-hdr">
-    <span>Đã trả lời <strong id="vq-cur">0</strong>/8</span>
-    <div class="ex-hdr-bar"><div class="ex-hdr-fill" id="vq-fill"></div></div>
-  </div>
+  <div class="sec">🎯 Quiz — Chọn nghĩa đúng (12 câu ngẫu nhiên)</div>
+  <div class="ex-hdr">Đã chọn: <strong id="vq-cur">0</strong>/12 câu</div>
   <div id="vq-wrap"></div>
   <div class="btn-row">
-    <button class="btn btn-g" onclick="checkVQ()">Kiểm tra</button>
+    <button class="btn btn-g" id="vq-check" onclick="checkVQ()">Kiểm tra</button>
     <button class="btn btn-gh" onclick="buildVQ()">Làm lại</button>
   </div>
-  <div id="vq-out" style="margin-top:12px;font-size:0.92rem;display:none;"></div>
+  <div id="vq-out" style="margin-top:10px;font-size:0.92rem;display:none;"></div>
   <div class="next-row" id="vq-next">
     <button class="btn btn-gold" onclick="gS(2)">📰 Đọc bài →</button>
   </div>
@@ -275,7 +271,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 <!-- ══ STAGE 2: READING ══ -->
 <div class="stage" id="s2">
   <div class="tts-bar">
-    <span class="tts-lbl">🔊 Nghe bài đọc</span>
+    <span class="tts-lbl">🔊 Nghe bài</span>
     <button class="tts-btn" id="art-play-btn" onclick="ttsArt()">▶ Đọc toàn bài</button>
     <button class="tts-btn" onclick="ttsStop()">⏹ Dừng</button>
     <div class="spd">Tốc độ:
@@ -286,10 +282,13 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     <div class="tts-prog"><div class="tts-prog-fill" id="art-prog"></div></div>
   </div>
   <div class="card">
-    <div class="art-kicker">📍 Maulana Azad Medical College, India · 27 November 2025</div>
+    <div class="art-kicker">📍 New Delhi, India · 27 November 2025</div>
     <div class="art-hl">Music can help quicker recovery after surgery</div>
-    <div class="card-desc" style="margin-bottom:14px;font-size:0.78rem;">💡 Chạm vào từ <span style="background:linear-gradient(180deg,transparent 58%,#c2e6f0 58%);font-weight:600;padding:0 2px;">được tô màu</span> để xem nghĩa &amp; nghe phát âm. Chạm chỗ khác để đóng.</div>
-    <div class="art-body" id="art-body"></div>
+    <div class="art-body">
+      <p>A new <span class="hl" data-w="study">study<span class="hl-tt"><span class="hl-tt-w">study</span>nghiên cứu<button class="hl-tt-sp" onclick="event.stopPropagation();ttsSay('study')">🔊 Nghe</button></span></span> shows that <span class="hl" data-w="music therapy">music therapy<span class="hl-tt"><span class="hl-tt-w">music therapy</span>liệu pháp âm nhạc<button class="hl-tt-sp" onclick="event.stopPropagation();ttsSay('music therapy')">🔊 Nghe</button></span></span> during <span class="hl" data-w="surgery">surgery<span class="hl-tt"><span class="hl-tt-w">surgery</span>phẫu thuật, ca mổ<button class="hl-tt-sp" onclick="event.stopPropagation();ttsSay('surgery')">🔊 Nghe</button></span></span> can help patients <span class="hl" data-w="recover">recover<span class="hl-tt"><span class="hl-tt-w">recover</span>hồi phục<button class="hl-tt-sp" onclick="event.stopPropagation();ttsSay('recover')">🔊 Nghe</button></span></span> faster. Doctors at Maulana Azad Medical College in India tested soft <span class="hl" data-w="flute">flute<span class="hl-tt"><span class="hl-tt-w">flute</span>sáo (nhạc cụ)<button class="hl-tt-sp" onclick="event.stopPropagation();ttsSay('flute')">🔊 Nghe</button></span></span> music on 56 patients who needed <span class="hl" data-w="gallbladder">gallbladder<span class="hl-tt"><span class="hl-tt-w">gallbladder</span>túi mật<button class="hl-tt-sp" onclick="event.stopPropagation();ttsSay('gallbladder')">🔊 Nghe</button></span></span> operations. The team gave all patients <span class="hl" data-w="anaesthetic">anaesthetic<span class="hl-tt"><span class="hl-tt-w">anaesthetic</span>thuốc gây mê<button class="hl-tt-sp" onclick="event.stopPropagation();ttsSay('anaesthetic')">🔊 Nghe</button></span></span> drugs, but only half listened to music through headphones during the operation. The other half had no music. Lead researcher Dr Tanvi Goel said the music group needed less <span class="hl" data-w="painkiller">painkiller<span class="hl-tt"><span class="hl-tt-w">painkiller</span>thuốc giảm đau<button class="hl-tt-sp" onclick="event.stopPropagation();ttsSay('painkiller')">🔊 Nghe</button></span></span> medicine after waking up. "Music <span class="hl" data-w="reduces">reduces<span class="hl-tt"><span class="hl-tt-w">reduces</span>làm giảm<button class="hl-tt-sp" onclick="event.stopPropagation();ttsSay('reduces')">🔊 Nghe</button></span></span> stress and helps patients feel safe," she said.</p>
+
+      <p>Dr Farah Husain, a <span class="hl" data-w="specialist">specialist<span class="hl-tt"><span class="hl-tt-w">specialist</span>chuyên gia<button class="hl-tt-sp" onclick="event.stopPropagation();ttsSay('specialist')">🔊 Nghe</button></span></span> in anaesthesia, explained why music helps. Anaesthetic drugs <span class="hl" data-w="block">block<span class="hl-tt"><span class="hl-tt-w">block</span>chặn, ngăn<button class="hl-tt-sp" onclick="event.stopPropagation();ttsSay('block')">🔊 Nghe</button></span></span> pain, she said, but the brain still hears sounds during surgery. Soft music helps the brain stay calm. Patients in the music group were more <span class="hl" data-w="alert">alert<span class="hl-tt"><span class="hl-tt-w">alert</span>tỉnh táo<button class="hl-tt-sp" onclick="event.stopPropagation();ttsSay('alert')">🔊 Nghe</button></span></span> when nurses <span class="hl" data-w="discharge">discharged<span class="hl-tt"><span class="hl-tt-w">discharge</span>cho xuất viện<button class="hl-tt-sp" onclick="event.stopPropagation();ttsSay('discharge')">🔊 Nghe</button></span></span> them from the hospital. The team's <span class="hl" data-w="aim">aim<span class="hl-tt"><span class="hl-tt-w">aim</span>mục tiêu<button class="hl-tt-sp" onclick="event.stopPropagation();ttsSay('aim')">🔊 Nghe</button></span></span> is to make surgery less scary and to help patients heal more quickly. They believe music could become standard hospital care because it is cheap, safe, and easy to use anywhere in the world.</p>
+    </div>
   </div>
   <div class="btn-row">
     <button class="btn btn-gold" onclick="gS(3)">✏️ Làm bài tập →</button>
@@ -299,16 +298,12 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 
 <!-- ══ STAGE 3: EXERCISES ══ -->
 <div class="stage" id="s3">
-  <!-- TF -->
   <div class="card">
     <div class="card-hd">
       <div class="badge">01</div>
-      <div><div class="card-ttl">True / False — Đúng hay Sai</div><div class="card-desc">Dựa vào bài đọc, chọn True hoặc False cho mỗi câu</div></div>
+      <div><div class="card-ttl">True / False</div><div class="card-desc">Đúng hay sai dựa theo bài đọc?</div></div>
     </div>
-    <div class="ex-hdr">
-      <span>Đã trả lời <strong id="tf-cur">0</strong>/6</span>
-      <div class="ex-hdr-bar"><div class="ex-hdr-fill" id="tf-fill"></div></div>
-    </div>
+    <div class="ex-hdr">Đã trả lời: <strong id="tf-cur">0</strong>/6</div>
     <div id="tf-list"></div>
     <div class="btn-row">
       <button class="btn btn-g" onclick="checkTF()">Kiểm tra</button>
@@ -317,35 +312,41 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     <div class="next-row" id="tf-next"><button class="btn btn-gold" onclick="scrollTo2('ex-syn')">Tiếp →</button></div>
   </div>
 
-  <!-- Synonym match -->
   <div class="card" id="ex-syn">
     <div class="card-hd">
       <div class="badge">02</div>
-      <div><div class="card-ttl">Synonym Match — Tìm từ đồng nghĩa</div><div class="card-desc">Chạm từ trong kho, sau đó chạm ô bên phải để ghép. Chạm ô đã ghép để bỏ.</div></div>
+      <div><div class="card-ttl">Synonym Match — Ghép từ đồng nghĩa</div><div class="card-desc">Chọn từ đồng nghĩa cho mỗi từ in đậm</div></div>
     </div>
-    <div class="ex-hdr">
-      <span>Đã ghép <strong id="syn-cur">0</strong>/8</span>
-      <div class="ex-hdr-bar"><div class="ex-hdr-fill" id="syn-fill"></div></div>
-    </div>
-    <div class="syn-bank" id="syn-bank"></div>
-    <div id="syn-rows"></div>
+    <div class="syn-hint">💡 Mỗi từ bên trái chọn 1 từ đồng nghĩa đúng từ các lựa chọn.</div>
+    <div class="ex-hdr">Đã trả lời: <strong id="syn-cur">0</strong>/8</div>
+    <div id="syn-list"></div>
     <div class="btn-row">
       <button class="btn btn-g" onclick="checkSyn()">Kiểm tra</button>
       <button class="btn btn-gh" onclick="buildSyn()">Làm lại</button>
     </div>
-    <div class="next-row" id="syn-next">
-      <button class="btn btn-gold" onclick="showFinal()">🏆 Xem kết quả</button>
+    <div class="next-row" id="syn-next"><button class="btn btn-gold" onclick="gS(4)">💬 Thảo luận →</button></div>
+  </div>
+</div>
+
+<!-- ══ STAGE 4: DISCUSSION (no AI) ══ -->
+<div class="stage" id="s4">
+  <div class="card-hd" style="background:var(--light);border-radius:10px;padding:14px 16px;margin-bottom:16px;border:1.5px solid var(--border);">
+    <div class="badge">💬</div>
+    <div>
+      <div class="card-ttl">Câu hỏi thảo luận</div>
+      <div class="card-desc">Suy nghĩ câu trả lời · Nhấn 📖 Mẫu để xem gợi ý · Nhấn 🔊 để nghe</div>
     </div>
   </div>
 
-  <!-- Final result -->
-  <div class="final-card" id="final-card">
-    <div class="fn-lb">Tổng điểm cuối bài</div>
-    <div class="fn-sc"><span id="fn-score">0</span> / 78 🏆</div>
-    <div class="fn-msg" id="fn-msg">Tuyệt vời! Hẹn gặp lại ở Lesson 4.</div>
-    <div class="btn-row" style="justify-content:center;margin-top:14px;">
-      <button class="btn btn-gh" style="color:#fff;border-color:rgba(255,255,255,0.3);" onclick="resetAll()">🔄 Học lại từ đầu</button>
-    </div>
+  <div class="sec">CÂU HỎI HIỂU BÀI (theo bài đọc)</div>
+  <div id="disc-comp"></div>
+
+  <div class="sec" style="margin-top:18px;">CÂU HỎI MỞ RỘNG</div>
+  <div id="disc-open"></div>
+
+  <div class="btn-row" style="margin-top:20px;">
+    <button class="btn btn-gold" onclick="showResult()">🏆 Xem kết quả</button>
+    <button class="btn btn-gh" onclick="gS(0)">↺ Học lại từ đầu</button>
   </div>
 </div>
 
@@ -353,78 +354,123 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 
 <script>
 // ════════════════════════════════════════
-// DATA — Music Therapy / Anaesthesia
+// DATA — Music Therapy & Anaesthesia
 // ════════════════════════════════════════
 
 const VOCAB = [
-  {w:"study",pos:"noun",viet:"Nghiên cứu",def:"A careful look at something to learn new facts.",ex:"A new <strong>study</strong> shows that music played during surgery can help patients recover."},
-  {w:"surgery",pos:"noun",viet:"Phẫu thuật, ca mổ",def:"An operation in which doctors repair or remove a part of the body.",ex:"Music played during <strong>surgery</strong> can help patients recover."},
-  {w:"recover",pos:"verb",viet:"Hồi phục",def:"Get better after being sick or hurt.",ex:"Music can help patients <strong>recover</strong> faster."},
-  {w:"patient",pos:"noun",viet:"Bệnh nhân",def:"A person who is in a hospital to get treatment.",ex:"They played flute music to a female <strong>patient</strong>."},
-  {w:"block",pos:"verb",viet:"Chặn lại, ngăn",def:"Stop something from happening or going through.",ex:"Anaesthetics <strong>block</strong> pain signals."},
-  {w:"anaesthetic",pos:"noun",viet:"Thuốc gây mê",def:"A medicine that makes a person not feel pain during surgery.",ex:"Doctors gave the woman <strong>anaesthetic</strong> drugs to put her to sleep."},
-  {w:"alert",pos:"adjective",viet:"Tỉnh táo, lanh lợi",def:"Awake and able to think clearly.",ex:"Patients are more <strong>alert</strong> after surgery."},
-  {w:"explained",pos:"verb",viet:"Đã giải thích",def:"Told someone about something so they understand.",ex:"Dr Goel <strong>explained</strong> why music is so helpful to patients."},
-  {w:"pain",pos:"noun",viet:"Cơn đau, sự đau",def:"A hurt or bad feeling in the body.",ex:"Music helps patients feel less <strong>pain</strong>."},
-  {w:"painkillers",pos:"noun",viet:"Thuốc giảm đau",def:"Medicines that stop pain.",ex:"Patients need fewer <strong>painkillers</strong> with music therapy."},
-  {w:"specialist",pos:"noun",viet:"Chuyên gia",def:"A person who knows a lot about one subject or job.",ex:"Dr Husain is a senior <strong>specialist</strong> in anaesthesia."},
-  {w:"operating theatre",pos:"noun phrase",viet:"Phòng mổ",def:"A room in a hospital where operations are done.",ex:"Music has an important part to play in the <strong>operating theatre</strong>."},
-  {w:"aim",pos:"noun",viet:"Mục tiêu, mục đích",def:"The thing you want to do or achieve.",ex:"Our <strong>aim</strong> is early discharge after surgery."},
-  {w:"discharge",pos:"verb",viet:"Cho xuất viện",def:"Let someone leave the hospital after an operation or treatment.",ex:"Doctors want to <strong>discharge</strong> patients early after surgery."},
+  {w:"study",pos:"noun",viet:"Nghiên cứu",def:"A careful look at something to learn new facts.",ex:"A new <strong>study</strong> shows that music can help patients recover."},
+  {w:"music therapy",pos:"noun phrase",viet:"Liệu pháp âm nhạc",def:"Using music to help people feel better or heal.",ex:"<strong>Music therapy</strong> during surgery can help patients recover faster."},
+  {w:"surgery",pos:"noun",viet:"Phẫu thuật, ca mổ",def:"A medical operation in a hospital.",ex:"Music played during <strong>surgery</strong> reduces stress."},
+  {w:"anaesthetic",pos:"noun",viet:"Thuốc gây mê",def:"A drug that makes a person not feel pain during surgery.",ex:"Doctors gave the patients <strong>anaesthetic</strong> drugs."},
+  {w:"recover",pos:"verb",viet:"Hồi phục, bình phục",def:"To get well again after being sick or hurt.",ex:"Patients with music <strong>recover</strong> faster after surgery."},
+  {w:"gallbladder",pos:"noun",viet:"Túi mật",def:"A small organ in the body that stores bile.",ex:"56 patients needed <strong>gallbladder</strong> operations."},
+  {w:"flute",pos:"noun",viet:"Sáo (nhạc cụ)",def:"A long thin musical instrument you blow into.",ex:"Doctors played soft <strong>flute</strong> music in the operating room."},
+  {w:"painkiller",pos:"noun",viet:"Thuốc giảm đau",def:"A medicine that stops or reduces pain.",ex:"The music group needed less <strong>painkiller</strong> after surgery."},
+  {w:"reduces",pos:"verb",viet:"Làm giảm",def:"Makes something smaller or less.",ex:"Music <strong>reduces</strong> stress in patients."},
+  {w:"specialist",pos:"noun",viet:"Chuyên gia, bác sĩ chuyên khoa",def:"A doctor or expert in one area of medicine.",ex:"Dr Husain is a <strong>specialist</strong> in anaesthesia."},
+  {w:"block",pos:"verb",viet:"Chặn, ngăn lại",def:"To stop something from passing through or happening.",ex:"Anaesthetic drugs <strong>block</strong> pain during surgery."},
+  {w:"alert",pos:"adjective",viet:"Tỉnh táo, minh mẫn",def:"Wide awake and able to think clearly.",ex:"Patients with music were more <strong>alert</strong> after surgery."},
+  {w:"discharge",pos:"verb",viet:"Cho xuất viện",def:"To officially let a patient leave the hospital.",ex:"Nurses <strong>discharged</strong> the patients earlier than expected."},
+  {w:"aim",pos:"noun",viet:"Mục tiêu, mục đích",def:"Something you hope to achieve.",ex:"The team's <strong>aim</strong> is to help patients heal faster."},
 ];
 
-// 8 MCQ items adapted from the source's 10
-const VQ_DATA = [
-  {q:"In which country was the music therapy study conducted?", opts:["the USA","France","India","Kenya"], ans:"India"},
-  {q:"What kind of music did doctors play to the woman in surgery?", opts:["flute music","rap music","jazz","children's music"], ans:"flute music"},
-  {q:"What did doctors remove from the woman?", opts:["her shoes","her gallbladder","her name tag","her jewellery"], ans:"her gallbladder"},
-  {q:"What do anaesthetics block?", opts:["the lungs","blood flow","the stomach","pain signals"], ans:"pain signals"},
-  {q:"What might patients need fewer of with music therapy?", opts:["meals","records","painkillers","visitors"], ans:"painkillers"},
-  {q:"What does music help patients feel less of?", opts:["danger","pain","boredom","hunger"], ans:"pain"},
-  {q:"Where does Dr Husain think music has an important part to play?", opts:["at the opera","in the operating theatre","in the bath","on trains"], ans:"in the operating theatre"},
-  {q:"What does Dr Husain want to do to patients early after surgery?", opts:["give them a hug","discharge them","talk to them","give them a present"], ans:"discharge them"},
-];
-
-// 6 TF items adapted from source's 8
 const TF_DATA = [
-  {text:"A patient listened to flute music while her gallbladder was being removed.",ans:"T",exp:"ĐÚNG — bác sĩ chơi flute music khi mổ túi mật cho bệnh nhân nữ."},
-  {text:"Anaesthetics are drugs that stop people feeling pain during surgery.",ans:"T",exp:"ĐÚNG — anaesthetics block pain signals khi bệnh nhân ngủ."},
-  {text:"Anaesthetics make people unable to hear any sound at all.",ans:"F",exp:"SAI — phần não giúp ta nghe vẫn 'partly active', bệnh nhân vẫn nghe được nhạc."},
-  {text:"Music in the operating theatre can help patients feel less pain.",ans:"T",exp:"ĐÚNG — Dr Goel nói music giúp bệnh nhân feel less pain."},
-  {text:"Music cannot change the amount of painkilling medicine someone needs.",ans:"F",exp:"SAI — patients need FEWER painkillers nhờ có music therapy."},
-  {text:"A doctor said patients should be alert after they wake from surgery.",ans:"T",exp:"ĐÚNG — Dr Husain: 'wake up clear-headed, alert… and ideally pain-free'."},
+  {text:"The study tested music on patients having heart surgery.",ans:"F",exp:"SAI — bệnh nhân làm phẫu thuật TÚI MẬT (gallbladder), không phải tim."},
+  {text:"All 56 patients in the study listened to music during surgery.",ans:"F",exp:"SAI — chỉ MỘT NỬA (28 người) nghe nhạc, nửa kia không có nhạc."},
+  {text:"Patients who listened to music needed less painkiller after surgery.",ans:"T",exp:"ĐÚNG — Dr Tanvi Goel nói nhóm có nhạc cần ít thuốc giảm đau hơn."},
+  {text:"Dr Husain says the brain hears no sounds during surgery.",ans:"F",exp:"SAI — thuốc gây mê chặn ĐAU nhưng não vẫn nghe âm thanh."},
+  {text:"Patients in the music group were more alert when they left the hospital.",ans:"T",exp:"ĐÚNG — nguyên văn \"more alert when nurses discharged them\"."},
+  {text:"The team believes music could become standard hospital care.",ans:"T",exp:"ĐÚNG — vì nó rẻ, an toàn và dễ áp dụng khắp nơi."},
 ];
 
-// 8 synonym pairs from source's 10
-const SYN_DATA = [
-  {w:"surgery",     syn:"operations"},
-  {w:"recover",     syn:"get better"},
-  {w:"block",       syn:"stop"},
-  {w:"alert",       syn:"wide awake"},
-  {w:"specialist",  syn:"expert"},
-  {w:"aim",         syn:"goal"},
-  {w:"discharge",   syn:"release"},
-  {w:"reduces",     syn:"lowers"},
+// Synonym pairs — user picks correct synonym from 4 choices
+const SYN_DATA = {
+  pairs:[
+    {w:"surgery",     syn:"operations"},
+    {w:"recover",     syn:"get better"},
+    {w:"block",       syn:"stop"},
+    {w:"alert",       syn:"wide awake"},
+    {w:"specialist",  syn:"expert"},
+    {w:"aim",         syn:"goal"},
+    {w:"discharge",   syn:"release"},
+    {w:"reduces",     syn:"lowers"},
+  ]
+};
+
+const DISC_COMP = [
+  {
+    q:"Where did the study take place?",
+    model:"The study took place at Maulana Azad Medical College in India.",
+    note:"Dùng 'took place at + tên trường/nơi' — chuẩn học thuật hơn 'happened at'."
+  },
+  {
+    q:"How many patients took part in the study?",
+    model:"Fifty-six patients took part in the study. Half of them listened to music and the other half did not.",
+    note:"'Take part in' = participate in. Số dưới 100 trong văn viết nên viết bằng chữ: 'Fifty-six'."
+  },
+  {
+    q:"What kind of surgery did the patients have?",
+    model:"The patients had gallbladder surgery.",
+    note:"'Have surgery' là collocation chuẩn, hay hơn 'do surgery'."
+  },
+  {
+    q:"What kind of music did the doctors play?",
+    model:"The doctors played soft flute music through headphones during the operations.",
+    note:"Câu giàu thông tin: loại nhạc (soft flute) + cách phát (through headphones) + thời điểm (during the operations)."
+  },
+  {
+    q:"What did Dr Tanvi Goel say about music?",
+    model:"Dr Tanvi Goel said that music reduces stress and helps patients feel safe.",
+    note:"Reported speech: 'said that + S + V'. Đây là cách trích lời chuẩn trong báo chí."
+  },
+  {
+    q:"According to Dr Husain, what do anaesthetic drugs do?",
+    model:"According to Dr Husain, anaesthetic drugs block pain, but the brain still hears sounds during surgery.",
+    note:"'According to + người' = theo lời ai đó. 'But' nối hai mệnh đề tương phản."
+  },
 ];
 
-// Article with tap-to-show vocab highlights (data-w links to VOCAB entries)
-const ART_HTML = `
-<p>A new <span class="hl" data-w="study">study</span> shows that music played during <span class="hl" data-w="surgery">surgery</span> can help <span class="hl" data-w="patient">patients</span> <span class="hl" data-w="recover">recover</span>. The study was conducted by doctors at India's Maulana Azad Medical College. They played flute music to a female patient while she was having her gallbladder removed. Before the operation, doctors gave the woman <span class="hl" data-w="anaesthetic">anaesthetic</span> drugs to put her to sleep. Anaesthetics <span class="hl" data-w="block">block</span> <span class="hl" data-w="pain">pain</span> signals and totally relax a patient's muscles while they are asleep. However, even when anaesthetics make us sleep, the part of the brain that helps us listen stays partly active. Doctors say patients can still hear music. This means patients need fewer <span class="hl" data-w="painkillers">painkilling</span> drugs, wake up faster, and are more <span class="hl" data-w="alert">alert</span> after surgery.</p>
-<p>The lead researcher, Dr Tanvi Goel, <span class="hl" data-w="explained">explained</span> why music is so helpful to patients having surgery. She said her research shows "that this is more than just simple background music". She said music was important because it helped patients feel less pain and need fewer <span class="hl" data-w="painkillers">painkillers</span>. Co-researcher Dr Farah Husain agreed. Dr Husain is a senior <span class="hl" data-w="specialist">specialist</span> in anaesthesia. She is also a music therapist. She believes music has an important part to play in the <span class="hl" data-w="operating theatre">operating theatre</span>. She said: "Our <span class="hl" data-w="aim">aim</span> is early <span class="hl" data-w="discharge">discharge</span> after surgery. Patients need to wake up clear-headed, alert… and ideally pain-free." She said music helps pain management and reduces patients' stress after they wake up.</p>
-`;
+const DISC_OPEN = [
+  {
+    q:"Do you like listening to music when you feel stressed? Why?",
+    model:"Yes, I really enjoy listening to music when I feel stressed. Soft and slow songs help me relax and forget about my problems for a while.",
+    note:"'For a while' = một lúc. Trả lời nên có lý do cụ thể (loại nhạc + cảm giác)."
+  },
+  {
+    q:"What kind of music helps you relax the most?",
+    model:"In my opinion, instrumental music such as piano or flute helps me relax the most because there are no lyrics to distract me.",
+    note:"'Such as' liệt kê ví dụ. 'Distract' = làm xao nhãng — từ vựng nâng cao."
+  },
+  {
+    q:"Would you want music during a medical procedure? Why or why not?",
+    model:"Yes, I would definitely want music during a medical procedure because it would make me feel calmer and less afraid.",
+    note:"'Would + V' diễn tả tình huống giả định. 'Definitely' nhấn mạnh chắc chắn."
+  },
+  {
+    q:"Besides music, what else can help patients feel less anxious before surgery?",
+    model:"Besides music, kind words from nurses, breathing exercises, and the presence of a family member can also help patients feel less anxious before surgery.",
+    note:"'Besides + N/V-ing' = ngoài việc/ngoài cái gì. Liệt kê 3 ý song song cho câu đầy đặn."
+  },
+  {
+    q:"Do you think hospitals in your country should use music therapy? Why?",
+    model:"Yes, I strongly believe hospitals in my country should use music therapy because it is cheap, safe, and easy to apply. It could also make patients less afraid of going to the hospital.",
+    note:"'I strongly believe' = tôi tin chắc rằng. Đưa 3 lý do (rẻ/an toàn/dễ) + 1 kết quả phụ là cấu trúc lập luận tốt."
+  },
+  {
+    q:"What other activities (besides music) could help you stay calm before surgery?",
+    model:"For me, deep breathing, reading a favorite book, and talking with a close friend could help me stay calm before surgery.",
+    note:"'For me' mở đầu ý kiến cá nhân nhẹ nhàng. Dùng V-ing (gerund) làm chủ ngữ song song."
+  },
+];
 
-const ART_PLAIN = `A new study shows that music played during surgery can help patients recover. The study was conducted by doctors at India's Maulana Azad Medical College. They played flute music to a female patient while she was having her gallbladder removed. Before the operation, doctors gave the woman anaesthetic drugs to put her to sleep. Anaesthetics block pain signals and totally relax a patient's muscles while they are asleep. However, even when anaesthetics make us sleep, the part of the brain that helps us listen stays partly active. Doctors say patients can still hear music. This means patients need fewer painkilling drugs, wake up faster, and are more alert after surgery. The lead researcher, Dr Tanvi Goel, explained why music is so helpful to patients having surgery. She said her research shows that this is more than just simple background music. She said music was important because it helped patients feel less pain and need fewer painkillers. Co-researcher Dr Farah Husain agreed. Dr Husain is a senior specialist in anaesthesia. She is also a music therapist. She believes music has an important part to play in the operating theatre. She said: Our aim is early discharge after surgery. Patients need to wake up clear-headed, alert, and ideally pain-free. She said music helps pain management and reduces patients' stress after they wake up.`;
+const ART_PLAIN = `A new study shows that music therapy during surgery can help patients recover faster. Doctors at Maulana Azad Medical College in India tested soft flute music on 56 patients who needed gallbladder operations. The team gave all patients anaesthetic drugs, but only half listened to music through headphones during the operation. The other half had no music. Lead researcher Dr Tanvi Goel said the music group needed less painkiller medicine after waking up. "Music reduces stress and helps patients feel safe," she said. Dr Farah Husain, a specialist in anaesthesia, explained why music helps. Anaesthetic drugs block pain, she said, but the brain still hears sounds during surgery. Soft music helps the brain stay calm. Patients in the music group were more alert when nurses discharged them from the hospital. The team's aim is to make surgery less scary and to help patients heal more quickly. They believe music could become standard hospital care because it is cheap, safe, and easy to use anywhere in the world.`;
 
 // ════════════════════════════════════════
 // STATE
 // ════════════════════════════════════════
 let score = 0, fcIdx = 0, fcSeen = new Set();
-let vqAns = {}, tfAns = {}, synSlots = {}; // synSlots: idx → synonym word currently placed
+let vqAns = {}, tfAns = {}, synAns = {};
 let ttsRate = 0.8, ttsU = null;
-
-// VOCAB lookup by data-w for tooltips
-const VOCAB_BY_W = {};
-VOCAB.forEach(v => VOCAB_BY_W[v.w.toLowerCase()] = v);
 
 // ════════════════════════════════════════
 // SCORE
@@ -435,11 +481,10 @@ function addScore(n){ score+=n; document.getElementById('score-num').textContent
 // STAGE NAV
 // ════════════════════════════════════════
 function gS(n){
-  for(let i=0;i<=3;i++){
+  for(let i=0;i<=4;i++){
     document.getElementById(`s${i}`).classList.toggle('on',i===n);
     document.getElementById(`sn${i}`).className='snav'+(i===n?' on':(i<n?' done':''));
   }
-  ttsStop();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function scrollTo2(id){const el=document.getElementById(id);if(el)window.scrollTo({top:el.offsetTop-10,behavior:'smooth'});}
@@ -447,12 +492,7 @@ function scrollTo2(id){const el=document.getElementById(id);if(el)window.scrollT
 // ════════════════════════════════════════
 // TTS
 // ════════════════════════════════════════
-function setSp(r,btn){
-  ttsRate=r;
-  // sync ALL speed-button groups on the page
-  document.querySelectorAll('.spd-btn').forEach(b=>b.classList.remove('on'));
-  document.querySelectorAll('.spd-btn').forEach(b=>{if(b.textContent.trim()===btn.textContent.trim())b.classList.add('on');});
-}
+function setSp(r,btn){ ttsRate=r; document.querySelectorAll('.spd-btn').forEach(b=>b.classList.remove('on')); btn.classList.add('on'); }
 function ttsSay(text,onEnd){
   ttsStop();
   if(!window.speechSynthesis)return;
@@ -461,11 +501,7 @@ function ttsSay(text,onEnd){
   if(onEnd) ttsU.onend=onEnd;
   window.speechSynthesis.speak(ttsU);
 }
-function ttsStop(){
-  if(window.speechSynthesis)window.speechSynthesis.cancel();
-  const b=document.getElementById('art-play-btn');
-  if(b)b.classList.remove('on');
-}
+function ttsStop(){ if(window.speechSynthesis)window.speechSynthesis.cancel(); const b=document.getElementById('art-play-btn'); if(b) b.classList.remove('on'); }
 function ttsWord(){ ttsSay(VOCAB[fcIdx].w); }
 function ttsEx(){ ttsSay(VOCAB[fcIdx].ex.replace(/<[^>]+>/g,'')); }
 function ttsArt(){
@@ -479,6 +515,15 @@ function ttsArt(){
 }
 
 // ════════════════════════════════════════
+// TAP-TO-SHOW TOOLTIPS (replacing hover)
+// ════════════════════════════════════════
+document.addEventListener('click', e=>{
+  const hl=e.target.closest('.hl');
+  document.querySelectorAll('.hl.open').forEach(el=>{ if(el!==hl) el.classList.remove('open'); });
+  if(hl && !e.target.closest('.hl-tt-sp')) hl.classList.toggle('open');
+});
+
+// ════════════════════════════════════════
 // FLASHCARDS
 // ════════════════════════════════════════
 function buildFC(){
@@ -488,7 +533,7 @@ function buildFC(){
   const vl=document.getElementById('vl');
   vl.innerHTML='';
   VOCAB.forEach((v,i)=>{
-    vl.innerHTML+=`<div class="vl-item" onclick="fcIdx=${i};renderFC();window.scrollTo({top:0,behavior:'smooth'});"><div><div class="vl-w">${esc(v.w)}</div><div class="vl-v">${esc(v.viet)}</div></div><button class="vl-sp" onclick="event.stopPropagation();ttsSay('${esc(v.w)}')">🔊</button></div>`;
+    vl.innerHTML+=`<div class="vl-item" onclick="fcIdx=${i};renderFC();gS(0);scrollTo2('fc')"><div><div class="vl-w">${esc(v.w)}</div><div class="vl-v">${esc(v.viet)}</div></div><button class="vl-sp" onclick="event.stopPropagation();ttsSay('${esc(v.w)}')">🔊</button></div>`;
   });
   renderFC();
 }
@@ -510,7 +555,7 @@ function flipFC(){ document.getElementById('fc').classList.toggle('flipped'); }
 function fcMv(d){ fcIdx=(fcIdx+d+VOCAB.length)%VOCAB.length; renderFC(); }
 
 // ════════════════════════════════════════
-// VOCAB QUIZ
+// VOCAB QUIZ — 12 random
 // ════════════════════════════════════════
 function buildVQ(){
   vqAns={};
@@ -518,30 +563,24 @@ function buildVQ(){
   wrap.innerHTML='';
   document.getElementById('vq-out').style.display='none';
   document.getElementById('vq-next').classList.remove('show');
-  // Shuffle 8 questions; each one keeps its own correct answer
-  const pool=shuffleArr([...VQ_DATA]);
+  document.getElementById('vq-cur').textContent='0';
+  const pool=shuffleArr([...VOCAB]).slice(0,12);
   pool.forEach((item,i)=>{
-    const opts=shuffleArr([...item.opts]);
-    wrap.innerHTML+=`<div class="vq" id="vqc-${i}" data-correct="${esc(item.ans)}">
-      <div class="vq-q">${i+1}. ${esc(item.q)}</div>
-      <div class="vq-opts">${opts.map(o=>`<button class="vq-o" data-i="${i}" data-v="${esc(o)}" onclick="selVQ(this)">${esc(o)}</button>`).join('')}</div>
+    const wrongs=shuffleArr(VOCAB.filter(v=>v.w!==item.w)).slice(0,3).map(v=>v.viet);
+    const opts=shuffleArr([item.viet,...wrongs]);
+    wrap.innerHTML+=`<div class="vq" id="vqc-${i}" data-correct="${esc(item.viet)}">
+      <div class="vq-q">Từ "<strong>${esc(item.w)}</strong>" (${esc(item.pos)}) nghĩa là gì? <button class="disc-speak" style="vertical-align:middle;min-height:32px;min-width:36px;padding:2px 7px;font-size:0.85rem;display:inline-block;" onclick="event.stopPropagation();ttsSay('${esc(item.w)}')">🔊</button></div>
+      <div class="vq-opts">${opts.map(o=>`<button class="vq-o" data-val="${esc(o)}" onclick="selVQ(${i},this)">${esc(o)}</button>`).join('')}</div>
       <div class="vq-res" id="vqr-${i}"></div>
     </div>`;
   });
-  updateVQProgress();
 }
-function selVQ(btn){
-  const i=+btn.dataset.i, val=btn.dataset.v;
-  vqAns[i]=val;
+function selVQ(i,btn){
+  vqAns[i]=btn.dataset.val;
   const card=document.getElementById(`vqc-${i}`);
   card.querySelectorAll('.vq-o').forEach(b=>b.classList.remove('selected'));
   btn.classList.add('selected');
-  updateVQProgress();
-}
-function updateVQProgress(){
-  const n=Object.keys(vqAns).length;
-  document.getElementById('vq-cur').textContent=n;
-  document.getElementById('vq-fill').style.width=Math.round(n/VQ_DATA.length*100)+'%';
+  document.getElementById('vq-cur').textContent=Object.keys(vqAns).length;
 }
 function checkVQ(){
   let c=0,tot=0;
@@ -552,45 +591,19 @@ function checkVQ(){
     card.querySelectorAll('.vq-o').forEach(b=>b.disabled=true);
     const res=document.getElementById(`vqr-${i}`);
     card.querySelectorAll('.vq-o').forEach(b=>{
-      if(b.dataset.v===correct) b.classList.add('ok');
-      else if(b.dataset.v===ans) b.classList.add('bad');
+      b.classList.remove('selected');
+      if(b.dataset.val===correct) b.classList.add('ok');
+      else if(b.dataset.val===ans) b.classList.add('bad');
     });
     if(ans===correct){c++;res.innerHTML=`<span style="color:var(--green)">✓ Đúng!</span>`;}
-    else res.innerHTML=`<span style="color:var(--red)">✗ Đáp án: ${esc(correct)}</span>`;
+    else{res.innerHTML=`<span style="color:var(--red)">✗ Đáp án: ${esc(correct)}</span>`;}
   });
   addScore(c*3);
   const out=document.getElementById('vq-out');
   out.style.display='';
-  out.innerHTML=`✅ <strong>${c}/${tot}</strong> câu đúng · +${c*3} điểm ${c>=6?'🎉':'💪'}`;
+  out.innerHTML=`✅ <strong>${c}/${tot}</strong> đúng · +${c*3} điểm ${c>=9?'🎉':'💪'}`;
   document.getElementById('vq-next').classList.add('show');
 }
-
-// ════════════════════════════════════════
-// ARTICLE — render + tap-to-show tooltip
-// ════════════════════════════════════════
-function buildArticle(){
-  const body=document.getElementById('art-body');
-  body.innerHTML=ART_HTML;
-  // Inject tooltip content into each .hl
-  body.querySelectorAll('.hl').forEach(span=>{
-    const key=(span.dataset.w||'').toLowerCase();
-    const v=VOCAB_BY_W[key];
-    if(!v)return;
-    const tt=document.createElement('span');
-    tt.className='hl-tt';
-    tt.innerHTML=`<span class="tt-w">${esc(v.w)}</span><span class="tt-v">${esc(v.viet)}</span><button class="tt-sp" data-w="${esc(v.w)}">🔊 Nghe phát âm</button>`;
-    span.appendChild(tt);
-  });
-}
-// Delegated tap handler — close-on-outside + toggle
-document.addEventListener('click', e=>{
-  // Speak button inside tooltip
-  const sp=e.target.closest('.tt-sp');
-  if(sp){ e.stopPropagation(); ttsSay(sp.dataset.w); return; }
-  const hl=e.target.closest('.hl');
-  document.querySelectorAll('.hl.open').forEach(el=>{if(el!==hl)el.classList.remove('open');});
-  if(hl){ e.stopPropagation(); hl.classList.toggle('open'); }
-});
 
 // ════════════════════════════════════════
 // TRUE / FALSE
@@ -600,6 +613,7 @@ function buildTF(){
   const wrap=document.getElementById('tf-list');
   wrap.innerHTML='';
   document.getElementById('tf-next').classList.remove('show');
+  document.getElementById('tf-cur').textContent='0';
   TF_DATA.forEach((item,i)=>{
     wrap.innerHTML+=`<div class="tf-row">
       <div style="flex:1;"><div class="tf-txt">${i+1}. ${esc(item.text)}</div><div class="tf-exp" id="tfe-${i}"></div></div>
@@ -609,19 +623,13 @@ function buildTF(){
       </div>
     </div>`;
   });
-  updateTFProgress();
 }
 function selTF(i,v){
   if(document.getElementById(`tfT-${i}`).disabled)return;
   tfAns[i]=v;
   document.getElementById(`tfT-${i}`).className='tf-b'+(v==='T'?' selT':'');
   document.getElementById(`tfF-${i}`).className='tf-b'+(v==='F'?' selF':'');
-  updateTFProgress();
-}
-function updateTFProgress(){
-  const n=Object.keys(tfAns).length;
-  document.getElementById('tf-cur').textContent=n;
-  document.getElementById('tf-fill').style.width=Math.round(n/TF_DATA.length*100)+'%';
+  document.getElementById('tf-cur').textContent=Object.keys(tfAns).length;
 }
 function checkTF(){
   let c=0;
@@ -637,96 +645,99 @@ function checkTF(){
 }
 
 // ════════════════════════════════════════
-// SYNONYM MATCH
+// SYNONYM MATCH — multi-choice per word
 // ════════════════════════════════════════
 function buildSyn(){
-  synSlots={};
+  synAns={};
   document.getElementById('syn-next').classList.remove('show');
-  const bank=document.getElementById('syn-bank');
-  bank.innerHTML='';
-  shuffleArr([...SYN_DATA]).forEach(p=>{
-    bank.innerHTML+=`<div class="syn-chip" id="synchip-${escId(p.syn)}" data-syn="${esc(p.syn)}" onclick="placeSyn(this)">${esc(p.syn)}</div>`;
-  });
-  const rows=document.getElementById('syn-rows');
-  rows.innerHTML='';
-  SYN_DATA.forEach((p,i)=>{
-    rows.innerHTML+=`<div class="syn-row">
-      <div class="syn-w">${esc(p.w)}</div>
-      <div class="syn-arrow">→</div>
-      <div class="syn-slot" id="synslot-${i}" data-i="${i}" onclick="releaseSyn(${i})">Chạm 1 từ trong kho</div>
+  document.getElementById('syn-cur').textContent='0';
+  const allSyns=SYN_DATA.pairs.map(p=>p.syn);
+  const wrap=document.getElementById('syn-list');
+  wrap.innerHTML='';
+  SYN_DATA.pairs.forEach((pair,i)=>{
+    const wrongs=shuffleArr(allSyns.filter(s=>s!==pair.syn)).slice(0,3);
+    const opts=shuffleArr([pair.syn,...wrongs]);
+    wrap.innerHTML+=`<div class="syn-row" id="synrow-${i}">
+      <div class="syn-left">${esc(pair.w)} <button class="disc-speak" style="min-height:32px;min-width:36px;padding:2px 7px;font-size:0.85rem;" onclick="event.stopPropagation();ttsSay('${esc(pair.w)}')">🔊</button></div>
+      <div class="syn-select"><div class="syn-opts">${opts.map(o=>`<button class="syn-o" data-val="${esc(o)}" onclick="selSyn(${i},this)">${esc(o)}</button>`).join('')}</div></div>
     </div>`;
   });
-  updateSynProgress();
 }
-function placeSyn(chip){
-  const w=chip.dataset.syn;
-  // find first empty slot
-  for(let i=0;i<SYN_DATA.length;i++){
-    if(synSlots[i]===undefined){
-      synSlots[i]=w;
-      const slot=document.getElementById(`synslot-${i}`);
-      slot.classList.add('filled');
-      slot.textContent=w;
-      chip.classList.add('placed');
-      updateSynProgress();
-      return;
-    }
-  }
-}
-function releaseSyn(i){
-  const w=synSlots[i];
-  if(w===undefined)return;
-  // bring chip back
-  delete synSlots[i];
-  const slot=document.getElementById(`synslot-${i}`);
-  if(slot.classList.contains('ok')||slot.classList.contains('bad'))return; // already checked
-  slot.classList.remove('filled');
-  slot.textContent='Chạm 1 từ trong kho';
-  const chip=document.getElementById(`synchip-${escId(w)}`);
-  if(chip)chip.classList.remove('placed');
-  updateSynProgress();
-}
-function updateSynProgress(){
-  const n=Object.keys(synSlots).length;
-  document.getElementById('syn-cur').textContent=n;
-  document.getElementById('syn-fill').style.width=Math.round(n/SYN_DATA.length*100)+'%';
+function selSyn(i,btn){
+  synAns[i]=btn.dataset.val;
+  const row=document.getElementById(`synrow-${i}`);
+  row.querySelectorAll('.syn-o').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById('syn-cur').textContent=Object.keys(synAns).length;
 }
 function checkSyn(){
   let c=0;
-  SYN_DATA.forEach((p,i)=>{
-    const slot=document.getElementById(`synslot-${i}`);
-    const a=synSlots[i];
-    if(!a){slot.classList.add('bad');slot.innerHTML=`<span>—</span><span class="syn-correct">(đáp án: ${esc(p.syn)})</span>`;return;}
-    if(a.toLowerCase()===p.syn.toLowerCase()){c++;slot.classList.add('ok');slot.innerHTML=`<span>✓ ${esc(a)}</span>`;}
-    else{slot.classList.add('bad');slot.innerHTML=`<span>✗ ${esc(a)}</span><span class="syn-correct">(đáp án: ${esc(p.syn)})</span>`;}
+  SYN_DATA.pairs.forEach((pair,i)=>{
+    const row=document.getElementById(`synrow-${i}`);
+    row.querySelectorAll('.syn-o').forEach(b=>{
+      b.disabled=true;
+      b.classList.remove('selected');
+      if(b.dataset.val===pair.syn) b.classList.add('ok');
+      else if(b.dataset.val===synAns[i]) b.classList.add('bad');
+    });
+    if(synAns[i]===pair.syn) c++;
   });
-  // Disable further interaction
-  document.querySelectorAll('.syn-chip').forEach(c=>c.style.pointerEvents='none');
-  document.querySelectorAll('.syn-slot').forEach(s=>s.style.pointerEvents='none');
   addScore(c*3);
   document.getElementById('syn-next').classList.add('show');
 }
 
 // ════════════════════════════════════════
-// FINAL RESULT
+// DISCUSSION — show model only, no AI
 // ════════════════════════════════════════
-function showFinal(){
-  document.getElementById('fn-score').textContent=score;
-  let msg='Tốt lắm! Bạn đã hoàn thành Lesson 3 🎉';
-  if(score>=70) msg='Xuất sắc! Bạn nắm rất chắc bài này 🏆';
-  else if(score>=50) msg='Khá tốt! Hãy ôn lại vài từ để chắc hơn nhé 💪';
-  else msg='Hãy thử lại bài Quiz & Bài tập để cải thiện điểm số nhé 📚';
-  document.getElementById('fn-msg').textContent=msg;
-  document.getElementById('final-card').classList.add('show');
-  scrollTo2('final-card');
+function buildDisc(){
+  renderDiscSection('disc-comp', DISC_COMP);
+  renderDiscSection('disc-open', DISC_OPEN);
 }
-function resetAll(){
-  score=0;document.getElementById('score-num').textContent=0;
-  fcIdx=0;fcSeen=new Set();
-  vqAns={};tfAns={};synSlots={};
-  buildVQ();buildTF();buildSyn();renderFC();
-  document.getElementById('final-card').classList.remove('show');
-  gS(0);
+function renderDiscSection(id, items){
+  const wrap=document.getElementById(id);
+  wrap.innerHTML='';
+  items.forEach((item,i)=>{
+    const uid=`${id}-${i}`;
+    wrap.innerHTML+=`
+    <div class="disc-item" id="ditem-${uid}">
+      <div class="disc-top">
+        <div class="disc-num">${i+1}</div>
+        <div class="disc-q">${esc(item.q)}</div>
+        <div class="disc-actions">
+          <button class="disc-speak" onclick="ttsSay('${esc(item.q)}')" title="Nghe câu hỏi">🔊</button>
+          <button class="disc-model-btn" id="dmb-${uid}" onclick="toggleModel('${uid}')">📖 Mẫu</button>
+        </div>
+      </div>
+      <div class="model-box" id="model-${uid}">
+        <div class="model-lbl">✅ Câu trả lời gợi ý</div>
+        <div class="model-text">${formatModel(item.model)}</div>
+        <div class="model-note">💡 ${esc(item.note)}</div>
+        <button class="model-speak-btn" onclick="ttsSay('${esc(item.model)}')">🔊 Nghe câu mẫu</button>
+      </div>
+    </div>`;
+  });
+}
+function formatModel(text){
+  return esc(text).replace(/(In my opinion|Personally|According to|Yes, I really|Yes, I would|Yes, I strongly|Besides|For me|Such as|However|That said|In addition|Furthermore)/g,'<em>$1</em>');
+}
+function toggleModel(uid){
+  const box=document.getElementById(`model-${uid}`);
+  box.classList.toggle('show');
+  const btn=document.getElementById(`dmb-${uid}`);
+  btn.textContent=box.classList.contains('show')?'✕ Ẩn':'📖 Mẫu';
+}
+
+// ════════════════════════════════════════
+// RESULT
+// ════════════════════════════════════════
+function showResult(){
+  const max = 12*3 + 6*5 + 8*3; // 36 + 30 + 24 = 90
+  const pct = max>0 ? Math.round(score/max*100) : 0;
+  let emoji='💪', msg='Cố lên nhé!';
+  if(pct>=90){emoji='🏆';msg='Xuất sắc!';}
+  else if(pct>=70){emoji='🎉';msg='Rất tốt!';}
+  else if(pct>=50){emoji='👍';msg='Khá tốt!';}
+  alert(`${emoji} Tổng điểm: ${score} / ${max}\nTỷ lệ: ${pct}%\n${msg}`);
 }
 
 // ════════════════════════════════════════
@@ -734,10 +745,9 @@ function resetAll(){
 // ════════════════════════════════════════
 function shuffleArr(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
-function escId(s){return String(s).replace(/[^a-zA-Z0-9]/g,'_');}
 
 // INIT
-buildFC(); buildVQ(); buildArticle(); buildTF(); buildSyn();
+buildFC(); buildVQ(); buildTF(); buildSyn(); buildDisc();
 </script>
 </body>
 </html>
