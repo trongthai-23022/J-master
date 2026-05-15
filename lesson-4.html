@@ -68,6 +68,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .fc-n{font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--muted);margin-bottom:8px;}
 .fc-word{font-family:'Syne',sans-serif;font-size:1.9rem;font-weight:800;color:var(--accent);}
 .fc-pos{font-family:'DM Mono',monospace;font-size:0.65rem;background:var(--light);color:var(--accent);padding:3px 9px;border-radius:99px;margin:6px 0;}
+.fc-ipa{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--muted);letter-spacing:0.5px;margin:3px 0 2px;}
 .fc-tap{font-size:0.7rem;color:var(--muted);margin-top:10px;}
 .fc-viet{font-size:1.1rem;font-weight:700;color:var(--accent);}
 .fc-def{font-family:'Lora',serif;font-size:0.83rem;color:var(--muted);line-height:1.5;max-width:340px;}
@@ -238,6 +239,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
       <div class="fc-n" id="fc-n">1 / 12</div>
       <div class="fc-word" id="fc-word">—</div>
       <div class="fc-pos" id="fc-pos">—</div>
+      <div class="fc-ipa" id="fc-ipa"></div>
       <div class="fc-tap">👆 Nhấn để xem nghĩa</div>
     </div>
     <div class="fc-back">
@@ -376,18 +378,18 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 // ════════════════════════════════════════
 
 const VOCAB = [
-  {w:"Superfood",pos:"noun",viet:"Siêu thực phẩm",def:"A food considered especially nutritious and very good for health",ex:"Scientists say bamboo could be the next <strong>superfood</strong>."},
-  {w:"Shoots",pos:"noun",viet:"Măng",def:"Young stems of certain plants that can be eaten as food",ex:"Bamboo <strong>shoots</strong> are low in calories and high in fibre."},
-  {w:"Beneficial",pos:"adjective",viet:"Có lợi",def:"Having a helpful or positive effect on something or someone",ex:"Bamboo shoots can be very <strong>beneficial</strong> to our well-being."},
-  {w:"Well-being",pos:"noun",viet:"Sức khỏe & hạnh phúc",def:"The state of being healthy, comfortable, and happy",ex:"Eating bamboo can improve your overall <strong>well-being</strong>."},
-  {w:"Fibre",pos:"noun",viet:"Chất xơ",def:"A substance in plant foods that helps the body with digestion",ex:"Bamboo is high in <strong>fibre</strong>, which is good for digestion."},
-  {w:"Digestion",pos:"noun",viet:"Tiêu hóa",def:"The process the body uses to break down food into nutrients",ex:"Eating fibre is important for healthy <strong>digestion</strong>."},
-  {w:"Nutrients",pos:"noun",viet:"Chất dinh dưỡng",def:"Substances that provide nourishment essential for growth and health",ex:"Bamboo contains important <strong>nutrients</strong> like selenium and potassium."},
-  {w:"Toxins",pos:"noun",viet:"Độc tố",def:"Poisonous substances produced naturally that can harm the body",ex:"Raw bamboo shoots contain natural <strong>toxins</strong>."},
-  {w:"Sustainable",pos:"adjective",viet:"Bền vững",def:"Able to continue without causing harm to the environment",ex:"Bamboo is a healthy and <strong>sustainable</strong> food source."},
-  {w:"Potential",pos:"noun",viet:"Tiềm năng",def:"The possibility of future development or achievement",ex:"Professor Smith said bamboo has great <strong>potential</strong> as a superfood."},
-  {w:"Inflammation",pos:"noun",viet:"Viêm",def:"A condition where part of the body becomes swollen, red, and painful",ex:"Bamboo can help reduce <strong>inflammation</strong> in the body."},
-  {w:"Selenium",pos:"noun",viet:"Selen",def:"A mineral the body needs in small amounts for good health",ex:"Bamboo contains <strong>selenium</strong>, which is important for the body."},
+  {w:"Superfood",pos:"noun",ipa:"/ˈsuːpərfuːd/",viet:"Siêu thực phẩm",def:"A food considered especially nutritious and very good for health",ex:"Scientists say bamboo could be the next <strong>superfood</strong>."},
+  {w:"Shoots",pos:"noun",ipa:"/ʃuːts/",viet:"Măng",def:"Young stems of certain plants that can be eaten as food",ex:"Bamboo <strong>shoots</strong> are low in calories and high in fibre."},
+  {w:"Beneficial",pos:"adjective",ipa:"/ˌbenɪˈfɪʃəl/",viet:"Có lợi",def:"Having a helpful or positive effect on something or someone",ex:"Bamboo shoots can be very <strong>beneficial</strong> to our well-being."},
+  {w:"Well-being",pos:"noun",ipa:"/ˌwelˈbiːɪŋ/",viet:"Sức khỏe & hạnh phúc",def:"The state of being healthy, comfortable, and happy",ex:"Eating bamboo can improve your overall <strong>well-being</strong>."},
+  {w:"Fibre",pos:"noun",ipa:"/ˈfaɪbər/",viet:"Chất xơ",def:"A substance in plant foods that helps the body with digestion",ex:"Bamboo is high in <strong>fibre</strong>, which is good for digestion."},
+  {w:"Digestion",pos:"noun",ipa:"/daɪˈdʒestʃən/",viet:"Tiêu hóa",def:"The process the body uses to break down food into nutrients",ex:"Eating fibre is important for healthy <strong>digestion</strong>."},
+  {w:"Nutrients",pos:"noun",ipa:"/ˈnjuːtriənts/",viet:"Chất dinh dưỡng",def:"Substances that provide nourishment essential for growth and health",ex:"Bamboo contains important <strong>nutrients</strong> like selenium and potassium."},
+  {w:"Toxins",pos:"noun",ipa:"/ˈtɒksɪnz/",viet:"Độc tố",def:"Poisonous substances produced naturally that can harm the body",ex:"Raw bamboo shoots contain natural <strong>toxins</strong>."},
+  {w:"Sustainable",pos:"adjective",ipa:"/səˈsteɪnəbəl/",viet:"Bền vững",def:"Able to continue without causing harm to the environment",ex:"Bamboo is a healthy and <strong>sustainable</strong> food source."},
+  {w:"Potential",pos:"noun",ipa:"/pəˈtenʃəl/",viet:"Tiềm năng",def:"The possibility of future development or achievement",ex:"Professor Smith said bamboo has great <strong>potential</strong> as a superfood."},
+  {w:"Inflammation",pos:"noun",ipa:"/ˌɪnfləˈmeɪʃən/",viet:"Viêm",def:"A condition where part of the body becomes swollen, red, and painful",ex:"Bamboo can help reduce <strong>inflammation</strong> in the body."},
+  {w:"Selenium",pos:"noun",ipa:"/sɪˈliːniəm/",viet:"Selen",def:"A mineral the body needs in small amounts for good health",ex:"Bamboo contains <strong>selenium</strong>, which is important for the body."},
 ];
 
 const TF_DATA = [
@@ -556,6 +558,7 @@ function renderFC(){
   document.getElementById('fc-n').textContent=`${fcIdx+1} / ${VOCAB.length}`;
   document.getElementById('fc-word').textContent=v.w;
   document.getElementById('fc-pos').textContent=v.pos;
+  document.getElementById('fc-ipa').textContent = v.ipa || '';
   document.getElementById('fc-viet').textContent=v.viet;
   document.getElementById('fc-def').textContent=v.def;
   document.getElementById('fc-ex').innerHTML=v.ex;

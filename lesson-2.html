@@ -68,6 +68,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .fc-n{font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--muted);margin-bottom:8px;}
 .fc-word{font-family:'Syne',sans-serif;font-size:1.9rem;font-weight:800;color:var(--accent);}
 .fc-pos{font-family:'DM Mono',monospace;font-size:0.65rem;background:var(--light);color:var(--accent);padding:3px 9px;border-radius:99px;margin:6px 0;}
+.fc-ipa{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--muted);letter-spacing:0.5px;margin:3px 0 2px;}
 .fc-tap{font-size:0.7rem;color:var(--muted);margin-top:10px;}
 .fc-viet{font-size:1.1rem;font-weight:700;color:var(--accent);}
 .fc-def{font-family:'Lora',serif;font-size:0.83rem;color:var(--muted);line-height:1.5;max-width:340px;}
@@ -246,6 +247,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
       <div class="fc-n" id="fc-n">1 / 39</div>
       <div class="fc-word" id="fc-word">—</div>
       <div class="fc-pos" id="fc-pos">—</div>
+      <div class="fc-ipa" id="fc-ipa"></div>
       <div class="fc-tap">👆 Nhấn để xem nghĩa</div>
     </div>
     <div class="fc-back">
@@ -386,45 +388,45 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 // ════════════════════════════════════════
 
 const VOCAB = [
-  {w:"Fascinating",pos:"adjective",viet:"Cực kỳ hấp dẫn",def:"Extremely interesting or attractive",ex:"Birds are <strong>fascinating</strong> and beautiful creatures."},
-  {w:"Creatures",pos:"noun",viet:"Sinh vật, loài vật",def:"Animals or living beings",ex:"Birds are fascinating and beautiful <strong>creatures</strong>."},
-  {w:"Researchers",pos:"noun",viet:"Các nhà nghiên cứu",def:"Scientists who study a topic in detail",ex:"<strong>Researchers</strong> in Toronto studied birdwatchers' brains."},
-  {w:"Protect",pos:"verb",viet:"Bảo vệ",def:"To keep something safe from harm",ex:"Birdwatching could <strong>protect</strong> our brains against diseases."},
-  {w:"Brains",pos:"noun",viet:"Não bộ",def:"The organ inside the head that controls the body",ex:"The veteran birders had more active <strong>brains</strong>."},
-  {w:"Age-related",pos:"adjective",viet:"Liên quan đến tuổi tác",def:"Caused by or connected to getting older",ex:"Birdwatching protects against <strong>age-related</strong> diseases."},
-  {w:"Diseases",pos:"noun",viet:"Bệnh tật",def:"Illnesses that make people sick",ex:"Scientists want to prevent age-related <strong>diseases</strong>."},
-  {w:"Lead researcher",pos:"noun phrase",viet:"Nhà nghiên cứu chủ chốt",def:"The main scientist leading a study",ex:"<strong>Lead researcher</strong> Dr Erik Wing led the study."},
-  {w:"Beneficial",pos:"adjective",viet:"Có lợi, có ích",def:"Good for you; producing a good effect",ex:"Skills from birding could be <strong>beneficial</strong> for intelligence."},
-  {w:"Intelligence",pos:"noun",viet:"Trí tuệ",def:"The ability to learn and understand things",ex:"Birdwatching could boost <strong>intelligence</strong>."},
-  {w:"Colleagues",pos:"noun",viet:"Đồng nghiệp",def:"People you work with",ex:"Dr Wing and his <strong>colleagues</strong> compared brain scans."},
-  {w:"Compared",pos:"verb",viet:"So sánh",def:"Looked at similarities and differences between things",ex:"They <strong>compared</strong> brain scans of veterans and newbies."},
-  {w:"Scans",pos:"noun",viet:"Ảnh chụp não (MRI/CT)",def:"Medical images of the inside of the body",ex:"The researchers looked at brain <strong>scans</strong>."},
-  {w:"Brain activity",pos:"noun phrase",viet:"Hoạt động não bộ",def:"How active and busy the brain is",ex:"They measured the <strong>brain activity</strong> of all participants."},
-  {w:"Veteran",pos:"noun / adj",viet:"Người dày dặn kinh nghiệm",def:"A person with a lot of experience in something",ex:"29 <strong>veteran</strong> birdwatchers joined the study."},
-  {w:"Birdwatchers",pos:"noun",viet:"Người ngắm chim",def:"People whose hobby is watching birds in nature",ex:"58 <strong>birdwatchers</strong> took part in the research."},
-  {w:"Newbies",pos:"noun (informal)",viet:"Người mới bắt đầu",def:"People who are new to an activity",ex:"They compared veterans with 29 <strong>newbies</strong>."},
-  {w:"Active",pos:"adjective",viet:"Hoạt động tích cực hơn",def:"Doing a lot; working hard",ex:"Veteran brains were a lot more <strong>active</strong>."},
-  {w:"Attention span",pos:"noun phrase",viet:"Khả năng tập trung lâu dài",def:"How long someone can concentrate on one thing",ex:"Veterans had a longer <strong>attention span</strong>."},
-  {w:"Memory",pos:"noun",viet:"Trí nhớ",def:"The ability to remember things",ex:"Veterans had a better <strong>memory</strong> than newbies."},
-  {w:"Pattern detection",pos:"noun phrase",viet:"Nhận biết khuôn mẫu",def:"The ability to notice repeating shapes or forms",ex:"Birdwatching trains <strong>pattern detection</strong> skills."},
-  {w:"Mental health",pos:"noun phrase",viet:"Sức khỏe tâm thần",def:"The health of the mind and emotions",ex:"Birdwatching is good for <strong>mental health</strong>."},
-  {w:"Reduce stress",pos:"verb phrase",viet:"Giảm căng thẳng",def:"To make stress smaller or less intense",ex:"Birdwatching can <strong>reduce stress</strong>."},
-  {w:"Physical health",pos:"noun phrase",viet:"Sức khỏe thể chất",def:"The health of the body",ex:"It also benefits <strong>physical health</strong>."},
-  {w:"Fresh air",pos:"noun phrase",viet:"Không khí trong lành",def:"Clean, cool outdoor air",ex:"We benefit from being in the <strong>fresh air</strong>."},
-  {w:"Sunlight",pos:"noun",viet:"Ánh sáng mặt trời",def:"Light and warmth from the sun",ex:"Being outside in the <strong>sunlight</strong> is healthy."},
-  {w:"Connecting with nature",pos:"phrase",viet:"Kết nối với thiên nhiên",def:"Feeling close to the natural world",ex:"Benefits include <strong>connecting with nature</strong>."},
-  {w:"Aware",pos:"adjective",viet:"Ý thức, nhận thức được",def:"Knowing that something exists or is important",ex:"Birdwatching makes us more <strong>aware</strong> of the environment."},
-  {w:"Environment",pos:"noun",viet:"Môi trường",def:"The natural world around us",ex:"We become more aware of the <strong>environment</strong>."},
-  {w:"Like-minded people",pos:"noun phrase",viet:"Người cùng sở thích",def:"People who share the same interests or opinions",ex:"Birdwatchers meet many <strong>like-minded people</strong>."},
-  {w:"Social life",pos:"noun phrase",viet:"Đời sống xã hội",def:"The activities a person does with other people",ex:"The hobby is great for their <strong>social life</strong>."},
-  {w:"Hobby",pos:"noun",viet:"Sở thích, thú vui",def:"An activity done for enjoyment in free time",ex:"Birdwatching is a popular <strong>hobby</strong>."},
-  {w:"Process information",pos:"verb phrase",viet:"Xử lý thông tin",def:"To understand, analyse and use information",ex:"Veterans could <strong>process information</strong> more quickly."},
-  {w:"Benefits",pos:"verb",viet:"Mang lại lợi ích cho",def:"Helps or is good for something",ex:"Birdwatching <strong>benefits</strong> the brain like music."},
-  {w:"Musical instrument",pos:"noun phrase",viet:"Nhạc cụ",def:"A device used to make music",ex:"It is like learning a <strong>musical instrument</strong>."},
-  {w:"Pathways",pos:"noun",viet:"Đường dẫn thần kinh",def:"Routes in the brain that signals travel along",ex:"New skills add new <strong>pathways</strong> in the brain."},
-  {w:"Connections",pos:"noun",viet:"Các kết nối thần kinh",def:"Links between different parts of the brain",ex:"New skills add new pathways and <strong>connections</strong>."},
-  {w:"Identify",pos:"verb",viet:"Nhận dạng, xác định",def:"To find out or recognise what something is",ex:"Birdwatching helps you <strong>identify</strong> different species."},
-  {w:"Sensitivity",pos:"noun",viet:"Sự nhạy cảm, nhạy bén",def:"The ability to notice small details or changes",ex:"It develops a <strong>sensitivity</strong> to movement."},
+  {w:"Fascinating",pos:"adjective",ipa:"/ˈfæsɪneɪtɪŋ/",viet:"Cực kỳ hấp dẫn",def:"Extremely interesting or attractive",ex:"Birds are <strong>fascinating</strong> and beautiful creatures."},
+  {w:"Creatures",pos:"noun",ipa:"/ˈkriːtʃərz/",viet:"Sinh vật, loài vật",def:"Animals or living beings",ex:"Birds are fascinating and beautiful <strong>creatures</strong>."},
+  {w:"Researchers",pos:"noun",ipa:"/rɪˈsɜːrtʃərz/",viet:"Các nhà nghiên cứu",def:"Scientists who study a topic in detail",ex:"<strong>Researchers</strong> in Toronto studied birdwatchers' brains."},
+  {w:"Protect",pos:"verb",ipa:"/prəˈtekt/",viet:"Bảo vệ",def:"To keep something safe from harm",ex:"Birdwatching could <strong>protect</strong> our brains against diseases."},
+  {w:"Brains",pos:"noun",ipa:"/breɪnz/",viet:"Não bộ",def:"The organ inside the head that controls the body",ex:"The veteran birders had more active <strong>brains</strong>."},
+  {w:"Age-related",pos:"adjective",ipa:"/ˈeɪdʒ rɪˌleɪtɪd/",viet:"Liên quan đến tuổi tác",def:"Caused by or connected to getting older",ex:"Birdwatching protects against <strong>age-related</strong> diseases."},
+  {w:"Diseases",pos:"noun",ipa:"/dɪˈziːzɪz/",viet:"Bệnh tật",def:"Illnesses that make people sick",ex:"Scientists want to prevent age-related <strong>diseases</strong>."},
+  {w:"Lead researcher",pos:"noun phrase",ipa:"/liːd rɪˈsɜːrtʃər/",viet:"Nhà nghiên cứu chủ chốt",def:"The main scientist leading a study",ex:"<strong>Lead researcher</strong> Dr Erik Wing led the study."},
+  {w:"Beneficial",pos:"adjective",ipa:"/ˌbenɪˈfɪʃəl/",viet:"Có lợi, có ích",def:"Good for you; producing a good effect",ex:"Skills from birding could be <strong>beneficial</strong> for intelligence."},
+  {w:"Intelligence",pos:"noun",ipa:"/ɪnˈtelɪdʒəns/",viet:"Trí tuệ",def:"The ability to learn and understand things",ex:"Birdwatching could boost <strong>intelligence</strong>."},
+  {w:"Colleagues",pos:"noun",ipa:"/ˈkɒliːɡz/",viet:"Đồng nghiệp",def:"People you work with",ex:"Dr Wing and his <strong>colleagues</strong> compared brain scans."},
+  {w:"Compared",pos:"verb",ipa:"/kəmˈpɛrd/",viet:"So sánh",def:"Looked at similarities and differences between things",ex:"They <strong>compared</strong> brain scans of veterans and newbies."},
+  {w:"Scans",pos:"noun",ipa:"/skænz/",viet:"Ảnh chụp não (MRI/CT)",def:"Medical images of the inside of the body",ex:"The researchers looked at brain <strong>scans</strong>."},
+  {w:"Brain activity",pos:"noun phrase",ipa:"/breɪn ækˈtɪvɪti/",viet:"Hoạt động não bộ",def:"How active and busy the brain is",ex:"They measured the <strong>brain activity</strong> of all participants."},
+  {w:"Veteran",pos:"noun / adj",ipa:"/ˈvetərən/",viet:"Người dày dặn kinh nghiệm",def:"A person with a lot of experience in something",ex:"29 <strong>veteran</strong> birdwatchers joined the study."},
+  {w:"Birdwatchers",pos:"noun",ipa:"/ˈbɜːrdˌwɒtʃərz/",viet:"Người ngắm chim",def:"People whose hobby is watching birds in nature",ex:"58 <strong>birdwatchers</strong> took part in the research."},
+  {w:"Newbies",pos:"noun (informal)",ipa:"/ˈnjuːbiz/",viet:"Người mới bắt đầu",def:"People who are new to an activity",ex:"They compared veterans with 29 <strong>newbies</strong>."},
+  {w:"Active",pos:"adjective",ipa:"/ˈæktɪv/",viet:"Hoạt động tích cực hơn",def:"Doing a lot; working hard",ex:"Veteran brains were a lot more <strong>active</strong>."},
+  {w:"Attention span",pos:"noun phrase",ipa:"/əˈtenʃən spæn/",viet:"Khả năng tập trung lâu dài",def:"How long someone can concentrate on one thing",ex:"Veterans had a longer <strong>attention span</strong>."},
+  {w:"Memory",pos:"noun",ipa:"/ˈmeməri/",viet:"Trí nhớ",def:"The ability to remember things",ex:"Veterans had a better <strong>memory</strong> than newbies."},
+  {w:"Pattern detection",pos:"noun phrase",ipa:"/ˈpætərn dɪˈtekʃən/",viet:"Nhận biết khuôn mẫu",def:"The ability to notice repeating shapes or forms",ex:"Birdwatching trains <strong>pattern detection</strong> skills."},
+  {w:"Mental health",pos:"noun phrase",ipa:"/ˈmentəl helθ/",viet:"Sức khỏe tâm thần",def:"The health of the mind and emotions",ex:"Birdwatching is good for <strong>mental health</strong>."},
+  {w:"Reduce stress",pos:"verb phrase",ipa:"/rɪˈduːs stres/",viet:"Giảm căng thẳng",def:"To make stress smaller or less intense",ex:"Birdwatching can <strong>reduce stress</strong>."},
+  {w:"Physical health",pos:"noun phrase",ipa:"/ˈfɪzɪkəl helθ/",viet:"Sức khỏe thể chất",def:"The health of the body",ex:"It also benefits <strong>physical health</strong>."},
+  {w:"Fresh air",pos:"noun phrase",ipa:"/freʃ ɛər/",viet:"Không khí trong lành",def:"Clean, cool outdoor air",ex:"We benefit from being in the <strong>fresh air</strong>."},
+  {w:"Sunlight",pos:"noun",ipa:"/ˈsʌnlaɪt/",viet:"Ánh sáng mặt trời",def:"Light and warmth from the sun",ex:"Being outside in the <strong>sunlight</strong> is healthy."},
+  {w:"Connecting with nature",pos:"phrase",ipa:"/kəˈnektɪŋ wɪð ˈneɪtʃər/",viet:"Kết nối với thiên nhiên",def:"Feeling close to the natural world",ex:"Benefits include <strong>connecting with nature</strong>."},
+  {w:"Aware",pos:"adjective",ipa:"/əˈwɛər/",viet:"Ý thức, nhận thức được",def:"Knowing that something exists or is important",ex:"Birdwatching makes us more <strong>aware</strong> of the environment."},
+  {w:"Environment",pos:"noun",ipa:"/ɪnˈvaɪrənmənt/",viet:"Môi trường",def:"The natural world around us",ex:"We become more aware of the <strong>environment</strong>."},
+  {w:"Like-minded people",pos:"noun phrase",ipa:"/ˌlaɪkˈmaɪndɪd ˈpiːpəl/",viet:"Người cùng sở thích",def:"People who share the same interests or opinions",ex:"Birdwatchers meet many <strong>like-minded people</strong>."},
+  {w:"Social life",pos:"noun phrase",ipa:"/ˈsoʊʃəl laɪf/",viet:"Đời sống xã hội",def:"The activities a person does with other people",ex:"The hobby is great for their <strong>social life</strong>."},
+  {w:"Hobby",pos:"noun",ipa:"/ˈhɒbi/",viet:"Sở thích, thú vui",def:"An activity done for enjoyment in free time",ex:"Birdwatching is a popular <strong>hobby</strong>."},
+  {w:"Process information",pos:"verb phrase",ipa:"/ˈprɒses ɪnfəˈmeɪʃən/",viet:"Xử lý thông tin",def:"To understand, analyse and use information",ex:"Veterans could <strong>process information</strong> more quickly."},
+  {w:"Benefits",pos:"verb",ipa:"/ˈbenɪfɪts/",viet:"Mang lại lợi ích cho",def:"Helps or is good for something",ex:"Birdwatching <strong>benefits</strong> the brain like music."},
+  {w:"Musical instrument",pos:"noun phrase",ipa:"/ˈmjuːzɪkəl ˈɪnstrəmənt/",viet:"Nhạc cụ",def:"A device used to make music",ex:"It is like learning a <strong>musical instrument</strong>."},
+  {w:"Pathways",pos:"noun",ipa:"/ˈpɑːθweɪz/",viet:"Đường dẫn thần kinh",def:"Routes in the brain that signals travel along",ex:"New skills add new <strong>pathways</strong> in the brain."},
+  {w:"Connections",pos:"noun",ipa:"/kəˈnekʃənz/",viet:"Các kết nối thần kinh",def:"Links between different parts of the brain",ex:"New skills add new pathways and <strong>connections</strong>."},
+  {w:"Identify",pos:"verb",ipa:"/aɪˈdentɪfaɪ/",viet:"Nhận dạng, xác định",def:"To find out or recognise what something is",ex:"Birdwatching helps you <strong>identify</strong> different species."},
+  {w:"Sensitivity",pos:"noun",ipa:"/ˌsensɪˈtɪvɪti/",viet:"Sự nhạy cảm, nhạy bén",def:"The ability to notice small details or changes",ex:"It develops a <strong>sensitivity</strong> to movement."},
 ];
 
 const TF_DATA = [
@@ -616,6 +618,7 @@ function renderFC(){
   document.getElementById('fc-n').textContent=`${fcIdx+1} / ${VOCAB.length}`;
   document.getElementById('fc-word').textContent=v.w;
   document.getElementById('fc-pos').textContent=v.pos;
+  document.getElementById('fc-ipa').textContent = v.ipa || '';
   document.getElementById('fc-viet').textContent=v.viet;
   document.getElementById('fc-def').textContent=v.def;
   document.getElementById('fc-ex').innerHTML=v.ex;
