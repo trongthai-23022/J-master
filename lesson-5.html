@@ -68,6 +68,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .fc-n{font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--muted);margin-bottom:8px;}
 .fc-word{font-family:'Syne',sans-serif;font-size:1.9rem;font-weight:800;color:var(--accent);}
 .fc-pos{font-family:'DM Mono',monospace;font-size:0.65rem;background:var(--light);color:var(--accent);padding:3px 9px;border-radius:99px;margin:6px 0;}
+.fc-ipa{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--muted);letter-spacing:0.5px;margin:3px 0 2px;}
 .fc-tap{font-size:0.7rem;color:var(--muted);margin-top:10px;}
 .fc-viet{font-size:1.1rem;font-weight:700;color:var(--accent);}
 .fc-def{font-family:'Lora',serif;font-size:0.83rem;color:var(--muted);line-height:1.5;max-width:340px;}
@@ -238,6 +239,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
       <div class="fc-n" id="fc-n">1 / 12</div>
       <div class="fc-word" id="fc-word">—</div>
       <div class="fc-pos" id="fc-pos">—</div>
+      <div class="fc-ipa" id="fc-ipa"></div>
       <div class="fc-tap">👆 Nhấn để xem nghĩa</div>
     </div>
     <div class="fc-back">
@@ -374,18 +376,18 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 // ════════════════════════════════════════
 
 const VOCAB = [
-  {w:"Rift",pos:"noun",viet:"Vết nứt địa tầng",def:"A deep crack or split in the Earth's crust where land may separate",ex:"Geologist Mike Daly is studying Zambia's Kafue <strong>Rift</strong>."},
-  {w:"Geologist",pos:"noun",viet:"Nhà địa chất học",def:"A scientist who studies the Earth, its rocks, and its land",ex:"A <strong>geologist</strong> from the University of Oxford is studying the crack in Zambia."},
-  {w:"Continent",pos:"noun",viet:"Lục địa",def:"One of the seven large areas of land on Earth",ex:"A huge part of East Africa is breaking away from the African <strong>continent</strong>."},
-  {w:"Fault",pos:"noun",viet:"Đứt gãy địa chất",def:"A crack or break in rock deep inside the Earth",ex:"The Kafue Rift is a major <strong>fault</strong> in the rock that covers Earth's surface."},
-  {w:"Surface",pos:"noun",viet:"Bề mặt",def:"The top or outer layer of something",ex:"The rift lies in the rock that covers Earth's <strong>surface</strong>."},
-  {w:"Evidence",pos:"noun",viet:"Bằng chứng",def:"Facts or signs that prove something is true",ex:"There is <strong>evidence</strong> that the fault boundary of the Kafue Rift is active."},
-  {w:"Indication",pos:"noun",viet:"Dấu hiệu",def:"A sign that something may be happening or about to happen",ex:"The rift may be an early <strong>indication</strong> of Africa breaking apart."},
-  {w:"Constantly",pos:"adverb",viet:"Liên tục",def:"Happening all the time, without stopping",ex:"The land on Earth is <strong>constantly</strong> moving."},
-  {w:"Supercontinent",pos:"noun",viet:"Siêu lục địa",def:"A single enormous landmass containing most of Earth's land",ex:"Three hundred million years ago, there was one huge <strong>supercontinent</strong> called Pangea."},
-  {w:"Continental drift",pos:"noun",viet:"Trôi dạt lục địa",def:"The slow movement of continents across Earth's surface over millions of years",ex:"The movement of land masses across oceans is called <strong>continental drift</strong>."},
-  {w:"Split",pos:"verb",viet:"Tách ra / Tách đôi",def:"To divide or break into two or more separate parts",ex:"Scientists say Africa may <strong>split</strong> in two over millions of years."},
-  {w:"Stretching",pos:"verb",viet:"Kéo dài",def:"Extending over a long distance from one place to another",ex:"The rift zone is <strong>stretching</strong> from Tanzania to Namibia."},
+  {w:"Rift",pos:"noun",ipa:"/rɪft/",viet:"Vết nứt địa tầng",def:"A deep crack or split in the Earth's crust where land may separate",ex:"Geologist Mike Daly is studying Zambia's Kafue <strong>Rift</strong>."},
+  {w:"Geologist",pos:"noun",ipa:"/dʒiˈɒlədʒɪst/",viet:"Nhà địa chất học",def:"A scientist who studies the Earth, its rocks, and its land",ex:"A <strong>geologist</strong> from the University of Oxford is studying the crack in Zambia."},
+  {w:"Continent",pos:"noun",ipa:"/ˈkɒntɪnənt/",viet:"Lục địa",def:"One of the seven large areas of land on Earth",ex:"A huge part of East Africa is breaking away from the African <strong>continent</strong>."},
+  {w:"Fault",pos:"noun",ipa:"/fɔːlt/",viet:"Đứt gãy địa chất",def:"A crack or break in rock deep inside the Earth",ex:"The Kafue Rift is a major <strong>fault</strong> in the rock that covers Earth's surface."},
+  {w:"Surface",pos:"noun",ipa:"/ˈsɜːrfɪs/",viet:"Bề mặt",def:"The top or outer layer of something",ex:"The rift lies in the rock that covers Earth's <strong>surface</strong>."},
+  {w:"Evidence",pos:"noun",ipa:"/ˈevɪdəns/",viet:"Bằng chứng",def:"Facts or signs that prove something is true",ex:"There is <strong>evidence</strong> that the fault boundary of the Kafue Rift is active."},
+  {w:"Indication",pos:"noun",ipa:"/ˌɪndɪˈkeɪʃən/",viet:"Dấu hiệu",def:"A sign that something may be happening or about to happen",ex:"The rift may be an early <strong>indication</strong> of Africa breaking apart."},
+  {w:"Constantly",pos:"adverb",ipa:"/ˈkɒnstəntli/",viet:"Liên tục",def:"Happening all the time, without stopping",ex:"The land on Earth is <strong>constantly</strong> moving."},
+  {w:"Supercontinent",pos:"noun",ipa:"/ˌsuːpərˈkɒntɪnənt/",viet:"Siêu lục địa",def:"A single enormous landmass containing most of Earth's land",ex:"Three hundred million years ago, there was one huge <strong>supercontinent</strong> called Pangea."},
+  {w:"Continental drift",pos:"noun",ipa:"/ˌkɒntɪˈnentəl drɪft/",viet:"Trôi dạt lục địa",def:"The slow movement of continents across Earth's surface over millions of years",ex:"The movement of land masses across oceans is called <strong>continental drift</strong>."},
+  {w:"Split",pos:"verb",ipa:"/splɪt/",viet:"Tách ra / Tách đôi",def:"To divide or break into two or more separate parts",ex:"Scientists say Africa may <strong>split</strong> in two over millions of years."},
+  {w:"Stretching",pos:"verb",ipa:"/ˈstretʃɪŋ/",viet:"Kéo dài",def:"Extending over a long distance from one place to another",ex:"The rift zone is <strong>stretching</strong> from Tanzania to Namibia."},
 ];
 
 const TF_DATA = [
@@ -554,6 +556,7 @@ function renderFC(){
   document.getElementById('fc-n').textContent=`${fcIdx+1} / ${VOCAB.length}`;
   document.getElementById('fc-word').textContent=v.w;
   document.getElementById('fc-pos').textContent=v.pos;
+  document.getElementById('fc-ipa').textContent = v.ipa || '';
   document.getElementById('fc-viet').textContent=v.viet;
   document.getElementById('fc-def').textContent=v.def;
   document.getElementById('fc-ex').innerHTML=v.ex;

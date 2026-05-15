@@ -67,6 +67,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .fc-n{font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--muted);margin-bottom:8px;}
 .fc-word{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--accent);}
 .fc-pos{font-family:'DM Mono',monospace;font-size:0.68rem;background:var(--light);color:var(--accent);padding:4px 11px;border-radius:99px;margin:6px 0;}
+.fc-ipa{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--muted);letter-spacing:0.5px;margin:3px 0 2px;}
 .fc-tap{font-size:0.74rem;color:var(--muted);margin-top:10px;}
 .fc-viet{font-size:1.15rem;font-weight:700;color:var(--accent);}
 .fc-def{font-family:'Lora',serif;font-size:0.86rem;color:var(--muted);line-height:1.5;max-width:340px;}
@@ -232,6 +233,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
       <div class="fc-n" id="fc-n">1 / 14</div>
       <div class="fc-word" id="fc-word">—</div>
       <div class="fc-pos" id="fc-pos">—</div>
+      <div class="fc-ipa" id="fc-ipa"></div>
       <div class="fc-tap">👆 Nhấn để xem nghĩa</div>
     </div>
     <div class="fc-back">
@@ -358,20 +360,20 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 // ════════════════════════════════════════
 
 const VOCAB = [
-  {w:"study",pos:"noun",viet:"Nghiên cứu",def:"A careful look at something to learn new facts.",ex:"A new <strong>study</strong> shows that music can help patients recover."},
-  {w:"music therapy",pos:"noun phrase",viet:"Liệu pháp âm nhạc",def:"Using music to help people feel better or heal.",ex:"<strong>Music therapy</strong> during surgery can help patients recover faster."},
-  {w:"surgery",pos:"noun",viet:"Phẫu thuật, ca mổ",def:"A medical operation in a hospital.",ex:"Music played during <strong>surgery</strong> reduces stress."},
-  {w:"anaesthetic",pos:"noun",viet:"Thuốc gây mê",def:"A drug that makes a person not feel pain during surgery.",ex:"Doctors gave the patients <strong>anaesthetic</strong> drugs."},
-  {w:"recover",pos:"verb",viet:"Hồi phục, bình phục",def:"To get well again after being sick or hurt.",ex:"Patients with music <strong>recover</strong> faster after surgery."},
-  {w:"gallbladder",pos:"noun",viet:"Túi mật",def:"A small organ in the body that stores bile.",ex:"56 patients needed <strong>gallbladder</strong> operations."},
-  {w:"flute",pos:"noun",viet:"Sáo (nhạc cụ)",def:"A long thin musical instrument you blow into.",ex:"Doctors played soft <strong>flute</strong> music in the operating room."},
-  {w:"painkiller",pos:"noun",viet:"Thuốc giảm đau",def:"A medicine that stops or reduces pain.",ex:"The music group needed less <strong>painkiller</strong> after surgery."},
-  {w:"reduces",pos:"verb",viet:"Làm giảm",def:"Makes something smaller or less.",ex:"Music <strong>reduces</strong> stress in patients."},
-  {w:"specialist",pos:"noun",viet:"Chuyên gia, bác sĩ chuyên khoa",def:"A doctor or expert in one area of medicine.",ex:"Dr Husain is a <strong>specialist</strong> in anaesthesia."},
-  {w:"block",pos:"verb",viet:"Chặn, ngăn lại",def:"To stop something from passing through or happening.",ex:"Anaesthetic drugs <strong>block</strong> pain during surgery."},
-  {w:"alert",pos:"adjective",viet:"Tỉnh táo, minh mẫn",def:"Wide awake and able to think clearly.",ex:"Patients with music were more <strong>alert</strong> after surgery."},
-  {w:"discharge",pos:"verb",viet:"Cho xuất viện",def:"To officially let a patient leave the hospital.",ex:"Nurses <strong>discharged</strong> the patients earlier than expected."},
-  {w:"aim",pos:"noun",viet:"Mục tiêu, mục đích",def:"Something you hope to achieve.",ex:"The team's <strong>aim</strong> is to help patients heal faster."},
+  {w:"study",pos:"noun",ipa:"/ˈstʌdi/",viet:"Nghiên cứu",def:"A careful look at something to learn new facts.",ex:"A new <strong>study</strong> shows that music can help patients recover."},
+  {w:"music therapy",pos:"noun phrase",ipa:"/ˈmjuːzɪk ˈθerəpi/",viet:"Liệu pháp âm nhạc",def:"Using music to help people feel better or heal.",ex:"<strong>Music therapy</strong> during surgery can help patients recover faster."},
+  {w:"surgery",pos:"noun",ipa:"/ˈsɜːrdʒəri/",viet:"Phẫu thuật, ca mổ",def:"A medical operation in a hospital.",ex:"Music played during <strong>surgery</strong> reduces stress."},
+  {w:"anaesthetic",pos:"noun",ipa:"/ˌænɪsˈθetɪk/",viet:"Thuốc gây mê",def:"A drug that makes a person not feel pain during surgery.",ex:"Doctors gave the patients <strong>anaesthetic</strong> drugs."},
+  {w:"recover",pos:"verb",ipa:"/rɪˈkʌvər/",viet:"Hồi phục, bình phục",def:"To get well again after being sick or hurt.",ex:"Patients with music <strong>recover</strong> faster after surgery."},
+  {w:"gallbladder",pos:"noun",ipa:"/ˈɡɔːlˌblædər/",viet:"Túi mật",def:"A small organ in the body that stores bile.",ex:"56 patients needed <strong>gallbladder</strong> operations."},
+  {w:"flute",pos:"noun",ipa:"/fluːt/",viet:"Sáo (nhạc cụ)",def:"A long thin musical instrument you blow into.",ex:"Doctors played soft <strong>flute</strong> music in the operating room."},
+  {w:"painkiller",pos:"noun",ipa:"/ˈpeɪnˌkɪlər/",viet:"Thuốc giảm đau",def:"A medicine that stops or reduces pain.",ex:"The music group needed less <strong>painkiller</strong> after surgery."},
+  {w:"reduces",pos:"verb",ipa:"/rɪˈdjuːsɪz/",viet:"Làm giảm",def:"Makes something smaller or less.",ex:"Music <strong>reduces</strong> stress in patients."},
+  {w:"specialist",pos:"noun",ipa:"/ˈspeʃəlɪst/",viet:"Chuyên gia, bác sĩ chuyên khoa",def:"A doctor or expert in one area of medicine.",ex:"Dr Husain is a <strong>specialist</strong> in anaesthesia."},
+  {w:"block",pos:"verb",ipa:"/blɒk/",viet:"Chặn, ngăn lại",def:"To stop something from passing through or happening.",ex:"Anaesthetic drugs <strong>block</strong> pain during surgery."},
+  {w:"alert",pos:"adjective",ipa:"/əˈlɜːrt/",viet:"Tỉnh táo, minh mẫn",def:"Wide awake and able to think clearly.",ex:"Patients with music were more <strong>alert</strong> after surgery."},
+  {w:"discharge",pos:"verb",ipa:"/ˈdɪstʃɑːrdʒ/",viet:"Cho xuất viện",def:"To officially let a patient leave the hospital.",ex:"Nurses <strong>discharged</strong> the patients earlier than expected."},
+  {w:"aim",pos:"noun",ipa:"/eɪm/",viet:"Mục tiêu, mục đích",def:"Something you hope to achieve.",ex:"The team's <strong>aim</strong> is to help patients heal faster."},
 ];
 
 const TF_DATA = [
@@ -543,6 +545,7 @@ function renderFC(){
   document.getElementById('fc-n').textContent=`${fcIdx+1} / ${VOCAB.length}`;
   document.getElementById('fc-word').textContent=v.w;
   document.getElementById('fc-pos').textContent=v.pos;
+  document.getElementById('fc-ipa').textContent = v.ipa || '';
   document.getElementById('fc-viet').textContent=v.viet;
   document.getElementById('fc-def').textContent=v.def;
   document.getElementById('fc-ex').innerHTML=v.ex;
