@@ -104,7 +104,6 @@ select option{background:#1f3d2a}
 .pm-item.is-frozen{opacity:.6;border-style:dashed;border-color:rgba(100,180,255,.35)}
 .badge-freeze{background:rgba(60,140,220,.2);color:#7ec8f5;border-radius:4px;padding:1px 7px;font-size:10px;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px}
 .frozen-tag{font-size:10px;color:#7ec8f5;letter-spacing:1px;margin-left:6px}
-.ipa-tag{font-family:monospace;font-size:11px;color:rgba(138,171,150,.7);font-style:italic;letter-spacing:.3px;margin-top:2px}
 .pm-name{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;flex:1}
 .pm-bal{font-family:'Bebas Neue',sans-serif;font-size:17px;min-width:64px;text-align:right}
 .pm-actions{display:flex;gap:5px}
@@ -307,7 +306,6 @@ select option{background:#1f3d2a}
         <input type="text" id="new-pname" placeholder="Nhập tên người mới vào..." style="font-size:14px;padding:9px 12px">
         <button class="btn btn-green btn-sm" onclick="addPlayer()">+ Vào bàn</button>
       </div>
-      <input type="text" id="new-pipa" placeholder="/phiên âm IPA tuỳ chọn/" style="font-family:monospace;font-size:12px;padding:7px 12px;color:var(--muted);margin-top:6px">
     </div>
 
     <!-- Stats -->
@@ -510,21 +508,6 @@ select option{background:#1f3d2a}
   </div>
 </div>
 
-<!-- MODAL: Edit Player IPA -->
-<div class="modal-ov" id="modal-edit-ipa">
-  <div class="modal-box" style="max-width:340px">
-    <h3>🔤 Phiên Âm IPA</h3>
-    <p id="eipa-pname" style="font-family:'Barlow Condensed',sans-serif;font-size:17px;color:var(--gold);margin-bottom:12px"></p>
-    <div class="ig">
-      <label>Phiên âm IPA (tuỳ chọn)</label>
-      <input type="text" id="eipa-inp" placeholder="/viː.ɛt̚˦˥ nɐm˨˩/" style="font-family:monospace;font-size:15px" oninput="previewIPA(this.value)">
-      <div id="eipa-preview" style="font-family:monospace;font-size:13px;color:rgba(138,171,150,.8);font-style:italic;margin-top:6px;min-height:18px"></div>
-    </div>
-    <button class="btn btn-primary" onclick="savePlayerIPA()" style="margin-bottom:8px">✓ Lưu</button>
-    <button class="btn btn-ghost" onclick="closeModal('modal-edit-ipa')" style="width:100%">Hủy</button>
-  </div>
-</div>
-
 <!-- MODAL: Export -->
 <div class="modal-ov" id="modal-export">
   <div class="modal-box" style="max-width:380px">
@@ -559,9 +542,7 @@ function save() {
 function load() {
   try { const r = localStorage.getItem('baitien_v4'); if (r) state = JSON.parse(r); } catch(e) {}
   // migrate old data
-  const migrateP = p => { if (p.active === undefined) p.active = true; if (p.frozen === undefined) p.frozen = false; if (p.ipa === undefined) p.ipa = ''; };
-  if (state.sessions) state.sessions.forEach(s => s.players?.forEach(migrateP));
-  if (state.current) state.current.players?.forEach(migrateP);
+  if (state.sessions) state.sessions.forEach(s => s.players?.forEach(p => { if (p.active === undefined) p.active = true; if (p.frozen === undefined) p.frozen = false; }));
 }
 
 // ══════════════════════════════
@@ -577,20 +558,11 @@ function setPCount(n) {
 function renderPInputs() {
   const w = document.getElementById('pinputs');
   w.innerHTML = '';
-  w.style.gridTemplateColumns = '1fr';
   for (let i = 0; i < pcount; i++) {
-    const row = document.createElement('div');
-    row.style.cssText = 'display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center';
     const inp = document.createElement('input');
     inp.type = 'text'; inp.placeholder = `Người chơi ${i+1}`; inp.id = `pi-${i}`;
     inp.style.cssText = 'font-size:14px;padding:9px 12px';
-    const ipaInp = document.createElement('input');
-    ipaInp.type = 'text'; ipaInp.placeholder = '/IPA/'; ipaInp.id = `pi-ipa-${i}`;
-    ipaInp.style.cssText = 'width:90px;font-size:12px;padding:9px 8px;font-family:monospace;color:var(--muted)';
-    ipaInp.title = 'Phiên âm IPA (tuỳ chọn)';
-    row.appendChild(inp);
-    row.appendChild(ipaInp);
-    w.appendChild(row);
+    w.appendChild(inp);
   }
 }
 function renderSaved() {
@@ -625,8 +597,7 @@ function startGame() {
   const players = [];
   for (let i = 0; i < pcount; i++) {
     const n = document.getElementById(`pi-${i}`)?.value.trim() || `Người ${i+1}`;
-    const ipa = document.getElementById(`pi-ipa-${i}`)?.value.trim() || '';
-    players.push({ name: n, balance: 0, active: true, ipa });
+    players.push({ name: n, balance: 0, active: true });
   }
   state.current = { id: Date.now().toString(), name: nm, players, defaultBet: db, round: 1, history: [], jackpot: 0, snapshot: null };
   save(); showGame();
@@ -711,10 +682,7 @@ function renderIndividualStats() {
       }).join('');
     const balCls = p.balance > 0 ? 'pos' : p.balance < 0 ? 'neg' : 'zero';
     return `<div class="pp-card">
-      <div class="pp-head">
-        <div><span class="pname">${esc(p.name)}</span>${p.ipa ? `<div class="ipa-tag" style="margin-left:0">${esc(p.ipa)}</div>` : ''}</div>
-        <span class="${balCls}">${p.balance >= 0 ? '+' : ''}${fmtK(p.balance)}</span>
-      </div>
+      <div class="pp-head"><span class="pname">${esc(p.name)}</span><span class="${balCls}">${p.balance >= 0 ? '+' : ''}${fmtK(p.balance)}</span></div>
       ${rows || '<div class="pp-row"><span class="pp-opp" style="font-style:italic;font-size:12px">Chưa có ván thắng/thua</span></div>'}
     </div>`;
   }).join('');
@@ -731,10 +699,7 @@ function renderScoreboard() {
     const sign = p.balance > 0 ? '+' : '';
     return `<div class="prow ${cls}">
       <div class="avatar">${p.name.charAt(0).toUpperCase()}</div>
-      <div style="flex:1">
-        <div class="pname">${esc(p.name)}${!active ? (p.frozen ? '<span class="frozen-tag">❄️ tạm ra</span>' : '<span class="out-tag">· đã ra</span>') : ''}</div>
-        ${p.ipa ? `<div class="ipa-tag">${esc(p.ipa)}</div>` : ''}
-      </div>
+      <div style="flex:1"><div class="pname">${esc(p.name)}${!active ? (p.frozen ? '<span class="frozen-tag">❄️ tạm ra</span>' : '<span class="out-tag">· đã ra</span>') : ''}</div></div>
       <div class="pbal ${bc}">${sign}${fmtK(p.balance)}</div>
     </div>`;
   }).join('');
@@ -817,13 +782,9 @@ function renderPM() {
     const sign = p.balance > 0 ? '+' : '';
     return `<div class="pm-item ${p.active ? '' : p.frozen ? 'is-frozen' : 'is-out'}">
       <div class="avatar" style="width:30px;height:30px;font-size:14px">${p.name.charAt(0).toUpperCase()}</div>
-      <div class="pm-name">
-        ${esc(p.name)}${!p.active ? (p.frozen ? `<span class="frozen-tag" style="margin-left:6px">❄️ tạm ra (${fmtK(p.balance)})</span>` : '<span class="out-tag" style="margin-left:6px">· đã ra</span>') : ''}
-        ${p.ipa ? `<div class="ipa-tag" style="font-size:10px">${esc(p.ipa)}</div>` : ''}
-      </div>
+      <div class="pm-name">${esc(p.name)}${!p.active ? (p.frozen ? `<span class="frozen-tag" style="margin-left:6px">❄️ tạm ra (${fmtK(p.balance)})</span>` : '<span class="out-tag" style="margin-left:6px">· đã ra</span>') : ''}</div>
       <div class="pm-bal ${bc}">${sign}${fmtK(p.balance)}</div>
-      <div class="pm-actions" style="display:flex;gap:4px">
-        <button class="btn btn-ghost btn-xs" onclick="editPlayerIPA(${i})" title="Phiên âm IPA">🔤</button>
+      <div class="pm-actions">
         ${p.active
           ? `<button class="btn btn-ghost btn-xs" onclick="initLeave(${i})">🚪 Ra</button>`
           : `<button class="btn btn-ghost btn-xs" onclick="rejoin(${i})">↩ Vào lại</button>`
@@ -838,34 +799,12 @@ function addPlayer() {
   const nm = document.getElementById('new-pname').value.trim();
   if (!nm) { toast('Nhập tên người chơi!', 'error'); return; }
   if (s.players.find(p => p.name.toLowerCase() === nm.toLowerCase())) { toast('Tên này đã có trong bàn!', 'error'); return; }
-  const ipa = document.getElementById('new-pipa').value.trim();
   s.snapshot = JSON.parse(JSON.stringify({ players: s.players, round: s.round, jackpot: s.jackpot, history: s.history }));
-  s.players.push({ name: nm, balance: 0, active: true, ipa });
+  s.players.push({ name: nm, balance: 0, active: true });
   s.history.unshift({ round: s.round, type: 'join', player: nm });
   document.getElementById('new-pname').value = '';
-  document.getElementById('new-pipa').value = '';
   save(); renderGame();
   toast(`✅ ${nm} vào bàn!`, 'success');
-}
-
-let pendingIPAIdx = null;
-function editPlayerIPA(idx) {
-  const p = state.current.players[idx];
-  pendingIPAIdx = idx;
-  document.getElementById('eipa-pname').textContent = p.name;
-  document.getElementById('eipa-inp').value = p.ipa || '';
-  document.getElementById('eipa-preview').textContent = p.ipa ? `[${p.ipa}]` : '';
-  openModal('modal-edit-ipa');
-}
-function previewIPA(val) {
-  document.getElementById('eipa-preview').textContent = val ? `[${val}]` : '';
-}
-function savePlayerIPA() {
-  const s = state.current;
-  const p = s.players[pendingIPAIdx];
-  p.ipa = document.getElementById('eipa-inp').value.trim();
-  save(); renderGame(); closeModal('modal-edit-ipa');
-  toast(p.ipa ? `🔤 Đã lưu phiên âm: ${p.ipa}` : `🔤 Đã xoá phiên âm của ${p.name}`, 'success');
 }
 
 function rejoin(idx) {
