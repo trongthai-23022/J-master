@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Media Ban – English Lesson</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common.css">
+</head>
+<body>
+
+<script>
+const LESSON_CONFIG = {
+  tag: "Wed 20/5/2026 · Breaking News English Level 3",
+  title: "Social Media Ban",
+  titleHtml: "Social Media <em>Ban</em>",
+  sub: "Teens in Australia banned from social media",
+  emoji: "📱",
+  kicker: "📍 Australia · 11 December 2025",
+  artHl: "Teens in Australia banned from social media",
+  artHtml: `
+    <p>A big change has happened in the social media world. Australia has <span class="hl" data-w="banned" data-viet="bị cấm">banned</span> children <span class="hl" data-w="under-16s" data-viet="trẻ em dưới 16 tuổi">under the age of 16</span> from joining many <span class="hl" data-w="social networks" data-viet="mạng xã hội">social networks</span>. New laws say the under-16s cannot open accounts with sites like Facebook, Instagram, Reddit, Snapchat, Threads, TikTok, X, and YouTube. It is now the <span class="hl" data-w="responsibility" data-viet="trách nhiệm">responsibility</span> of these social media sites to make sure all of their users are aged 16 or above. Australia's government said it would fine the companies if they allowed children to <span class="hl" data-w="access" data-viet="truy cập">access</span> their sites. The <span class="hl" data-w="fines" data-viet="tiền phạt">fines</span> could be as much as $32.9 million. The companies said they would use different <span class="hl" data-w="methods" data-viet="phương pháp">methods</span> to check the age of their users. New users will have to <span class="hl" data-w="upload identification" data-viet="tải giấy tờ tùy thân lên">upload identification</span> and <span class="hl" data-w="scan their faces" data-viet="quét khuôn mặt">scan their faces</span>.</p>
+    <p>Australia's Prime Minister said he introduced the ban because social media was <span class="hl" data-w="harming young minds" data-viet="gây hại cho trí óc non nớt">harming young minds</span>. He said a <span class="hl" data-w="study showed" data-viet="nghiên cứu chỉ ra">study showed</span> that 70 per cent of children aged 10-15 who used social media looked at <span class="hl" data-w="harmful content" data-viet="nội dung độc hại">harmful content</span>. This included information about <span class="hl" data-w="misogyny" data-viet="sự bài xích phụ nữ">misogyny</span>, <span class="hl" data-w="violence" data-viet="bạo lực">violence</span>, <span class="hl" data-w="eating disorders" data-viet="rối loạn ăn uống">eating disorders</span>, and <span class="hl" data-w="suicide" data-viet="tự tử">suicide</span>. He <span class="hl" data-w="advised" data-viet="khuyên">advised</span> children to do different things instead, like starting a new sport or learning to play a musical <span class="hl" data-w="musical instrument" data-viet="nhạc cụ">instrument</span>. His message to children was: "Spend <span class="hl" data-w="quality time" data-viet="thời gian chất lượng">quality time</span> with your friends and your family, <span class="hl" data-w="face to face" data-viet="trực tiếp">face to face</span>." Many children said they would now be <span class="hl" data-w="lonelier" data-viet="cô đơn hơn">lonelier</span> without social media. Two 15-year-olds are <span class="hl" data-w="suing" data-viet="kiện">suing</span> Australia's government. They say their "right to free communication" has been <span class="hl" data-w="taken away" data-viet="bị tước đoạt">taken away</span>.</p>
+  `,
+  aiEnabled: true,
+  theme: {
+    bg: "#f0f4f8",
+    border: "#d0e1fd",
+    text: "#1a2530",
+    muted: "#5b6e80",
+    accent: "#1e40af",
+    accent2: "#3b82f6",
+    light: "#e0f2fe"
+  }
+};
+
+const VOCAB = [
+  {w:"Banned",pos:"verb",ipa:"/bænd/",viet:"Bị cấm",def:"Officially not allowed to do something",ex:"Australia has <strong>banned</strong> children under 16 from social media."},
+  {w:"Social networks",pos:"noun",ipa:"/ˈsoʊʃəl ˈnetwɜːrks/",viet:"Mạng xã hội",def:"Websites and apps that let people connect and share content",ex:"Teens are banned from joining many <strong>social networks</strong>."},
+  {w:"Responsibility",pos:"noun",ipa:"/rɪˌspɒnsəˈbɪlɪti/",viet:"Trách nhiệm",def:"A duty to deal with something or take care of someone",ex:"It is the <strong>responsibility</strong> of these sites to check users' age."},
+  {w:"Access",pos:"verb",ipa:"/ˈækses/",viet:"Truy cập",def:"To enter, use, or open a digital space or information",ex:"Companies will be fined if children <strong>access</strong> their sites."},
+  {w:"Fines",pos:"noun",ipa:"/faɪnz/",viet:"Tiền phạt",def:"Sums of money that must be paid as punishment for breaking a law",ex:"The <strong>fines</strong> could be as much as $32.9 million."},
+  {w:"Methods",pos:"noun",ipa:"/ˈmeθədz/",viet:"Phương pháp",def:"Ways of doing something",ex:"The companies said they would use different <strong>methods</strong> to check ages."},
+  {w:"Upload identification",pos:"phrase",ipa:"/ʌpˈloʊd aɪˌdentɪfɪˈkeɪʃən/",viet:"Tải giấy tờ tùy thân lên",def:"To send a copy of an official document (like an ID) to a website",ex:"New users will have to <strong>upload identification</strong> to prove their age."},
+  {w:"Scan their faces",pos:"phrase",ipa:"/skæn ðɛr ˈfeɪsəz/",viet:"Quét khuôn mặt",def:"To use a camera to check or verify a person's face structure",ex:"New users will have to upload ID and <strong>scan their faces</strong>."},
+  {w:"Harming young minds",pos:"phrase",ipa:"/ˈhɑːrmɪŋ jʌŋ maɪndz/",viet:"Gây hại cho trí óc non nớt",def:"Causing negative mental or psychological effects to children",ex:"The Prime Minister supported the ban because social media was <strong>harming young minds</strong>."},
+  {w:"Harmful content",pos:"phrase",ipa:"/ˈhɑːrmfʊl ˈkɒntent/",viet:"Nội dung độc hại",def:"Online text, images, or videos that cause negative mental effects",ex:"Many children aged 10-15 looked at <strong>harmful content</strong> online."},
+  {w:"Misogyny",pos:"noun",ipa:"/mɪˈsɒdʒɪni/",viet:"Sự bài xích phụ nữ",def:"Dislike of, contempt for, or prejudice against women",ex:"The content included information about <strong>misogyny</strong> and violence."},
+  {w:"Violence",pos:"noun",ipa:"/ˈvaɪələns/",viet:"Bạo lực",def:"Actions or words intended to hurt, damage, or kill someone",ex:"Children were exposed to online <strong>violence</strong>."},
+  {w:"Eating disorders",pos:"noun",ipa:"/ˈiːtɪŋ dɪsˈɔːrdərz/",viet:"Rối loạn ăn uống",def:"Serious mental illnesses characterized by abnormal eating habits",ex:"The study noted content showing <strong>eating disorders</strong>."},
+  {w:"Suicide",pos:"noun",ipa:"/ˈsuːɪsaɪd/",viet:"Tự tử",def:"The act of intentionally taking one's own life",ex:"The Prime Minister spoke about content related to <strong>suicide</strong>."},
+  {w:"Advised",pos:"verb",ipa:"/ədˈvaɪzd/",viet:"Khuyên",def:"Gave advice to someone; recommended a course of action",ex:"He <strong>advised</strong> children to do different offline activities instead."},
+  {w:"Quality time",pos:"noun",ipa:"/ˈkwɒlɪti taɪm/",viet:"Thời gian chất lượng",def:"Time spent giving all of one's attention to friends or family",ex:"His message was to spend <strong>quality time</strong> with family face to face."},
+  {w:"Face to face",pos:"phrase",ipa:"/feɪs tuː feɪs/",viet:"Trực tiếp",def:"In person; physically close and looking at each other",ex:"He encouraged kids to talk to friends <strong>face to face</strong>."},
+  {w:"Lonelier",pos:"adjective",ipa:"/ˈloʊnliər/",viet:"Cô đơn hơn",def:"Feeling more unhappy because of being alone or without friends",ex:"Many children said they would be <strong>lonelier</strong> without social media."},
+  {w:"Suing",pos:"verb",ipa:"/ˈsuːɪŋ/",viet:"Kiện",def:"Taking legal action against a person or government in court",ex:"Two 15-year-olds are <strong>suing</strong> Australia's government."},
+  {w:"Right to free communication",pos:"phrase",ipa:"/raɪt tuː friː kəˌmjuːnɪˈkeɪʃən/",viet:"Quyền tự do giao tiếp",def:"The legal freedom to share thoughts and contact others",ex:"They say their <strong>right to free communication</strong> has been taken away."},
+  {w:"Taken away",pos:"verb",ipa:"/ˈteɪkən əˈweɪ/",viet:"Bị tước đoạt / Lấy đi",def:"Removed or stripped from someone",ex:"Their right to free communication has been <strong>taken away</strong>."},
+  {w:"Under-16s",pos:"noun",ipa:"/ˈʌndər sɪksˈtiːnz/",viet:"Trẻ em dưới 16 tuổi",def:"People who are under 16 years of age",ex:"New laws say the <strong>under-16s</strong> cannot open social media accounts."},
+  {w:"Musical instrument",pos:"noun",ipa:"/ˈmjuːzɪkəl ˈɪnstrʊmənt/",viet:"Nhạc cụ",def:"An object used to make music, like a piano, drum, or violin",ex:"He suggested learning to play a musical <strong>instrument</strong>."},
+  {w:"Study showed",pos:"phrase",ipa:"/ˈstʌdi ʃoʊd/",viet:"Nghiên cứu chỉ ra",def:"A scientific research paper revealed a specific fact",ex:"A <strong>study showed</strong> that 70% of children saw harmful content."}
+];
+
+const TF_DATA = [
+  {text:"Australia has banned children under the age of 14 from social media.",ans:"F",exp:"SAI — Úc cấm trẻ em dưới 16 tuổi, không phải dưới 14 tuổi."},
+  {text:"Social media companies could be fined up to $32.9 million if they allow children to access their sites.",ans:"T",exp:"ĐÚNG — Mức phạt tối đa cho các công ty là 32,9 triệu USD."},
+  {text:"New users can verify their age simply by entering their birth date.",ans:"F",exp:"SAI — Người dùng mới sẽ phải tải lên giấy tờ tùy thân và quét khuôn mặt."},
+  {text:"A study showed that 70% of children aged 10-15 looked at harmful content online.",ans:"T",exp:"ĐÚNG — Nghiên cứu chỉ ra 70% trẻ em từ 10-15 tuổi tiếp xúc với nội dung gây hại trên mạng xã hội."},
+  {text:"The Prime Minister advised children to spend more time online playing games.",ans:"F",exp:"SAI — Thủ tướng khuyên trẻ em nên chơi thể thao, học nhạc cụ hoặc giao lưu trực tiếp."},
+  {text:"Two 15-year-olds are taking legal action against the Australian government.",ans:"T",exp:"ĐÚNG — Hai học sinh 15 tuổi đang kiện (suing) chính phủ Úc vì vi phạm quyền tự do giao tiếp."}
+];
+
+const GF = {
+  bank:["banned","access","responsibility","identification","harming","harmful","instrument","suing"],
+  parts:[
+    "Australia has (1)____ children under 16 from many social networks.",
+    "It is now the (2)____ of social media sites to check users' age.",
+    "Companies will be fined if children (3)____ their sites.",
+    "New users have to upload (4)____ and scan their faces.",
+    "The Prime Minister introduced the ban because social media was (5)____ young minds.",
+    "A study showed that 70 per cent of children looked at (6)____ content.",
+    "He advised children to play a musical (7)____ instead.",
+    "Two 15-year-olds are (8)____ Australia's government."
+  ],
+  ans:["banned","responsibility","access","identification","harming","harmful","instrument","suing"]
+};
+
+const DISC_COMP = [
+  {
+    q:"What new law has Australia introduced about social media?",
+    model:"Australia has introduced a law that bans children under the age of 16 from joining many social networks.",
+    note:"'Bans ... from' + V-ing là cấu trúc cấm đoán phổ biến."
+  },
+  {
+    q:"Which age group is affected by the ban?",
+    model:"Children under the age of 16 are affected by this ban.",
+    note:"Cụm từ 'under the age of [number]' dùng để chỉ độ tuổi dưới một mốc nào đó."
+  },
+  {
+    q:"Name three social media platforms mentioned in the article.",
+    model:"Three platforms mentioned in the article are Facebook, Instagram, and YouTube.",
+    note:"Khi liệt kê, dùng dấu phẩy cho các mục đầu và từ 'and' trước mục cuối cùng."
+  },
+  {
+    q:"Who is responsible for checking users’ ages?",
+    model:"The social media companies and sites are responsible for checking users' ages.",
+    note:"'Be responsible for + V-ing / noun' = chịu trách nhiệm về việc gì."
+  },
+  {
+    q:"How much could companies be fined if they break the law?",
+    model:"The companies could be fined as much as $32.9 million.",
+    note:"'Could be fined' ở dạng bị động. 'As much as' nhấn mạnh giá trị lớn."
+  },
+  {
+    q:"What methods may companies use to verify users’ ages?",
+    model:"They may require new users to upload identification and scan their faces.",
+    note:"Sử dụng động từ 'require' (yêu cầu) và liên từ 'and' kết hợp hai hành động."
+  },
+  {
+    q:"Why did Australia’s Prime Minister support the ban?",
+    model:"He supported the ban because social media was harming young minds.",
+    note:"Mệnh đề nguyên nhân bắt đầu bằng 'because'. Cụm từ 'harming young minds' làm tân ngữ chính."
+  },
+  {
+    q:"What kinds of harmful content did children reportedly see online?",
+    model:"They reportedly saw content about misogyny, violence, eating disorders, and suicide.",
+    note:"Dùng trạng từ 'reportedly' (theo báo cáo/tin đưa) để diễn tả thông tin khách quan."
+  },
+  {
+    q:"What activities did the Prime Minister encourage children to do instead of using social media?",
+    model:"He encouraged children to start a new sport, learn a musical instrument, or spend quality time face-to-face with friends and family.",
+    note:"Cấu trúc 'encourage someone to do something' (khuyến khích ai làm gì)."
+  },
+  {
+    q:"Why are two 15-year-olds suing the government?",
+    model:"They are suing the government because they say their right to free communication has been taken away.",
+    note:"'Suing' là dạng V-ing của 'sue'. Cụm danh từ 'right to free communication' = quyền tự do giao tiếp."
+  }
+];
+
+const DISC_OPEN = [
+  {
+    q:"Do you think children under 16 should be banned from social media? Why or why not?",
+    model:"Personally, I think banning children under 16 from social media is a good idea because it protects their mental health from toxic content. However, we also need to respect their need to stay in touch with friends.",
+    note:"'In my opinion' hoặc 'Personally, I think...' là cách bắt đầu nêu quan điểm. 'Protect ... from' = bảo vệ khỏi cái gì."
+  },
+  {
+    q:"Is social media more harmful or more helpful for teenagers today?",
+    model:"I believe social media is a double-edged sword. While it helps teenagers access educational resources and connect with peers, it can also be harmful if they spend too much time scrolling or face cyberbullying.",
+    note:"'Double-edged sword' = con dao hai lưỡi. 'While' dùng ở đầu câu để tạo thế đối lập cân bằng."
+  },
+  {
+    q:"What are the biggest dangers young people face online?",
+    model:"In my view, the biggest dangers are online predators, exposure to violent or inappropriate content, and the pressure to maintain a perfect online image, which can lead to anxiety.",
+    note:"'In my view' = theo quan điểm của tôi. Mệnh đề quan hệ không xác định 'which can...' để bổ sung ý phụ."
+  },
+  {
+    q:"Should governments control how children use the internet?",
+    model:"I do not think governments should control all internet use directly. Instead, they should regulate companies to ensure safety, while parents should be the ones guiding their children's daily online habits.",
+    note:"'Instead' = thay vào đó. 'While' dùng để phân chia vai trò (chính phủ vs cha mẹ)."
+  },
+  {
+    q:"How might this law affect teenagers’ social lives and friendships?",
+    model:"This law might make some teenagers feel isolated or lonelier at first. However, in the long run, it could encourage them to hang out and build stronger, face-to-face friendships.",
+    note:"'In the long run' = về lâu về dài. 'Encourage them to' = khuyến khích họ làm gì."
+  },
+  {
+    q:"Do you think checking IDs and scanning faces is a good idea? Why or why not?",
+    model:"Honestly, I have mixed feelings about this method. While face scanning is effective for age verification, it raises serious privacy concerns regarding how personal data is stored and protected.",
+    note:"'I have mixed feelings' = tôi có cảm xúc lẫn lộn / vừa đồng tình vừa lo ngại. 'Privacy concerns' = lo ngại về quyền riêng tư."
+  },
+  {
+    q:"What are some positive things teenagers can do instead of spending time on social media?",
+    model:"Instead of spending time on social media, teenagers can read books, learn a new language, practice sports, or engage in creative hobbies like painting and playing musical instruments.",
+    note:"'Instead of + V-ing'. Liệt kê các hành động song song có cấu trúc giống nhau (read, learn, practice)."
+  },
+  {
+    q:"Should parents or governments have more responsibility for protecting children online?",
+    model:"I believe both have important roles, but parents should have the primary responsibility because they can monitor children directly. Governments should support them by making laws that hold tech companies accountable.",
+    note:"'Primary responsibility' = trách nhiệm chính. 'Hold someone accountable' = yêu cầu ai chịu trách nhiệm."
+  },
+  {
+    q:"Can social media have positive effects on mental health? Explain your opinion.",
+    model:"Yes, social media can have positive effects if used mindfully. It can provide a supportive community for teenagers who feel isolated, giving them a safe space to share their experiences and feelings.",
+    note:"'If used mindfully' = nếu được sử dụng một cách có ý thức. 'Safe space' = không gian an toàn."
+  },
+  {
+    q:"Do you think similar laws will appear in other countries in the future? Why?",
+    model:"I believe many other countries will introduce similar bans in the future. As public awareness of the negative impacts of social media on youth mental health grows, governments will face more pressure to act.",
+    note:"'As ... grows' = khi cái gì đó tăng lên. 'Face more pressure to...' = đối mặt với nhiều áp lực phải làm gì."
+  }
+];
+
+const AW_PROMPTS = [
+  {viet:"Chính phủ Úc vừa cấm trẻ em dưới 16 tuổi tham gia vào nhiều mạng xã hội.",hint:"Australia's government / banned children / under the age of 16 / joining social networks",grammar:"S + has banned + O + from + V-ing"},
+  {viet:"Các công ty sẽ bị phạt nếu họ cho phép trẻ em truy cập các trang web của họ.",hint:"companies / will be fined / if / allow children / access / sites",grammar:"Passive voice in main clause: S + will be + past participle + if-clause"},
+  {viet:"Thủ tướng khuyên trẻ em nên dành thời gian chất lượng trực tiếp với gia đình.",hint:"Prime Minister / advised children / spend quality time / face to face / family",grammar:"S + advised + O + to-infinitive + face to face"}
+];
+
+const ART_PLAIN = `A big change has happened in the social media world. Australia has banned children under the age of 16 from joining many social networks. New laws say the under-16s cannot open accounts with sites like Facebook, Instagram, Reddit, Snapchat, Threads, TikTok, X, and YouTube. It is now the responsibility of these social media sites to make sure all of their users are aged 16 or above. Australia's government said it would fine the companies if they allowed children to access their sites. The fines could be as much as $32.9 million. The companies said they would use different methods to check the age of their users. New users will have to upload identification and scan their faces. Australia's Prime Minister said he introduced the ban because social media was harming young minds. He said a study showed that 70 per cent of children aged 10-15 who used social media looked at harmful content. This included information about misogyny, violence, eating disorders, and suicide. He advised children to do different things instead, like starting a new sport or learning to play a musical instrument. His message to children was: "Spend quality time with your friends and your family, face to face." Many children said they would now be lonelier without social media. Two 15-year-olds are suing Australia's government. They say their "right to free communication" has been taken away.`;
+</script>
+<script src="common.js"></script>
+</body>
+</html>
