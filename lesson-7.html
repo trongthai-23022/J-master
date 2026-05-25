@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Food Packaging Ink – English Lesson</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common.css">
+</head>
+<body>
+
+<script>
+const LESSON_CONFIG = {
+  tag: "Mon 24/5/2026 · Breaking News English Level 4",
+  title: "Food Packaging Ink",
+  titleHtml: "Food Packaging <em>Ink</em>",
+  sub: "Iran war turns Japan's snack packaging black and white",
+  emoji: "🥫",
+  kicker: "📍 Japan · 18 May 2026",
+  artHl: "Iran war turns Japan's snack packaging black and white",
+  artHtml: `
+    <p>The Iran war has <span class="hl" data-w="affected" data-viet="ảnh hưởng">affected</span> food makers in Japan. There is now a <span class="hl" data-w="shortage" data-viet="thiếu hụt">shortage</span> of the <span class="hl" data-w="ink" data-viet="mực">ink</span> needed to make food <span class="hl" data-w="wrappings" data-viet="bao bì bọc ngoài">wrappings</span>. One major snack <span class="hl" data-w="manufacturer" data-viet="hãng sản xuất">manufacturer</span> is changing its <span class="hl" data-w="packaging" data-viet="bao bì">packaging</span> from colour to <span class="hl" data-w="black and white" data-viet="trắng đen">black and white</span>. The company sells some of Japan's <span class="hl" data-w="best-selling" data-viet="bán chạy nhất">best-selling</span> potato chips. Some of its products will come with a message that says: "Packaged to <span class="hl" data-w="save materials" data-viet="tiết kiệm nguyên liệu">save materials</span>." Meanwhile, a Japanese ketchup maker will make parts of its wrappings <span class="hl" data-w="transparent" data-viet="trong suốt">transparent</span>.</p>
+    <p>The Iran war has <span class="hl" data-w="led to" data-viet="dẫn đến">led to</span> a shortage of a <span class="hl" data-w="hydrocarbon" data-viet="hydrocacbon">hydrocarbon</span> called <span class="hl" data-w="naphtha" data-viet="dầu nhẹ naphtha">naphtha</span>. This is used to make <span class="hl" data-w="printing ink" data-viet="mực in">printing ink</span>. It is made from <span class="hl" data-w="crude oil" data-viet="dầu thô">crude oil</span>. Japan's prime minister has said Japan will have enough naphtha to last <span class="hl" data-w="beyond this year" data-viet="qua hết năm nay">beyond this year</span>. <span class="hl" data-w="Actions will be taken" data-viet="Các biện pháp sẽ được thực hiện">Actions will be taken</span> to <span class="hl" data-w="ensure" data-viet="đảm bảo">ensure</span> the <span class="hl" data-w="supply" data-viet="nguồn cung">supply</span>. These include <span class="hl" data-w="increasing domestic production" data-viet="tăng cường sản xuất nội địa">increasing domestic production</span> and <span class="hl" data-w="importing" data-viet="nhập khẩu">importing</span> more. However, the snack maker is <span class="hl" data-w="anticipating" data-viet="đoán trước / lường trước">anticipating</span> "the <span class="hl" data-w="possibility" data-viet="khả năng">possibility</span> of additional impacts arising."</p>
+  `,
+  aiEnabled: true,
+  theme: {
+    bg: "#fdfbf7",
+    border: "#eadecc",
+    text: "#2c1b18",
+    muted: "#7c6864",
+    accent: "#8d2d1f",
+    accent2: "#c2583f",
+    light: "#fcf2e8"
+  }
+};
+
+const VOCAB = [
+  {w:"Affected",pos:"verb",ipa:"/əˈfektɪd/",viet:"Ảnh hưởng / bị ảnh hưởng",def:"Had an effect on; made a difference to",ex:"The Iran war has <strong>affected</strong> food makers in Japan."},
+  {w:"Shortage",pos:"noun",ipa:"/ˈʃɔːtɪdʒ/",viet:"Sự thiếu hụt / khan hiếm",def:"A state or situation in which something needed cannot be obtained in sufficient amounts",ex:"There is now a <strong>shortage</strong> of the ink needed to make food wrappings."},
+  {w:"Ink",pos:"noun",ipa:"/ɪŋk/",viet:"Mực",def:"A colored liquid used for writing, drawing, or printing",ex:"There is now a shortage of the <strong>ink</strong> needed to make food wrappings."},
+  {w:"Wrappings",pos:"noun",ipa:"/ˈræpɪŋz/",viet:"Bao bì ngoài / Giấy gói",def:"Paper or other material used to cover or wrap something",ex:"A Japanese ketchup maker will make parts of its <strong>wrappings</strong> transparent."},
+  {w:"Manufacturer",pos:"noun",ipa:"/ˌmænjuˈfæktʃərər/",viet:"Hãng sản xuất",def:"A company that makes goods in large quantities to sell",ex:"One major snack <strong>manufacturer</strong> is changing its packaging."},
+  {w:"Packaging",pos:"noun",ipa:"/ˈpækɪdʒɪŋ/",viet:"Bao bì đóng gói",def:"Materials used to wrap or protect goods that are sold in shops",ex:"One major snack manufacturer is changing its <strong>packaging</strong> from colour to black and white."},
+  {w:"Black and white",pos:"phrase",ipa:"/ˌblæk ən ˈwaɪt/",viet:"Đen trắng",def:"Using only black and white colors, without other colors",ex:"One major snack manufacturer is changing its packaging from colour to <strong>black and white</strong>."},
+  {w:"Best-selling",pos:"adjective",ipa:"/ˌbestˈselɪŋ/",viet:"Bán chạy nhất",def:"Selling in very large quantities",ex:"The company sells some of Japan's <strong>best-selling</strong> potato chips."},
+  {w:"Transparent",pos:"adjective",ipa:"/trænsˈpærənt/",viet:"Trong suốt",def:"Allowing light to pass through so that objects behind can be distinctly seen",ex:"A Japanese ketchup maker will make parts of its wrappings <strong>transparent</strong>."},
+  {w:"Led to",pos:"verb",ipa:"/led tuː/",viet:"Dẫn đến",def:"Caused something to happen",ex:"The Iran war has <strong>led to</strong> a shortage of a hydrocarbon called naphtha."},
+  {w:"Hydrocarbon",pos:"noun",ipa:"/ˌhaɪdrəʊˈkɑːrbən/",viet:"Hydrocacbon",def:"A chemical compound consisting entirely of hydrogen and carbon",ex:"The Iran war has led to a shortage of a <strong>hydrocarbon</strong> called naphtha."},
+  {w:"Naphtha",pos:"noun",ipa:"/ˈnæfθə/",viet:"Phân đoạn naphta / dầu nhẹ",def:"A flammable liquid hydrocarbon mixture obtained from distilling petroleum",ex:"The Iran war has led to a shortage of a hydrocarbon called <strong>naphtha</strong>."},
+  {w:"Printing ink",pos:"noun",ipa:"/ˈprɪntɪŋ ɪŋk/",viet:"Mực in",def:"Ink used for printing on paper, plastic, or packaging",ex:"Naphtha is used to make <strong>printing ink</strong>."},
+  {w:"Crude oil",pos:"noun",ipa:"/kruːd ɔɪl/",viet:"Dầu thô",def:"Unrefined petroleum",ex:"Naphtha is made from <strong>crude oil</strong>."},
+  {w:"Ensure",pos:"verb",ipa:"/ɪnˈʃʊər/",viet:"Bảo đảm / đảm bảo",def:"To make certain that something will occur or be the case",ex:"Actions will be taken to <strong>ensure</strong> the supply."},
+  {w:"Supply",pos:"noun",ipa:"/səˈplaɪ/",viet:"Nguồn cung",def:"An amount of something that is provided or available for use",ex:"Actions will be taken to ensure the <strong>supply</strong>."},
+  {w:"Increasing domestic production",pos:"phrase",ipa:"/ɪnˈkriːsɪŋ  dəˈmestɪk prəˈdʌkʃən/",viet:"Tăng cường sản xuất nội địa",def:"Growing the amount of goods manufactured within the home country",ex:"These include <strong>increasing domestic production</strong> and importing more."},
+  {w:"Importing",pos:"verb",ipa:"/ɪmˈpɔːrtɪŋ/",viet:"Nhập khẩu",def:"Bringing goods or services into a country from abroad for sale",ex:"These include increasing domestic production and <strong>importing</strong> more."},
+  {w:"Anticipating",pos:"verb",ipa:"/ænˈtɪsɪpeɪtɪŋ/",viet:"Lường trước / Đoán trước",def:"Regarding as probable; expecting or predicting",ex:"However, the snack maker is <strong>anticipating</strong> the possibility of additional impacts arising."},
+  {w:"Possibility",pos:"noun",ipa:"/ˌpɑːsəˈbɪləti/",viet:"Khả năng / triển vọng",def:"A thing that may happen or be the case",ex:"However, the snack maker is anticipating the <strong>possibility</strong> of additional impacts arising."}
+];
+
+const TF_DATA = [
+  {text:"Food makers in Japan are experiencing a shortage of printing ink.",ans:"T",exp:"ĐÚNG — Các nhà sản xuất thực phẩm tại Nhật Bản đang gặp tình trạng thiếu hụt mực in."},
+  {text:"A major snack company is changing its packaging to transparent.",ans:"F",exp:"SAI — Nhà sản xuất snack đổi bao bì sang trắng đen, còn nhà sản xuất tương cà mới làm một số phần bao bì trong suốt."},
+  {text:"Naphtha is a type of hydrocarbon made from crude oil.",ans:"T",exp:"ĐÚNG — Naphtha là một loại hydrocarbon được sản xuất từ dầu thô."},
+  {text:"Japan will run out of naphtha before the end of this year.",ans:"F",exp:"SAI — Thủ tướng Nhật Bản tuyên bố nước này có đủ lượng cung naphtha dùng qua khỏi năm nay."},
+  {text:"Japan plans to import more naphtha to secure its supply.",ans:"T",exp:"ĐÚNG — Nhật Bản sẽ tăng nhập khẩu và sản xuất nội địa để đảm bảo nguồn cung."},
+  {text:"The snack manufacturer is confident that there will be no more impacts.",ans:"F",exp:"SAI — Nhà sản xuất snack vẫn lường trước khả năng có các tác động tiêu cực bổ sung phát sinh."}
+];
+
+const GF = {
+  bank:["affected","shortage","packaging","transparent","crude","ensure","domestic","anticipating"],
+  parts:[
+    "The Iran war has (1)____ food makers in Japan.",
+    "There is now a (2)____ of the ink needed to make food wrappings.",
+    "One major snack manufacturer is changing its (3)____ to black and white.",
+    "A Japanese ketchup maker will make parts of its wrappings (4)____.",
+    "Naphtha is a hydrocarbon liquid made from (5)____ oil.",
+    "Actions will be taken to (6)____ the supply of naphtha.",
+    "Japan will increase (7)____ production and import more.",
+    "The snack maker is (8)____ the possibility of additional impacts."
+  ],
+  ans:["affected","shortage","packaging","transparent","crude","ensure","domestic","anticipating"]
+};
+
+const DISC_COMP = [
+  {
+    q:"How has the Iran war affected food makers in Japan?",
+    model:"The war has affected food makers by causing a shortage of packaging ink.",
+    note:"Cấu trúc 'affect someone by doing something' chỉ cách thức bị ảnh hưởng."
+  },
+  {
+    q:"What shortage are Japanese companies experiencing?",
+    model:"They are experiencing a shortage of the ink needed to make food wrappings.",
+    note:"Cụm từ 'a shortage of something' = sự thiếu hụt cái gì."
+  },
+  {
+    q:"Why is one snack manufacturer changing its packaging to black and white?",
+    model:"It is changing its packaging to save oil-related materials.",
+    note:"Dùng 'to + V-inf' để chỉ mục đích."
+  },
+  {
+    q:"What message will appear on some potato chip packages?",
+    model:"The packages will display the message 'Packaged to save oil-related materials.'",
+    note:"Dùng động từ 'display' (hiển thị) hoặc 'come with' (đi kèm với)."
+  },
+  {
+    q:"What change is the ketchup maker making to its wrappings?",
+    model:"The ketchup maker is making parts of its wrappings transparent.",
+    note:"Cấu trúc 'make something + adjective' (làm cho cái gì thế nào)."
+  },
+  {
+    q:"What is naphtha used for?",
+    model:"Naphtha is used to make printing ink.",
+    note:"Cấu trúc 'be used to + V-inf' (được sử dụng để làm gì)."
+  },
+  {
+    q:"What is naphtha made from?",
+    model:"Naphtha is made from crude oil.",
+    note:"Cấu trúc 'be made from' (được làm từ - làm thay đổi tính chất vật liệu thô)."
+  },
+  {
+    q:"What did Japan’s prime minister say about the country’s supply of naphtha?",
+    model:"The prime minister said that Japan will have enough naphtha to last beyond this year.",
+    note:"Động từ 'last' ở đây mang nghĩa kéo dài, đủ dùng."
+  },
+  {
+    q:"What actions will Japan take to ensure enough supply?",
+    model:"Japan will increase domestic production and import more naphtha.",
+    note:"Cấu trúc liệt kê song song hai hành động."
+  },
+  {
+    q:"What concern does the snack maker still have?",
+    model:"The snack maker is still anticipating the possibility of additional impacts arising.",
+    note:"Từ 'arising' bổ nghĩa cho danh từ 'impacts' (các tác động phát sinh)."
+  }
+];
+
+const DISC_OPEN = [
+  {
+    q:"How can wars in one country affect businesses in other countries?",
+    model:"Personally, I think wars disrupt global supply chains and cause shortages of raw materials, leading to higher production costs.",
+    note:"Dùng 'Personally, I think...' để mở đầu và phân từ 'leading to' để chỉ kết quả."
+  },
+  {
+    q:"Do you think companies should change packaging to save materials? Why or why not?",
+    model:"In my opinion, companies should simplify packaging to protect the environment and save costs, as consumers care more about the product itself.",
+    note:"Mệnh đề nguyên nhân bắt đầu bằng 'as' (vì) thay cho 'because'."
+  },
+  {
+    q:"How important is oil in everyday products besides fuel?",
+    model:"I believe oil is extremely important because it is a key ingredient in making plastics, synthetic fabrics, cosmetics, and inks.",
+    note:"Cụm từ 'key ingredient in making' = thành phần chính trong việc sản xuất."
+  },
+  {
+    q:"What problems can shortages cause for companies and consumers?",
+    model:"I think shortages can force companies to delay production, while consumers will face price inflation and product scarcity.",
+    note:"Cấu trúc tương phản dùng 'while' để so sánh hai đối tượng."
+  },
+  {
+    q:"How might consumers react to simpler or less colorful packaging?",
+    model:"Honestly, most consumers will accept simpler packaging if they know it helps save resources and protect the environment.",
+    note:"Câu điều kiện loại 1 kết hợp với trạng từ 'Honestly' để bắt đầu câu trả lời khách quan."
+  }
+];
+
+const AW_PROMPTS = [
+  {viet:"Chiến tranh đã ảnh hưởng đến các nhà sản xuất thực phẩm Nhật Bản bằng cách gây ra tình trạng thiếu hụt mực in.",hint:"war / affected / Japanese food makers / causing / shortage of printing ink",grammar:"S + has affected + O + by + V-ing"},
+  {viet:"Nhật Bản sẽ thực hiện các biện pháp để đảm bảo nguồn cung naphtha qua khỏi năm nay.",hint:"Japan / take actions / ensure / supply of naphtha / last beyond this year",grammar:"S + will take actions + to + V-inf + to last beyond..."},
+  {viet:"Nhà sản xuất snack đang lường trước khả năng xảy ra các tác động tiêu cực khác.",hint:"snack maker / anticipating / possibility / additional impacts / arising",grammar:"S + is anticipating + the possibility of + noun + V-ing"}
+];
+
+const ART_PLAIN = `The Iran war has affected food makers in Japan. There is now a shortage of the ink needed to make food wrappings. One major snack manufacturer is changing its packaging from colour to black and white. The company sells some of Japan's best-selling potato chips. Some of its products will come with a message that says: "Packaged to save materials." Meanwhile, a Japanese ketchup maker will make parts of its wrappings transparent. The Iran war has led to a shortage of a hydrocarbon called naphtha. This is used to make printing ink. It is made from crude oil. Japan's prime minister has said Japan will have enough naphtha to last beyond this year. Actions will be taken to ensure the supply. These include increasing domestic production and importing more. However, the snack maker is anticipating "the possibility of additional impacts arising."`;
+</script>
+<script src="common.js"></script>
+</body>
+</html>
