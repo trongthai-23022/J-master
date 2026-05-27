@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Gold Refuses to Rust – English Lesson</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common.css">
+</head>
+<body>
+
+<script>
+const LESSON_CONFIG = {
+  tag: "Mon 25/5/2026 · Breaking News English Level 4",
+  title: "Why Gold Refuses to Rust",
+  titleHtml: "Why Gold Refuses to <em>Rust</em>",
+  sub: "Scientists discover why the precious metal never loses its shine",
+  emoji: "✨",
+  kicker: "📍 Science · 25 May 2026",
+  artHl: "Scientists discover why gold doesn't 'rust'",
+  artHtml: `
+    <p>Gold has <span class="hl" data-w="Fascinated" data-viet="bị mê hoặc / lôi cuốn">fascinated</span> us for thousands of years. It is a <span class="hl" data-w="Symbol of elegance" data-viet="biểu tượng của sự thanh lịch">symbol of elegance</span> and <span class="hl" data-w="Wealth" data-viet="sự giàu có / của cải">wealth</span>. Scientists have <span class="hl" data-w="Discovered" data-viet="phát hiện / khám phá ra">discovered</span> why it never <span class="hl" data-w="Loses its shine" data-viet="mất đi vẻ sáng bóng">loses its shine</span>. Researchers found that gold does not <span class="hl" data-w="Rust" data-viet="gỉ sét / bị gỉ">rust</span> or change colour because of the <span class="hl" data-w="Structure of atoms" data-viet="cấu trúc của các nguyên tử">structure of atoms</span> on its <span class="hl" data-w="Surface" data-viet="bề mặt">surface</span>. The atoms <span class="hl" data-w="Rearrange themselves" data-viet="tự sắp xếp lại">rearrange themselves</span> into <span class="hl" data-w="Unique zigzag patterns" data-viet="các họa tiết zigzag độc đáo">unique zigzag patterns</span>. This <span class="hl" data-w="Minimizes reactions" data-viet="giảm thiểu các phản ứng">minimizes reactions</span> with <span class="hl" data-w="Oxygen" data-viet="khí ô-xy">oxygen</span>. <span class="hl" data-w="As a result" data-viet="kết quả là / do đó">As a result</span>, the metal does not become <span class="hl" data-w="Discoloured" data-viet="bị đổi màu / bạc màu">discoloured</span>, even after thousands of years.</p>
+    <p>Gold is one of the <span class="hl" data-w="Softest metals" data-viet="kim loại mềm nhất">softest metals</span>. It can easily be <span class="hl" data-w="Hammered into thin sheets" data-viet="dát mỏng thành các lá mỏng">hammered into thin sheets</span>. Gold can be <span class="hl" data-w="Beaten to a thickness" data-viet="dát/gõ đến độ dày">beaten to a thickness</span> of 0.1 micrometres. This is one hundred times <span class="hl" data-w="Thinner than human hair" data-viet="mỏng hơn cả tóc người">thinner than human hair</span>. Its <span class="hl" data-w="Purity" data-viet="độ tinh khiết">purity</span> is why people have used it for jewellery and currency for more than 5,000 years. It is also used in electronics, dentistry, <span class="hl" data-w="Spacecraft technology" data-viet="công nghệ tàu vũ trụ">spacecraft technology</span>, and medicine. Researchers say gold will remain a key part of many industrial processes.</p>
+  `,
+  aiEnabled: true,
+  theme: {
+    bg: "#fefcf9",
+    border: "#ecd8be",
+    text: "#302418",
+    muted: "#7e6853",
+    accent: "#aa7c11",
+    accent2: "#d4af37",
+    light: "#fcf6eb"
+  }
+};
+
+const VOCAB = [
+  {w:"Fascinated",pos:"verb/adj",ipa:"/ˈfæs.ɪ.neɪ.tɪd/",viet:"Bị mê hoặc / lôi cuốn",def:"Extremely interested in or attracted by something",ex:"Gold has <strong>fascinated</strong> us for thousands of years."},
+  {w:"Symbol of elegance",pos:"phrase",ipa:"/ˈsɪm.bəl əv ˈel.ɪ.ɡəns/",viet:"Biểu tượng của sự thanh lịch",def:"A representation of graceful and stylish quality",ex:"It is a <strong>symbol of elegance</strong> and wealth."},
+  {w:"Wealth",pos:"noun",ipa:"/welθ/",viet:"Sự giàu có / của cải",def:"An abundance of valuable possessions or money",ex:"It is a symbol of elegance and <strong>wealth</strong>."},
+  {w:"Discovered",pos:"verb",ipa:"/dɪˈskʌv.ərd/",viet:"Phát hiện / khám phá ra",def:"Found or learned something that was not known before",ex:"Scientists have <strong>discovered</strong> why it never loses its shine."},
+  {w:"Loses its shine",pos:"phrase",ipa:"/ˈluː.zɪz ɪts ʃaɪn/",viet:"Mất đi vẻ sáng bóng",def:"Becomes dull or no longer reflects light brightly",ex:"Scientists have discovered why it never <strong>loses its shine</strong>."},
+  {w:"Rust",pos:"verb/noun",ipa:"/rʌst/",viet:"Gỉ sét / bị gỉ",def:"To undergo oxidation, forming a reddish-brown coating on iron or other metals",ex:"Researchers found that gold does not <strong>rust</strong> or change colour."},
+  {w:"Structure of atoms",pos:"phrase",ipa:"/ˈstrʌk.tʃər əv ˈæt.əmz/",viet:"Cấu trúc của các nguyên tử",def:"The arrangement of the basic chemical particles in a material",ex:"because of the <strong>structure of atoms</strong> on its surface."},
+  {w:"Surface",pos:"noun",ipa:"/ˈsɜː.fɪs/",viet:"Bề mặt",def:"The outside layer or uppermost boundary of something",ex:"because of the structure of atoms on its <strong>surface</strong>."},
+  {w:"Rearrange themselves",pos:"phrase",ipa:"/ˌriː.əˈreɪndʒ ðəmˈselvz/",viet:"Tự sắp xếp lại",def:"Change position or order to form a new layout",ex:"The atoms <strong>rearrange themselves</strong> into unique zigzag patterns."},
+  {w:"Unique zigzag patterns",pos:"phrase",ipa:"/juːˈniːk ˈzɪɡ.zæɡ ˈpæt.ənz/",viet:"Các họa tiết zigzag độc đáo",def:"Special designs containing sharp turns from side to side",ex:"The atoms rearrange themselves into <strong>unique zigzag patterns</strong>."},
+  {w:"Minimizes reactions",pos:"phrase",ipa:"/ˈmɪn.ɪ.maɪ.zɪz riˈæk.ʃənz/",viet:"Giảm thiểu các phản ứng",def:"Reduces chemical actions to the lowest possible level",ex:"This <strong>minimizes reactions</strong> with oxygen."},
+  {w:"Oxygen",pos:"noun",ipa:"/ˈɒk.sɪ.dʒən/",viet:"Khí ô-xy",def:"A gas in the air that makes up 21% of the atmosphere and reacts with metals",ex:"This minimizes reactions with <strong>oxygen</strong>."},
+  {w:"As a result",pos:"phrase",ipa:"/æz ə rɪˈzʌlt/",viet:"Kết quả là / do đó",def:"Consequently; because of something that happened earlier",ex:"<strong>As a result</strong>, the metal does not become discoloured."},
+  {w:"Discoloured",pos:"adjective",ipa:"/dɪsˈkʌl.əd/",viet:"Bị đổi màu / bạc màu",def:"Changed in colour in an unpleasant or damaged way",ex:"As a result, the metal does not become <strong>discoloured</strong>."},
+  {w:"Softest metals",pos:"phrase",ipa:"/ˈsɒf.tɪst ˈmet.əlz/",viet:"Kim loại mềm nhất",def:"Metallic elements that are very easy to bend or press",ex:"Gold is one of the <strong>softest metals</strong>."},
+  {w:"Hammered into thin sheets",pos:"phrase",ipa:"/ˈhæm.əd ˈɪn.tuː θɪn ʃiːts/",viet:"Dát mỏng thành các lá mỏng",def:"Flattened into very thin layers using a hammer",ex:"It can easily be <strong>hammered into thin sheets</strong>."},
+  {w:"Beaten to a thickness",pos:"phrase",ipa:"/ˈbiː.tən tuː ə ˈθɪk.nəs/",viet:"Dát/gõ đến độ dày",def:"Pressed or flattened until it reaches a specific depth",ex:"Gold can be <strong>beaten to a thickness</strong> of 0.1 micrometres."},
+  {w:"Thinner than human hair",pos:"phrase",ipa:"/ˈθɪn.ər ðæn ˈhjuː.mən heər/",viet:"Mỏng hơn cả tóc người",def:"Having a depth less than a strand of hair",ex:"This is one hundred times <strong>thinner than human hair</strong>."},
+  {w:"Purity",pos:"noun",ipa:"/ˈpjʊə.rə.ti/",viet:"Độ tinh khiết",def:"The state of being pure and free from other substances",ex:"Its <strong>purity</strong> is why people have used it for jewellery and currency."},
+  {w:"Spacecraft technology",pos:"phrase",ipa:"/ˈspeɪs.krɑːft tekˈnɒl.ə.dʒi/",viet:"Công nghệ tàu vũ trụ",def:"Systems and engineering used to build vehicles for space exploration",ex:"It is also used in electronics, dentistry, <strong>spacecraft technology</strong>, and medicine."}
+];
+
+const TF_DATA = [
+  {text:"Gold loses its shine after a few hundred years.",ans:"F",exp:"SAI — Vàng không bao giờ mất đi vẻ sáng bóng của nó, ngay cả sau hàng ngàn năm."},
+  {text:"Zigzag atomic patterns on gold's surface minimize reactions with oxygen.",ans:"T",exp:"ĐÚNG — Các nguyên tử trên bề mặt vàng tự sắp xếp lại thành các họa tiết hình zigzag độc đáo giúp giảm thiểu phản ứng với oxy."},
+  {text:"Gold is considered one of the hardest metals.",ans:"F",exp:"SAI — Bài viết nêu rõ vàng là một trong những kim loại mềm nhất."},
+  {text:"Gold can be beaten to a thickness that is 100 times thinner than human hair.",ans:"T",exp:"ĐÚNG — Vàng có thể được dát đến độ dày 0,1 micromet, mỏng hơn tóc người 100 lần."},
+  {text:"Humans have used gold as currency and jewellery for about 1,000 years.",ans:"F",exp:"SAI — Con người đã dùng vàng làm trang sức và tiền tệ trong hơn 5.000 năm."},
+  {text:"Spacecraft technology and medicine are some modern industries that use gold today.",ans:"T",exp:"ĐÚNG — Vàng được sử dụng trong điện tử, nha khoa, công nghệ tàu vũ trụ và y học."}
+];
+
+const GF = {
+  bank:["fascinated","atoms","rearrange","oxygen","softest","sheets","currency","industrial"],
+  parts:[
+    "Gold has (1)____ us for thousands of years.",
+    "Gold does not rust because of the structure of (2)____ on its surface.",
+    "The atoms (3)____ themselves into unique zigzag patterns.",
+    "Zigzag patterns on gold's surface minimize reactions with (4)____.",
+    "Gold is one of the (5)____ metals known to humans.",
+    "It can easily be hammered into thin (6)____.",
+    "People have used gold for jewellery and (7)____ for 5,000 years.",
+    "Gold will remain a key part of many (8)____ processes."
+  ],
+  ans:["fascinated","atoms","rearrange","oxygen","softest","sheets","currency","industrial"]
+};
+
+const DISC_COMP = [
+  {
+    q:"Why has gold fascinated people for thousands of years?",
+    model:"Gold has fascinated people because it is a symbol of elegance and wealth, and it never loses its shine.",
+    note:"Cụm từ 'symbol of elegance and wealth' nghĩa là biểu tượng của sự thanh lịch và giàu có."
+  },
+  {
+    q:"Why does gold not rust or change colour?",
+    model:"Gold does not rust or change colour because of the structure of atoms on its surface.",
+    note:"Mệnh đề nguyên nhân dùng 'because of + danh từ/cụm danh từ'."
+  },
+  {
+    q:"What happens to the atoms on gold’s surface?",
+    model:"The atoms rearrange themselves into unique zigzag patterns.",
+    note:"Cụm động từ phản thân 'rearrange themselves' nghĩa là tự sắp xếp lại."
+  },
+  {
+    q:"How do the zigzag patterns help protect gold?",
+    model:"The zigzag patterns help protect gold by minimizing reactions with oxygen.",
+    note:"Cấu trúc 'help protect someone/something (by doing something)' giúp bảo vệ ai/cái gì (bằng cách làm gì)."
+  },
+  {
+    q:"What happens to most metals when they react with oxygen?",
+    model:"Most metals become discoloured or rusted when they react with oxygen.",
+    note:"Liên từ 'when' dùng để nối hai mệnh đề chỉ thời gian."
+  },
+  {
+    q:"Why is gold considered one of the softest metals?",
+    model:"It is considered one of the softest metals because it can easily be hammered into thin sheets.",
+    note:"Cấu trúc bị động 'be considered + N/Adj' (được coi là...) và trạng từ 'easily' đứng trước động từ."
+  },
+  {
+    q:"How thin can gold be hammered?",
+    model:"Gold can be beaten or hammered to a thickness of 0.1 micrometres.",
+    note:"Giới từ 'to' chỉ mức độ/giới hạn ('đến độ dày...')."
+  },
+  {
+    q:"How does the thickness of gold compare to human hair?",
+    model:"Gold can be beaten to a thickness that is one hundred times thinner than human hair.",
+    note:"Cấu trúc so sánh gấp nhiều lần: 'X times + so sánh hơn'."
+  },
+  {
+    q:"Why have people used gold for jewellery and currency for so long?",
+    model:"People have used it for jewellery and currency for over 5,000 years because of its purity.",
+    note:"Hiện tại hoàn thành 'have used' dùng kèm với khoảng thời gian 'for more than/over 5,000 years'."
+  },
+  {
+    q:"What modern industries use gold today?",
+    model:"Today, gold is used in electronics, dentistry, spacecraft technology, and medicine.",
+    note:"Trạng từ chỉ thời gian 'Today' đứng đầu câu để nhấn mạnh tính thời điểm hiện tại."
+  }
+];
+
+const DISC_OPEN = [
+  {
+    q:"Why do you think gold has been valuable throughout history?",
+    model:"In my opinion, gold has been valuable because of its rarity, beautiful shine, and resistance to rust.",
+    note:"Dùng 'In my opinion...' để đưa ra quan điểm cá nhân một cách tự nhiên."
+  },
+  {
+    q:"Would you rather invest in gold or another valuable material? Why?",
+    model:"Personally, I would rather invest in gold because it is a stable asset that holds its value during economic crises.",
+    note:"Cấu trúc 'would rather + V-inf' dùng để diễn tả sự ưu tiên/thích cái gì hơn."
+  },
+  {
+    q:"Why is appearance important for valuable metals like gold?",
+    model:"I believe appearance is important because shiny metals are associated with luxury, status, and beauty.",
+    note:"Cụm từ 'be associated with' nghĩa là được liên kết/gắn liền với."
+  },
+  {
+    q:"How do scientists help us better understand materials like gold?",
+    model:"Scientists help us understand materials by researching their atomic structures and finding new industrial uses.",
+    note:"Cấu trúc 'by + V-ing' chỉ phương thức thực hiện hành động."
+  },
+  {
+    q:"What are some advantages of using gold in technology and medicine?",
+    model:"I think the main advantages are that gold is a great conductor of electricity and does not react with the human body.",
+    note:"Cụm từ 'a great conductor of electricity' nghĩa là chất dẫn điện tuyệt vời."
+  },
+  {
+    q:"Do you think gold will always be valuable in the future? Why or why not?",
+    model:"Honestly, I think gold will always be valuable because it is scarce and has unique physical properties.",
+    note:"Dùng 'Honestly...' để bắt đầu câu trả lời một cách thành thật."
+  },
+  {
+    q:"Why do people often associate gold with wealth and success?",
+    model:"In my view, people associate gold with success because it has historically been used by royalty and wealthy elites.",
+    note:"Cấu trúc 'associate A with B' nghĩa là liên tưởng/gắn kết A với B."
+  },
+  {
+    q:"What are some other metals that are important in daily life?",
+    model:"I believe iron and copper are also very important because they are used to build infrastructure and electrical wiring.",
+    note:"Danh từ 'infrastructure' (cơ sở hạ tầng) và cụm 'electrical wiring' (hệ thống dây điện)."
+  },
+  {
+    q:"Should countries spend money exploring for more gold resources?",
+    model:"I don't think they should spend too much money, as resources should be focused on sustainable energy and technology.",
+    note:"Liên từ 'as' có nghĩa là 'bởi vì', giúp câu văn nghe tự nhiên hơn."
+  },
+  {
+    q:"How might technology change the way gold is used in the future?",
+    model:"I imagine that technology will allow us to use gold in advanced microchips and space exploration systems.",
+    note:"Cụm từ 'allow someone to do something' (cho phép ai làm gì)."
+  }
+];
+
+const AW_PROMPTS = [
+  {viet:"Các nhà khoa học đã phát hiện ra lý do tại sao vàng không bao giờ mất đi vẻ sáng bóng của nó.",hint:"scientists / discovered / why / gold / never / loses its shine",grammar:"S + has/have + V-ed/3 + why + S + verb (present simple)"},
+  {viet:"Vàng có thể dễ dàng được dát mỏng thành các lá mỏng và mỏng hơn tóc người một trăm lần.",hint:"gold / easily be hammered / thin sheets / one hundred times thinner / human hair",grammar:"S + can + easily be + V-ed/3 + into... + and + comparison (times thinner than...)"},
+  {viet:"Các nhà nghiên cứu nói rằng vàng sẽ vẫn là một phần quan trọng của nhiều quy trình công nghiệp.",hint:"researchers / say / gold / remain / key part / many industrial processes",grammar:"S (plural) + say + (that) + S + will remain + a key part of..."}
+];
+
+const ART_PLAIN = `Gold has fascinated us for thousands of years. It is a symbol of elegance and wealth. Scientists have discovered why it never loses its shine. Researchers found that gold does not rust or change colour because of the structure of atoms on its surface. The atoms rearrange themselves into unique zigzag patterns. This minimizes reactions with oxygen. As a result, the metal does not become discoloured, even after thousands of years. Gold is one of the softest metals. It can easily be hammered into thin sheets. Gold can be beaten to a thickness of 0.1 micrometres. This is one hundred times thinner than human hair. Its purity is why people have used it for jewellery and currency for more than 5,000 years. It is also used in electronics, dentistry, spacecraft technology, and medicine. Researchers say gold will remain a key part of many industrial processes.`;
+</script>
+<script src="common.js"></script>
+</body>
+</html>
