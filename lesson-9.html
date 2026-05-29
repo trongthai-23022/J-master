@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Negative People – English Lesson</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common.css">
+</head>
+<body>
+
+<script>
+const LESSON_CONFIG = {
+  tag: "Mon 23/3/2026 · Breaking News English Level 6",
+  title: "Negative People",
+  titleHtml: "Negative <em>People</em>",
+  sub: "How the annoying people around us can speed up biological aging",
+  emoji: "⏳",
+  kicker: "📍 Health · 23 March 2026",
+  artHl: "Negative people might make us age more quickly",
+  artHtml: `
+    <p>From <span class="hl" data-w="supportive" data-viet="nâng đỡ / luôn ủng hộ">supportive</span> friendships to <span class="hl" data-w="toxic" data-viet="độc hại">toxic</span> colleagues, our relationships can shape our stress levels more than our jobs, <span class="hl" data-w="finances" data-viet="tài chính / tiền bạc">finances</span>, or even our <span class="hl" data-w="diet" data-viet="chế độ ăn uống">diet</span> and health habits. A new study suggests that who we surround ourselves with can negatively affect our <span class="hl" data-w="longevity" data-viet="tuổi thọ">longevity</span>. Scientists at Indiana University in the USA <span class="hl" data-w="conducted" data-viet="tiến hành / thực hiện">conducted</span> a study on how the people around us can <span class="hl" data-w="impact" data-viet="tác động / ảnh hưởng">impact</span> the stress in our lives. The researchers focused on the effect people called "hasslers" had on us. A <span class="hl" data-w="hassler" data-viet="kẻ hay quấy rầy / làm phiền">hassler</span> is an annoying individual who regularly hassles us. Lead researcher Professor Brea Perry said, "having more hasslers is <span class="hl" data-w="associated with" data-viet="gắn liền với / đi kèm với">associated with</span> <span class="hl" data-w="accelerated" data-viet="bị đẩy nhanh / tăng tốc">accelerated</span> <span class="hl" data-w="biological aging" data-viet="lão hóa sinh học">biological aging</span>...and how much <span class="hl" data-w="wear and tear" data-viet="sự hao mòn / suy giảm sức khỏe">wear and tear</span> [people] have on their body".</p>
+    <p>The study is published in the journal PNAS. Researchers questioned <span class="hl" data-w="participants" data-viet="những người tham gia">participants</span> about the difficult relationships in their lives to identify hasslers. Dr Perry found around one third of the participants had at least one hassler in their <span class="hl" data-w="social network" data-viet="mạng lưới quan hệ xã hội">social network</span>. She said about 10 per cent had at least two hasslers. She suggested that each additional hassler was associated with a 1.5 per cent faster <span class="hl" data-w="pace of aging" data-viet="tốc độ lão hóa">pace of aging</span>. Perry added: "It can actually take days for that <span class="hl" data-w="stress response" data-viet="phản ứng với căng thẳng">stress response</span> to drop and for your body to go back to normal." She highlighted the <span class="hl" data-w="adverse effects" data-viet="tác động tiêu cực / có hại">adverse effects</span> of <span class="hl" data-w="accumulated" data-viet="tích tụ / tích lũy">accumulated</span> stress from hasslers, saying: "When you experience that <span class="hl" data-w="chronically" data-viet="một cách kinh niên / kéo dài">chronically</span>, over and over again, it has this long-term effect on the body."</p>
+  `,
+  aiEnabled: true,
+  theme: {
+    bg: "#f5f6fa",
+    border: "#dcdde1",
+    text: "#2f3640",
+    muted: "#718093",
+    accent: "#482ff7",
+    accent2: "#8c7ae6",
+    light: "#edf0f5"
+  }
+};
+
+const VOCAB = [
+  {w:"supportive",pos:"adjective",ipa:"/səˈpɔː.tɪv/",viet:"Nâng đỡ / luôn ủng hộ",def:"Providing encouragement or emotional help",ex:"From <strong>supportive</strong> friendships to toxic colleagues..."},
+  {w:"toxic",pos:"adjective",ipa:"/ˈtɒk.sɪk/",viet:"Độc hại / không lành mạnh",def:"Very harmful, unpleasant, or destructive to someone's well-being",ex:"From supportive friendships to <strong>toxic</strong> colleagues..."},
+  {w:"finances",pos:"noun (plural)",ipa:"/ˈfaɪ.næns.ɪz/",viet:"Tài chính / tiền bạc",def:"The monetary resources or money matters of a person or group",ex:"...our relationships can shape our stress levels more than our jobs, <strong>finances</strong>..."},
+  {w:"diet",pos:"noun",ipa:"/ˈdaɪ.ət/",viet:"Chế độ ăn uống",def:"The kinds of food that a person habitually eats",ex:"...or even our <strong>diet</strong> and health habits."},
+  {w:"longevity",pos:"noun",ipa:"/lɒnˈdʒev.ə.ti/",viet:"Tuổi thọ",def:"Long life; the length of time that a person lives",ex:"A new study suggests that who we surround ourselves with can negatively affect our <strong>longevity</strong>."},
+  {w:"conducted",pos:"verb",ipa:"/kənˈdʌk.tɪd/",viet:"Tiến hành / thực hiện",def:"Organized and carried out a study, activity, or experiment",ex:"Scientists at Indiana University in the USA <strong>conducted</strong> a study..."},
+  {w:"impact",pos:"verb/noun",ipa:"/ˈɪm.pækt/",viet:"Tác động / ảnh hưởng",def:"Have a strong effect on someone or something",ex:"...how the people around us can <strong>impact</strong> the stress in our lives."},
+  {w:"hassler",pos:"noun",ipa:"/ˈhæs.lər/",viet:"Kẻ hay quấy rầy / làm phiền",def:"An annoying individual who regularly bothers or pester others",ex:"A <strong>hassler</strong> is an annoying individual who regularly hassles us."},
+  {w:"associated with",pos:"phrase",ipa:"/əˈsəʊ.si.eɪ.tɪd wɪð/",viet:"Gắn liền với / đi kèm với",def:"Connected or linked with something else",ex:"...having more hasslers is <strong>associated with</strong> accelerated biological aging..."},
+  {w:"accelerated",pos:"adjective/verb",ipa:"/əkˈsel.ə.reɪ.tɪd/",viet:"Bị đẩy nhanh / tăng tốc",def:"Happening or developing faster than normal",ex:"...having more hasslers is associated with <strong>accelerated</strong> biological aging..."},
+  {w:"biological aging",pos:"phrase",ipa:"/ˌbaɪ.əˈlɒdʒ.ɪ.kəl ˈeɪ.dʒɪŋ/",viet:"Lão hóa sinh học",def:"The gradual deterioration of cells and physiological functions over time",ex:"...having more hasslers is associated with accelerated <strong>biological aging</strong>..."},
+  {w:"wear and tear",pos:"phrase",ipa:"/weər ænd teər/",viet:"Sự hao mòn / suy giảm sức khỏe",def:"The damage that happens to the body over a period of normal use or stress",ex:"...and how much <strong>wear and tear</strong> [people] have on their body."},
+  {w:"participants",pos:"noun (plural)",ipa:"/pɑːˈtɪs.ɪ.pənts/",viet:"Những người tham gia",def:"People who take part in a study, activity, or event",ex:"Researchers questioned <strong>participants</strong> about the difficult relationships..."},
+  {w:"social network",pos:"phrase",ipa:"/ˌsəʊ.ʃəl ˈnet.wɜːk/",viet:"Mạng lưới quan hệ xã hội",def:"The web of social relationships surrounding an individual",ex:"...had at least one hassler in their <strong>social network</strong>."},
+  {w:"pace of aging",pos:"phrase",ipa:"/peɪs əv ˈeɪ.dʒɪŋ/",viet:"Tốc độ lão hóa",def:"The speed at which an organism ages biologically",ex:"...each additional hassler was associated with a 1.5 per cent faster <strong>pace of aging</strong>."},
+  {w:"stress response",pos:"phrase",ipa:"/stres rɪˈspɒns/",viet:"Phản ứng với căng thẳng",def:"The physiological changes that occur in the body when it faces a threat or stressor",ex:"It can actually take days for that <strong>stress response</strong> to drop..."},
+  {w:"chronically",pos:"adverb",ipa:"/ˈkrɒn.ɪ.kəl.i/",viet:"Một cách kinh niên / kéo dài",def:"In a persistent, long-lasting, or recurring way",ex:"When you experience that <strong>chronically</strong>, over and over again..."},
+  {w:"accumulated",pos:"adjective/verb",ipa:"/əˈkjuː.mjə.leɪ.tɪd/",viet:"Tích tụ / tích lũy",def:"Gathered or built up gradually over time",ex:"She highlighted the adverse effects of <strong>accumulated</strong> stress from hasslers..."},
+  {w:"adverse effects",pos:"phrase",ipa:"/ˈæd.vɜːs ɪˈfekts/",viet:"Tác động tiêu cực / có hại",def:"Harmful or unfavorable outcomes or results",ex:"She highlighted the <strong>adverse effects</strong> of accumulated stress from hasslers..."}
+];
+
+const TF_DATA = [
+  {text:"Our jobs affect our stress levels more than supportive or toxic relationships.",ans:"F",exp:"SAI — Bài viết nói rằng các mối quan hệ có thể định hình mức độ căng thẳng của chúng ta nhiều hơn cả công việc và tài chính."},
+  {text:"A hassler is defined as an annoying person who regularly bothers us.",ans:"T",exp:"ĐÚNG — Định nghĩa trong bài: 'A hassler is an annoying individual who regularly hassles us.'"},
+  {text:"The researchers found that having more hasslers slows down the aging process.",ans:"F",exp:"SAI — Bài viết chỉ ra rằng việc có nhiều hasslers liên quan đến sự lão hóa sinh học nhanh hơn."},
+  {text:"About 33% of the study's participants had at least one hassler in their lives.",ans:"T",exp:"ĐÚNG — Khoảng 1/3 (khoảng 33%) người tham gia có ít nhất một 'hassler' trong mạng lưới xã hội của họ."},
+  {text:"Each additional hassler was linked to a 15 per cent faster aging pace.",ans:"F",exp:"SAI — Mỗi hassler tăng thêm chỉ liên quan đến tốc độ lão hóa nhanh hơn 1.5% (chứ không phải 15%)."},
+  {text:"It can take days for a person's stress response to return to normal after being hassled.",ans:"T",exp:"ĐÚNG — Tiến sĩ Brea Perry cho biết cơ thể có thể mất vài ngày để phản ứng căng thẳng giảm xuống và quay lại bình thường."}
+];
+
+const GF = {
+  bank:["stress","longevity","University","hassler","accelerated","one","faster","long-term"],
+  parts:[
+    "Our relationships can shape our (1)____ levels more than jobs or money.",
+    "A new study suggests that the people around us can affect our (2)____.",
+    "The study was conducted by scientists at Indiana (3)____.",
+    "A (4)____ is an annoying person who regularly bothers us.",
+    "Having more hasslers is associated with (5)____ biological aging.",
+    "Dr. Perry found that one third of participants had at least (6)____ hassler.",
+    "Each additional hassler was linked to a (7)____ pace of aging.",
+    "Chronic stress has a (8)____ effect on the body."
+  ],
+  ans:["stress","longevity","University","hassler","accelerated","one","faster","long-term"]
+};
+
+const DISC_COMP = [
+  {
+    q:"According to the article, what can affect our stress more than jobs and money?",
+    model:"According to the article, our relationships can shape our stress levels more than our jobs and money.",
+    note:"Cấu trúc 'According to...' (Theo như...) được dùng để trích dẫn thông tin từ một nguồn nào đó."
+  },
+  {
+    q:"What did the new study suggest about the people around us?",
+    model:"The new study suggests that who we surround ourselves with can negatively affect our longevity.",
+    note:"Mệnh đề danh từ 'who we surround ourselves with' (người mà chúng ta ở bên cạnh) đóng vai trò làm chủ ngữ."
+  },
+  {
+    q:"Who did the researchers focus on in the study?",
+    model:"The researchers focused on the effect that people called 'hasslers' had on us.",
+    note:"Cụm động từ 'focus on someone/something' nghĩa là tập trung vào ai/cái gì."
+  },
+  {
+    q:"What is a “hassler”?",
+    model:"A 'hassler' is defined as an annoying individual who regularly hassles us.",
+    note:"Mệnh đề quan hệ 'who regularly hassles us' bổ nghĩa cho danh từ 'individual'."
+  },
+  {
+    q:"What did the researcher say was associated with accelerated biological aging?",
+    model:"The researcher said that having more hasslers is associated with accelerated biological aging.",
+    note:"Cấu trúc bị động 'be associated with' nghĩa là được liên kết với hoặc gắn liền với."
+  },
+  {
+    q:"What does the phrase “wear and tear on the body” mean in the article?",
+    model:"In the article, 'wear and tear on the body' means the physical damage and deterioration that stress causes to the body over time.",
+    note:"Thành ngữ 'wear and tear' thường dùng để chỉ sự hao mòn tự nhiên do sử dụng hoặc chịu áp lực."
+  },
+  {
+    q:"How many participants knew at least one hassler?",
+    model:"Dr. Perry found that around one third of the participants had at least one hassler in their lives.",
+    note:"Phân số 'one third' (một phần ba) đi kèm giới từ 'of' và danh từ số nhiều."
+  },
+  {
+    q:"What percentage of people had at least two hasslers?",
+    model:"About 10 per cent of the participants had at least two hasslers.",
+    note:"Cụm từ 'at least' nghĩa là ít nhất, đứng trước một con số."
+  },
+  {
+    q:"What happened to the pace of aging with each additional hassler?",
+    model:"With each additional hassler, the pace of aging increased by 1.5 per cent.",
+    note:"Cấu trúc 'with each + danh từ số ít' diễn tả sự thay đổi đồng hành ('với mỗi...')."
+  },
+  {
+    q:"Why can accumulated stress be harmful to the body over time?",
+    model:"Accumulated stress can be harmful because it takes days for the stress response to drop, causing long-term negative effects on the body when experienced chronically.",
+    note:"Cấu trúc 'It takes + thời gian + for someone/something to do something' (Mất bao lâu để...). Ở đây là 'takes days for that stress response to drop'."
+  }
+];
+
+const DISC_OPEN = [
+  {
+    q:"Do you think the people around us strongly affect our health? Why or why not?",
+    model:"Yes, I believe the people around us strongly affect our health because their energy, mood, and behaviors can influence our stress levels and lifestyle choices.",
+    note:"Cụm từ 'lifestyle choices' nghĩa là các lựa chọn về phong cách sống (như ăn uống, tập luyện)."
+  },
+  {
+    q:"Have you ever had a “hassler” in your life? How did they affect you?",
+    model:"Yes, I once had a difficult co-worker who acted as a hassler, and their constant negativity made me feel extremely stressed and exhausted after work.",
+    note:"Thì quá khứ đơn 'had' và 'made' dùng để kể lại một trải nghiệm trong quá khứ đã kết thúc."
+  },
+  {
+    q:"What are some ways people can reduce stress caused by difficult relationships?",
+    model:"To reduce stress, people can set healthy boundaries, practice mindfulness, or distance themselves from negative individuals.",
+    note:"Cụm từ 'set healthy boundaries' nghĩa là thiết lập ranh giới lành mạnh (để bảo vệ bản thân)."
+  },
+  {
+    q:"Why do you think stress can affect the body physically?",
+    model:"In my view, stress releases hormones like cortisol that raise heart rate and blood pressure, which damages organs over time.",
+    note:"Dùng 'In my view...' là cách tự nhiên để bày tỏ quan điểm. Từ 'cortisol' là hormone căng thẳng."
+  },
+  {
+    q:"Is it better to avoid stressful people or learn how to deal with them?",
+    model:"Personally, I think it is better to learn how to deal with them because we cannot always choose who we work or interact with.",
+    note:"Cấu trúc 'deal with someone/something' nghĩa là đối mặt, giải quyết hoặc đối phó với ai/cái gì."
+  },
+  {
+    q:"What qualities make someone a good friend or co-worker?",
+    model:"I believe that good friends or co-workers should be supportive, empathetic, respectful, and reliable when we face difficulties.",
+    note:"Các tính từ mô tả tính cách tích cực: 'supportive' (nâng đỡ), 'empathetic' (thấu cảm), 'reliable' (đáng tin cậy)."
+  },
+  {
+    q:"Do you think workplaces should help employees manage stress? How?",
+    model:"Yes, workplaces should help employees manage stress by offering counseling services, organizing team activities, and encouraging a balanced workload.",
+    note:"Trạng từ chỉ phương thức 'by + V-ing' (bằng cách làm gì) rất thích hợp để trả lời câu hỏi 'How?'."
+  },
+  {
+    q:"How can positive relationships improve a person’s life?",
+    model:"Positive relationships can improve a person's life by providing emotional support, reducing loneliness, and boosting overall happiness.",
+    note:"Cụm động từ 'boost overall happiness' nghĩa là thúc đẩy/gia tăng hạnh phúc toàn diện."
+  },
+  {
+    q:"Why do some people continue unhealthy relationships even when they feel stressed?",
+    model:"I think some people continue unhealthy relationships because of a fear of loneliness, emotional dependency, or hope that the other person will change.",
+    note:"Cụm từ 'because of + cụm danh từ' dùng để nêu nhiều nguyên nhân ngắn gọn liên tiếp."
+  },
+  {
+    q:"What activities help you relax when you feel stressed?",
+    model:"When I feel stressed, activities like listening to music, reading books, jogging, or spending time in nature help me relax my mind.",
+    note:"Danh động từ (V-ing) đóng vai trò làm danh từ chỉ hoạt động, làm chủ ngữ song song trong câu."
+  }
+];
+
+const AW_PROMPTS = [
+  {
+    viet:"Mối quan hệ của chúng ta có thể định hình mức độ căng thẳng nhiều hơn công việc, tiền bạc hay thói quen ăn uống.",
+    hint:"relationships / shape / stress levels / jobs / finances / diet",
+    grammar:"S + can shape + O + more than + nouns/nouns/nouns"
+  },
+  {
+    viet:"Nghiên cứu mới cho thấy rằng những người mà chúng ta ở bên cạnh có thể ảnh hưởng tiêu cực đến tuổi thọ của chúng ta.",
+    hint:"new study / suggest / surround ourselves / negatively affect / longevity",
+    grammar:"S + suggests that + noun clause (who we surround ourselves with) + can + adverb + verb + O"
+  },
+  {
+    viet:"Việc tiếp xúc với căng thẳng liên tục có thể gây tổn thương lâu dài cho cơ thể vì phản ứng căng thẳng phải mất nhiều ngày mới giảm xuống.",
+    hint:"chronic stress / cause / long-term damage / body / take days / stress response / drop",
+    grammar:"Chronic stress + can cause + ... + because + it takes + days + for the stress response + to + V-inf"
+  }
+];
+
+const ART_PLAIN = `From supportive friendships to toxic colleagues, our relationships can shape our stress levels more than our jobs, finances, or even our diet and health habits. A new study suggests that who we surround ourselves with can negatively affect our longevity. Scientists at Indiana University in the USA conducted a study on how the people around us can impact the stress in our lives. The researchers focused on the effect people called "hasslers" had on us. A hassler is an annoying individual who regularly hassles us. Lead researcher Professor Brea Perry said, "having more hasslers is associated with accelerated biological aging...and how much wear and tear [people] have on their body". The study is published in the journal PNAS. Researchers questioned participants about the difficult relationships in their lives to identify hasslers. Dr Perry found around one third of the participants had at least one hassler in their social network. She said about 10 per cent had at least two hasslers. She suggested that each additional hassler was associated with a 1.5 per cent faster pace of aging. Perry added: "It can actually take days for that stress response to drop and for your body to go back to normal." She highlighted the adverse effects of accumulated stress from hasslers, saying: "When you experience that chronically, over and over again, it has this long-term effect on the body."`;
+</script>
+<script src="common.js"></script>
+</body>
+</html>
