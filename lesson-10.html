@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Japan's Shrinking Population – English Lesson</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common.css">
+</head>
+<body>
+
+<script>
+const LESSON_CONFIG = {
+  tag: "Mon 1/6/2026 · Breaking News English Level 5",
+  title: "Japan's Shrinking Population",
+  titleHtml: "Japan's Shrinking <em>Population</em>",
+  sub: "Japan's population falls by over three million in the past five years",
+  emoji: "📉",
+  kicker: "📍 Society · 1 June 2026",
+  artHl: "Japan's population falls three million in five years",
+  artHtml: `
+    <p>Japan's <span class="hl" data-w="population" data-viet="dân số">population</span> has fallen by three million in the past five years. This is the largest drop since records began in 1920. Japan's <span class="hl" data-w="government" data-viet="chính phủ">government</span> <span class="hl" data-w="released" data-viet="công bố / phát hành">released</span> figures for its 2025 <span class="hl" data-w="census" data-viet="cuộc điều tra dân số">census</span>. This <span class="hl" data-w="demographic" data-viet="(thuộc) nhân khẩu học">demographic</span> <span class="hl" data-w="survey" data-viet="cuộc khảo sát / điều tra">survey</span> is carried out every five years. The latest one <span class="hl" data-w="reveals" data-viet="tiết lộ / cho thấy">reveals</span> that the number of residents in October was around 123 million. This was a drop of just over 3 million from 2020. This is a fall of 2.5 per cent. The census is the third in a row to show a decrease. Japan's government confirmed that population decline is <span class="hl" data-w="advancing" data-viet="đang tiến triển / gia tăng">advancing</span>. It <span class="hl" data-w="vowed" data-viet="tuyên bố / cam kết">vowed</span> to take "<span class="hl" data-w="comprehensive" data-viet="toàn diện / đầy đủ">comprehensive</span> <span class="hl" data-w="measures" data-viet="biện pháp / giải pháp">measures</span>".</p>
+    <p>The government said a big reason for the decline was <span class="hl" data-w="historically" data-viet="về mặt lịch sử / từ trước đến nay">historically</span> low birth rates. In 2025, there were just over 700,000 births. This compared to 2.5 million yearly births in the postwar <span class="hl" data-w="baby boom" data-viet="sự bùng nổ trẻ sơ sinh">baby boom</span>. Many governments have introduced measures to <span class="hl" data-w="encourage" data-viet="khuyến khích / động viên">encourage</span> <span class="hl" data-w="couples" data-viet="các cặp đôi / cặp vợ chồng">couples</span> to have babies. These include <span class="hl" data-w="expanded" data-viet="được mở rộng / tăng quy mô">expanded</span> <span class="hl" data-w="child allowances" data-viet="trợ cấp trẻ em">child allowances</span>, more <span class="hl" data-w="parental leave" data-viet="nghỉ phép của cha mẹ (khi sinh con)">parental leave</span>, and <span class="hl" data-w="subsidized" data-viet="được trợ cấp / bao cấp">subsidized</span> early years education. They have had little success. Japan is one of the world's oldest societies. Its <span class="hl" data-w="greying population" data-viet="dân số già hóa">greying population</span> is putting a lot of <span class="hl" data-w="strain" data-viet="áp lực / sự căng thẳng">strain</span> on healthcare systems, pensions, and the labour force.</p>
+  `,
+  aiEnabled: true,
+  theme: {
+    bg: "#f4f6f8",
+    border: "#d8e2e6",
+    text: "#1e293b",
+    muted: "#64748b",
+    accent: "#0f766e",
+    accent2: "#0d9488",
+    light: "#f0fdfa"
+  }
+};
+
+const VOCAB = [
+  {w:"population",pos:"noun",ipa:"/ˌpɒp.jəˈleɪ.ʃən/",viet:"Dân số",def:"All the inhabitants of a particular place",ex:"Japan's <strong>population</strong> has fallen by three million in the past five years."},
+  {w:"census",pos:"noun",ipa:"/ˈsen.səs/",viet:"Cuộc điều tra dân số",def:"An official count or survey of a population, typically recording various details of individuals",ex:"Japan's government released figures for its 2025 <strong>census</strong>."},
+  {w:"demographic",pos:"adjective",ipa:"/ˌdem.əˈɡræf.ɪk/",viet:"(Thuộc) nhân khẩu học",def:"Relating to the structure of populations",ex:"This <strong>demographic</strong> survey is carried out every five years."},
+  {w:"survey",pos:"noun",ipa:"/ˈsɜː.veɪ/",viet:"Cuộc khảo sát / điều tra",def:"An investigation of the opinions or experience of a group of people, based on questions",ex:"This demographic <strong>survey</strong> is carried out every five years."},
+  {w:"reveals",pos:"verb",ipa:"/rɪˈviːlz/",viet:"Tiết lộ / cho thấy",def:"Makes previously unknown information known to others",ex:"The latest one <strong>reveals</strong> that the number of residents in October was around 123 million."},
+  {w:"decline",pos:"noun",ipa:"/dɪˈklaɪn/",viet:"Sự suy giảm / giảm sút",def:"A gradual and continuous loss of strength, numbers, or quality",ex:"Japan's government confirmed that population <strong>decline</strong> is advancing."},
+  {w:"advancing",pos:"verb/adjective",ipa:"/ədˈvɑːn.sɪŋ/",viet:"Đang tiến triển / gia tăng",def:"Moving forward or progressing in a noticeable way",ex:"Japan's government confirmed that population decline is <strong>advancing</strong>."},
+  {w:"vowed",pos:"verb",ipa:"/vaʊd/",viet:"Tuyên bố / cam kết",def:"Solemnly promised to do a specified thing",ex:"It <strong>vowed</strong> to take 'comprehensive measures'."},
+  {w:"comprehensive",pos:"adjective",ipa:"/ˌkɒm.prɪˈhen.sɪv/",viet:"Toàn diện / đầy đủ",def:"Complete; including all or nearly all elements or aspects of something",ex:"It vowed to take '<strong>comprehensive</strong> measures'."},
+  {w:"measures",pos:"noun (plural)",ipa:"/ˈmeʒ.əz/",viet:"Biện pháp / giải pháp",def:"Plans or courses of action taken to achieve a particular purpose",ex:"It vowed to take 'comprehensive <strong>measures</strong>'."},
+  {w:"historically",pos:"adverb",ipa:"/hɪˈstɒr.ɪ.kəl.i/",viet:"Về mặt lịch sử / từ trước đến nay",def:"In a way that is related to history or past events",ex:"The government said a big reason for the decline was <strong>historically</strong> low birth rates."},
+  {w:"postwar",pos:"adjective",ipa:"/ˌpəʊstˈwɔː/",viet:"Hậu chiến / sau chiến tranh",def:"Occurring or existing in the period after a war",ex:"...yearly births in the <strong>postwar</strong> baby boom."},
+  {w:"baby boom",pos:"noun",ipa:"/ˈbeɪ.bi buːm/",viet:"Sự bùng nổ trẻ sơ sinh",def:"A temporary marked increase in the birth rate",ex:"...yearly births in the postwar <strong>baby boom</strong>."},
+  {w:"encourage",pos:"verb",ipa:"/ɪnˈkʌr.ɪdʒ/",viet:"Khuyến khích / động viên",def:"Give support, confidence, or hope to someone",ex:"...measures to <strong>encourage</strong> couples to have babies."},
+  {w:"couples",pos:"noun (plural)",ipa:"/ˈkʌp.əlz/",viet:"Các cặp đôi / cặp vợ chồng",def:"Two people who are married or in a relationship",ex:"...measures to encourage <strong>couples</strong> to have babies."},
+  {w:"expanded",pos:"adjective",ipa:"/ɪkˈspæn.dɪd/",viet:"Được mở rộng / tăng quy mô",def:"Larger or more extensive",ex:"These include <strong>expanded</strong> child allowances..."},
+  {w:"child allowances",pos:"noun (plural)",ipa:"/tʃaɪld əˈlaʊ.əns.ɪz/",viet:"Trợ cấp trẻ em",def:"Government payments to help parents with the cost of raising children",ex:"These include expanded <strong>child allowances</strong>..."},
+  {w:"parental leave",pos:"noun",ipa:"/pəˈren.təl liːv/",viet:"Nghỉ phép của cha mẹ (khi sinh con)",def:"Time off from work granted to a parent to care for a new child",ex:"...more <strong>parental leave</strong>, and subsidized early years education."},
+  {w:"subsidized",pos:"adjective",ipa:"/ˈsʌb.sɪ.daɪzd/",viet:"Được trợ cấp / bao cấp",def:"Supported financially by a government or organization",ex:"...and <strong>subsidized</strong> early years education."},
+  {w:"greying population",pos:"noun",ipa:"/ˈɡreɪ.ɪŋ ˌpɒp.jəˈleɪ.ʃən/",viet:"Dân số già hóa",def:"A population with an increasing proportion of elderly people",ex:"Its <strong>greying population</strong> is putting a lot of strain on healthcare systems..."},
+  {w:"strain",pos:"noun",ipa:"/streɪn/",viet:"Áp lực / sự căng thẳng",def:"A force tending to pull or stretch something to an extreme or damaging degree",ex:"Its greying population is putting a lot of <strong>strain</strong> on healthcare systems..."}
+];
+
+const TF_DATA = [
+  {text:"Japan's population fell by over 3 million between 2020 and 2025.",ans:"T",exp:"ĐÚNG — Dân số Nhật Bản giảm khoảng 3 triệu người trong vòng 5 năm qua theo số liệu điều tra dân số năm 2025."},
+  {text:"The 2025 census represents the largest population drop since 1920.",ans:"T",exp:"ĐÚNG — Bài viết khẳng định đây là đợt giảm dân số lớn nhất kể từ khi các ghi chép bắt đầu vào năm 1920."},
+  {text:"This is the first time a Japanese census has shown a population decline.",ans:"F",exp:"SAI — Cuộc điều tra dân số này là lần thứ ba liên tiếp (third in a row) ghi nhận sự sụt giảm dân số."},
+  {text:"There were more births in Japan in 2025 than during the postwar baby boom.",ans:"F",exp:"SAI — Năm 2025 chỉ có hơn 700.000 ca sinh, so với 2,5 triệu ca sinh mỗi năm trong thời kỳ bùng nổ trẻ sơ sinh sau chiến tranh."},
+  {text:"Subsidized early years education has successfully reversed Japan's population decline.",ans:"F",exp:"SAI — Các biện pháp như trợ cấp giáo dục mầm non đạt được rất ít thành công (had little success)."},
+  {text:"A greying population is putting a lot of strain on Japan's pensions and labor force.",ans:"T",exp:"ĐÚNG — Bài viết nêu rõ dân số già hóa đang gây nhiều áp lực lên hệ thống y tế, lương hưu và lực lượng lao động."}
+];
+
+const GF = {
+  bank:["fallen", "census", "residents", "measures", "historically", "encourage", "allowances", "strain"],
+  parts:[
+    "Japan's population has (1)____ by three million in the past five years.",
+    "Japan's government released figures for its 2025 (2)____.",
+    "The latest survey reveals that the number of (3)____ was around 123 million.",
+    "The government vowed to take comprehensive (4)____.",
+    "The government said the decline was due to (5)____ low birth rates.",
+    "Many governments introduced policies to (6)____ couples to have babies.",
+    "These measures include expanded child (7)____ and parental leave.",
+    "A greying population is putting a lot of (8)____ on healthcare systems."
+  ],
+  ans:["fallen", "census", "residents", "measures", "historically", "encourage", "allowances", "strain"]
+};
+
+const DISC_COMP = [
+  {
+    q:"How much has Japan's population fallen in the past five years?",
+    model:"Japan's population has fallen by three million in the past five years.",
+    note:"Sử dụng cấu trúc 'fallen by [amount]' để diễn tả lượng sụt giảm cụ thể."
+  },
+  {
+    q:"What was Japan's population in October 2025?",
+    model:"In October 2025, Japan's population was around 123 million.",
+    note:"Giới từ 'in' luôn đứng trước các mốc thời gian như tháng và năm."
+  },
+  {
+    q:"How often is Japan's census carried out?",
+    model:"Japan's census is carried out every five years.",
+    note:"Cụm từ 'every five years' (mỗi 5 năm một lần) thể hiện một chu kỳ lặp lại đều đặn."
+  },
+  {
+    q:"What percentage did Japan's population decrease between 2020 and 2025?",
+    model:"Japan's population decreased by 2.5 per cent between 2020 and 2025.",
+    note:"Giới từ 'by' chỉ mức độ thay đổi khi đi kèm với số phần trăm."
+  },
+  {
+    q:"How many consecutive censuses have shown a population decline?",
+    model:"Three consecutive censuses have shown a population decline.",
+    note:"Tính từ 'consecutive' dùng để chỉ tính liên tục, liền kề nhau của các sự kiện."
+  },
+  {
+    q:"What did the Japanese government promise to do about the declining population?",
+    model:"The Japanese government vowed to take comprehensive measures to address the decline.",
+    note:"Động từ 'vow' (tuyên thệ/cam kết mạnh mẽ) thường đi kèm trực tiếp với động từ nguyên mẫu 'to V'."
+  },
+  {
+    q:"What is the main reason for Japan's population decline?",
+    model:"The main reason for Japan's population decline is historically low birth rates.",
+    note:"Trạng từ 'historically' bổ nghĩa cho tính từ 'low' mang nghĩa 'từ trước đến nay / về mặt lịch sử'."
+  },
+  {
+    q:"How many babies were born in Japan in 2025?",
+    model:"There were just over 700,000 babies born in Japan in 2025.",
+    note:"Cụm từ 'just over' mang nghĩa 'chỉ hơn / nhỉnh hơn một chút' để mô tả con số ước lượng."
+  },
+  {
+    q:"What measures have governments introduced to encourage people to have children?",
+    model:"Governments have introduced measures such as expanded child allowances, increased parental leave, and subsidized early years education.",
+    note:"Thì hiện tại hoàn thành 'have introduced' diễn tả hành động đã diễn ra trong quá khứ và còn liên quan tới hiện tại."
+  },
+  {
+    q:"What problems is Japan's ageing population causing for the country?",
+    model:"It is putting a lot of strain on healthcare systems, pension plans, and the labor force.",
+    note:"Thành ngữ 'put strain on someone/something' nghĩa là đặt gánh nặng hoặc gây áp lực lớn lên ai/cái gì."
+  }
+];
+
+const DISC_OPEN = [
+  {
+    q:"Why do you think birth rates are falling in many countries?",
+    model:"In my opinion, birth rates are falling because of the rising cost of living, high housing prices, and people prioritizing their careers over starting a family.",
+    note:"Cụm từ 'rising cost of living' (chi phí sinh hoạt leo thang) là chủ đề rất phổ biến trong các cuộc thảo luận xã hội."
+  },
+  {
+    q:"Do you think governments should spend money to encourage people to have children? Why or why not?",
+    model:"Personally, I believe governments should invest in financial support for families because maintaining a stable population size is critical for long-term economic stability.",
+    note:"Cấu trúc 'Personally, I believe...' giúp đưa ra quan điểm cá nhân một cách lịch sự và chắc chắn."
+  },
+  {
+    q:"What are the advantages and disadvantages of having a large population?",
+    model:"While a large population provides a massive market and labor force, it can also lead to overconsumption of resources and severe environmental pollution.",
+    note:"Cấu trúc nhượng bộ 'While A, B...' (Trong khi A thì B...) giúp cân bằng giữa ưu điểm và nhược điểm."
+  },
+  {
+    q:"How might a declining population affect a country's economy?",
+    model:"A declining population can result in labor shortages, lower productivity, and a smaller tax base, which ultimately slows down economic growth.",
+    note:"Động từ 'result in' mang nghĩa dẫn đến/gây ra hậu quả gì đó."
+  },
+  {
+    q:"What challenges do elderly populations create for governments?",
+    model:"Elderly populations place a heavy financial burden on governments in terms of increased healthcare costs and funding public pension systems.",
+    note:"Cụm từ 'in terms of' (về khía cạnh / xét về mặt) giúp định vị phạm vi cho gánh nặng tài chính."
+  },
+  {
+    q:"Would financial support encourage more people to have children? Why or why not?",
+    model:"I think financial support would help, but it might not be enough on its own because raising children also requires significant time, energy, and social safety nets.",
+    note:"Cụm từ 'on its own' ở đây nghĩa là 'nếu chỉ đứng một mình / riêng nó'."
+  },
+  {
+    q:"What can employers do to make it easier for people to raise children?",
+    model:"Employers can offer flexible working hours, remote work options, and on-site childcare services to support working parents.",
+    note:"Sử dụng các cụm từ 'flexible working hours' (giờ làm việc linh hoạt) và 'remote work' (làm việc từ xa)."
+  },
+  {
+    q:"Is population decline a problem in your country? Why or why not?",
+    model:"Currently, population growth is slowing down in my country, but it has not reached a critical decline yet; however, we should plan ahead to avoid labor shortages in the future.",
+    note:"Cụm động từ 'plan ahead' nghĩa là lập kế hoạch trước / chuẩn bị trước."
+  },
+  {
+    q:"How might technology help countries with ageing populations and labour shortages?",
+    model:"Technology like artificial intelligence, robotic automation, and telemedicine can fill labor gaps and improve the efficiency of eldercare.",
+    note:"Cụm danh từ 'telemedicine' (y tế từ xa) và 'eldercare' (chăm sóc người già)."
+  },
+  {
+    q:"Do you think population growth or population decline is the bigger challenge for the world today? Explain.",
+    model:"I think both are challenges, but population decline in developed countries is a more immediate threat to global economic stability, whereas population growth in poor regions strains resources.",
+    note:"Liên từ đối lập 'whereas' (trong khi đó) dùng để so sánh tương phản giữa hai hiện tượng."
+  }
+];
+
+const AW_PROMPTS = [
+  {
+    viet: "Dân số của đất nước đã giảm đáng kể trong năm năm qua.",
+    hint: "population / country / decrease / significantly / in the past five years",
+    grammar: "S + has/have + V3 + adverb + in the past five years"
+  },
+  {
+    viet: "Nhiều chính phủ đã áp dụng các trợ cấp trẻ em được mở rộng kể từ khi cuộc khủng hoảng dân số bắt đầu.",
+    hint: "many governments / introduced / expanded child allowances / since / population crisis / began",
+    grammar: "S + has/have + V3 + O + since + S + V2/ed"
+  },
+  {
+    viet: "Hệ thống y tế của chúng ta đã phải chịu nhiều áp lực do dân số già hóa.",
+    hint: "our healthcare system / put / a lot of strain on / because of / ageing population",
+    grammar: "S + has + put + a lot of strain on + O + because of + NP"
+  }
+];
+
+const ART_PLAIN = `Japan's population has fallen by three million in the past five years. This is the largest drop since records began in 1920. Japan's government released figures for its 2025 census. This demographic survey is carried out every five years. The latest one reveals that the number of residents in October was around 123 million. This was a drop of just over 3 million from 2020. This is a fall of 2.5 per cent. The census is the third in a row to show a decrease. Japan's government confirmed that population decline is advancing. It vowed to take "comprehensive measures".
+
+The government said a big reason for the decline was historically low birth rates. In 2025, there were just over 700,000 births. This compared to 2.5 million yearly births in the postwar baby boom. Many governments have introduced measures to encourage couples to have babies. These include expanded child allowances, more parental leave, and subsidized early years education. They have had little success. Japan is one of the world's oldest societies. Its greying population is putting a lot of strain on healthcare systems, pensions, and the labour force.`;
+</script>
+<script src="common.js"></script>
+</body>
+</html>
