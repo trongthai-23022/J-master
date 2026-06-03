@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Having Children and Lifespan – English Lesson</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common.css">
+</head>
+<body>
+
+<script>
+const LESSON_CONFIG = {
+  tag: "Wed 3/6/2026 · Breaking News English Level 5",
+  title: "Having Children and Lifespan",
+  titleHtml: "Having Children and <em>Lifespan</em>",
+  sub: "How the number of children a woman has can affect her rate of biological ageing",
+  emoji: "⏳",
+  kicker: "📍 Health · 3 June 2026",
+  artHl: "Number of children affects lifespan of mothers",
+  artHtml: `
+    <p>A study suggests the number of children a woman has might <span class="hl" data-w="affect" data-viet="ảnh hưởng">affect</span> her <span class="hl" data-w="rate of ageing" data-viet="tốc độ lão hóa">rate of ageing</span>. Research from Finland found that women who had five children or more, or no children, <span class="hl" data-w="age faster than" data-viet="lão hóa nhanh hơn">aged faster than</span> those who had few kids. A researcher said: "<span class="hl" data-w="from an evolutionary biology perspective" data-viet="từ góc nhìn sinh học tiến hóa">From an evolutionary biology perspective</span>, <span class="hl" data-w="organisms" data-viet="các sinh vật">organisms</span> have <span class="hl" data-w="limited resources" data-viet="nguồn lực hạn chế">limited resources</span>, such as time and energy. When a large amount of energy is <span class="hl" data-w="invested in" data-viet="được đầu tư vào / dành cho">invested in</span> <span class="hl" data-w="reproduction" data-viet="sự sinh sản">reproduction</span>, it is taken away from <span class="hl" data-w="bodily maintenance" data-viet="duy trì cơ thể">bodily maintenance</span> and <span class="hl" data-w="repair mechanisms" data-viet="cơ chế tự sửa chữa">repair mechanisms</span>, which could <span class="hl" data-w="reduce lifespan" data-viet="giảm tuổi thọ">reduce lifespan</span>." She was surprised about the shorter <span class="hl" data-w="lifespan" data-viet="tuổi thọ">lifespans</span> of women who never <span class="hl" data-w="gave birth" data-viet="sinh con">gave birth</span>.</p>
+    <p>The researchers <span class="hl" data-w="analysed" data-viet="đã phân tích">analysed</span> health data on 14,836 women. Researchers <span class="hl" data-w="examined" data-viet="đã kiểm tra / xem xét">examined</span> DNA data and blood, then <span class="hl" data-w="modelled" data-viet="đã mô hình hóa">modelled</span> the <span class="hl" data-w="effects" data-viet="các tác động / ảnh hưởng">effects</span> of reproduction on women's <span class="hl" data-w="rates of longevity" data-viet="tỷ lệ trường thọ">rates of longevity</span>. A researcher found that having fewer <span class="hl" data-w="pregnancies" data-viet="việc mang thai">pregnancies</span> could have <span class="hl" data-w="positive effects" data-viet="tác động tích cực">positive effects</span> on a mother's health. One <span class="hl" data-w="benefit" data-viet="lợi ích">benefit</span> is a possible <span class="hl" data-w="lower risk" data-viet="nguy cơ thấp hơn">lower risk</span> of <span class="hl" data-w="breast cancer" data-viet="ung thư vú">breast cancer</span> and <span class="hl" data-w="ovarian cancer" data-viet="ung thư buồng trứng">ovarian cancer</span>. However, the "<span class="hl" data-w="wear and tear" data-viet="sự hao mòn / suy giảm sức khỏe">wear and tear</span>" from <span class="hl" data-w="multiple childbirths" data-viet="nhiều lần sinh con">multiple childbirths</span> could <span class="hl" data-w="reverse" data-viet="đảo ngược">reverse</span> this lowered risk. Another <span class="hl" data-w="factor" data-viet="yếu tố">factor</span> that could <span class="hl" data-w="increase longevity" data-viet="tăng tuổi thọ">increase longevity</span> is the <span class="hl" data-w="social support" data-viet="hỗ trợ xã hội">social support</span> a mother receives.</p>
+  `,
+  aiEnabled: true,
+  theme: {
+    bg: "#faf8f5",
+    border: "#e8e3d9",
+    text: "#2c2520",
+    muted: "#70655c",
+    accent: "#c85a17",
+    accent2: "#e07a3c",
+    light: "#f4eee1"
+  }
+};
+
+const VOCAB = [
+  {w:"affect",pos:"verb",ipa:"/əˈfekt/",viet:"Ảnh hưởng / tác động đến",def:"Have an effect on; make a difference to",ex:"A study suggests the number of children a woman has might <strong>affect</strong> her rate of ageing."},
+  {w:"rate of ageing",pos:"phrase",ipa:"/reɪt əv ˈeɪ.dʒɪŋ/",viet:"Tốc độ lão hóa",def:"The speed at which an organism grows biologically older",ex:"A study suggests the number of children a woman has might affect her <strong>rate of ageing</strong>."},
+  {w:"age faster than",pos:"phrase",ipa:"/eɪdʒ ˈfɑː.stər ðæn/",viet:"Lão hóa nhanh hơn",def:"To experience biological aging at a higher speed than others",ex:"...aged <strong>faster than</strong> those who had few kids."},
+  {w:"from an evolutionary biology perspective",pos:"phrase",ipa:"/frɒm ən ˌiː.vəˈluː.ʃən.ər.i baɪˈɒl.ə.dʒi pəˈspek.tɪv/",viet:"Từ góc nhìn sinh học tiến hóa",def:"Looking at biological phenomena from the standpoint of evolutionary history and survival",ex:"<strong>From an evolutionary biology perspective</strong>, organisms have limited resources..."},
+  {w:"organisms",pos:"noun (plural)",ipa:"/ˈɔː.ɡən.ɪz.əmz/",viet:"Các sinh vật",def:"An individual animal, plant, or single-celled life form",ex:"...<strong>organisms</strong> have limited resources, such as time and energy."},
+  {w:"limited resources",pos:"phrase",ipa:"/ˈlɪm.ɪ.tɪd rɪˈzɔː.sɪz/",viet:"Nguồn lực hạn chế",def:"Finite amounts of assets, time, or energy available for use",ex:"...organisms have <strong>limited resources</strong>, such as time and energy."},
+  {w:"invested in",pos:"phrase",ipa:"/ɪnˈves.tɪd ɪn/",viet:"Được đầu tư vào / dành cho",def:"Spent or devoted time, energy, or money for a future benefit",ex:"When a large amount of energy is <strong>invested in</strong> reproduction..."},
+  {w:"reproduction",pos:"noun",ipa:"/ˌriː.prəˈdʌk.ʃən/",viet:"Sự sinh sản",def:"The biological process by which new individual organisms are produced",ex:"...energy is invested in <strong>reproduction</strong>, it is taken away from bodily maintenance..."},
+  {w:"bodily maintenance",pos:"phrase",ipa:"/ˈbɒd.əl.i ˈmeɪn.tən.əns/",viet:"Duy trì cơ thể",def:"The biological upkeep of an organism's cells, tissues, and systems",ex:"...it is taken away from <strong>bodily maintenance</strong> and repair mechanisms..."},
+  {w:"repair mechanisms",pos:"phrase",ipa:"/rɪˈpeər ˈmek.ə.nɪz.əmz/",viet:"Cơ chế tự sửa chữa",def:"Biological processes that fix damage to DNA or cells",ex:"...it is taken away from bodily maintenance and <strong>repair mechanisms</strong>..."},
+  {w:"reduce lifespan",pos:"phrase",ipa:"/rɪˈdjuːs ˈlaɪf.spæn/",viet:"Giảm tuổi thọ",def:"To shorten the length of time that an organism lives",ex:"...which could <strong>reduce lifespan</strong>."},
+  {w:"lifespan",pos:"noun",ipa:"/ˈlaɪf.spæn/",viet:"Tuổi thọ",def:"The length of time for which a person or animal lives",ex:"...which could reduce <strong>lifespan</strong>."},
+  {w:"gave birth",pos:"phrase",ipa:"/ɡeɪv bɜːθ/",viet:"Sinh con / cho ra đời",def:"Delivered a baby; produced offspring",ex:"...women who never <strong>gave birth</strong>."},
+  {w:"analysed",pos:"verb (past)",ipa:"/ˈæn.əl.aɪzd/",viet:"Đã phân tích",def:"Examined methodically and in detail for explanation or interpretation",ex:"The researchers <strong>analysed</strong> health data on 14,836 women."},
+  {w:"examined",pos:"verb (past)",ipa:"/ɪɡˈzæm.ɪnd/",viet:"Đã kiểm tra / xem xét",def:"Inspected or investigated in detail",ex:"Researchers <strong>examined</strong> DNA data and blood..."},
+  {w:"modelled",pos:"verb (past)",ipa:"/ˈmɒd.əld/",viet:"Đã mô hình hóa",def:"Devised a representation or simulation of a process or system",ex:"...then <strong>modelled</strong> the effects of reproduction on women's rates of longevity."},
+  {w:"effects",pos:"noun (plural)",ipa:"/ɪˈfekts/",viet:"Các tác động / ảnh hưởng",def:"A change which is a result or consequence of an action or other cause",ex:"...then modelled the <strong>effects</strong> of reproduction..."},
+  {w:"rates of longevity",pos:"phrase",ipa:"/reɪts əv lɒnˈdʒev.ə.ti/",viet:"Tỷ lệ trường thọ",def:"The statistical rates or patterns of long life",ex:"...on women's <strong>rates of longevity</strong>."},
+  {w:"pregnancies",pos:"noun (plural)",ipa:"/ˈpreɡ.nən.siz/",viet:"Số lần mang thai",def:"The state of carrying a developing embryo or fetus within the female body",ex:"...having fewer <strong>pregnancies</strong> could have positive effects..."},
+  {w:"positive effects",pos:"phrase",ipa:"/ˈpɒz.ə.tɪv ɪˈfekts/",viet:"Tác động tích cực",def:"Beneficial or helpful impacts on something",ex:"...having fewer pregnancies could have <strong>positive effects</strong> on a mother's health."},
+  {w:"benefit",pos:"noun",ipa:"/ˈben.ɪ.fɪt/",viet:"Lợi ích",def:"An advantage or profit gained from something",ex:"One <strong>benefit</strong> is a possible lower risk of breast and ovarian cancer."},
+  {w:"lower risk",pos:"phrase",ipa:"/ˈləʊ.ər rɪsk/",viet:"Nguy cơ thấp hơn",def:"A decreased probability of something bad happening",ex:"One benefit is a possible <strong>lower risk</strong> of breast and ovarian cancer."},
+  {w:"breast cancer",pos:"noun",ipa:"/brest ˈkæn.sər/",viet:"Ung thư vú",def:"A cancer that forms in the cells of the breasts",ex:"One benefit is a possible lower risk of <strong>breast cancer</strong> and ovarian cancer."},
+  {w:"ovarian cancer",pos:"noun",ipa:"/əʊˈveə.ri.ən ˈkæn.sər/",viet:"Ung thư buồng trứng",def:"A cancer that begins in the female organs that produce eggs",ex:"One benefit is a possible lower risk of breast cancer and <strong>ovarian cancer</strong>."},
+  {w:"wear and tear",pos:"phrase",ipa:"/weər ænd teər/",viet:"Sự hao mòn / suy giảm sức khỏe",def:"The gradual damage that comes from normal use, aging, or physical stress",ex:"However, the '<strong>wear and tear</strong>' from multiple childbirths could reverse this..."},
+  {w:"multiple childbirths",pos:"phrase",ipa:"/ˈmʌl.tɪ.pəl ˈtʃaɪld.bɜːθs/",viet:"Nhiều lần sinh con",def:"Giving birth to babies several times",ex:"However, the 'wear and tear' from <strong>multiple childbirths</strong> could reverse this..."},
+  {w:"reverse",pos:"verb",ipa:"/rɪˈvɜːs/",viet:"Đảo ngược",def:"Turn something the opposite way around or change to the contrary",ex:"...could <strong>reverse</strong> this lowered risk."},
+  {w:"factor",pos:"noun",ipa:"/ˈfæk.tər/",viet:"Yếu tố",def:"A circumstance, fact, or influence that contributes to a result",ex:"Another <strong>factor</strong> that could increase longevity..."},
+  {w:"increase longevity",pos:"phrase",ipa:"/ɪnˈkriːs lɒnˈdʒev.ə.ti/",viet:"Tăng cường tuổi thọ",def:"To make lifespan longer or extend life expectancy",ex:"Another factor that could <strong>increase longevity</strong>..."},
+  {w:"social support",pos:"phrase",ipa:"/ˈsəʊ.ʃəl səˈpɔːt/",viet:"Hỗ trợ xã hội",def:"Assistance or care provided by family, friends, or the community",ex:"...is the <strong>social support</strong> a mother receives."}
+];
+
+const TF_DATA = [
+  {text:"The study suggests a woman's rate of aging might be affected by how many children she has.",ans:"T",exp:"ĐÚNG — Câu đầu tiên trong bài nói: 'A study suggests the number of children a woman has might affect her rate of ageing.'"},
+  {text:"Women with a small number of children aged faster than those with five or more children.",ans:"F",exp:"SAI — Bài viết chỉ ra rằng những người có từ 5 con trở lên, hoặc không có con mới là những người lão hóa nhanh hơn."},
+  {text:"From an evolutionary standpoint, organisms have unlimited resources to balance between reproduction and maintenance.",ans:"F",exp:"SAI — Góc nhìn sinh học tiến hóa chỉ ra rằng các sinh vật có nguồn lực hạn chế ('limited resources'), không phải vô hạn."},
+  {text:"The researcher was surprised that childless women also had shorter lifespans.",ans:"T",exp:"ĐÚNG — Câu cuối đoạn 1 viết: 'She was surprised about the shorter lifespans of women who never gave birth.'"},
+  {text:"The study analyzed data of over 14,000 women.",ans:"T",exp:"ĐÚNG — Bài viết viết các nhà nghiên cứu đã phân tích dữ liệu sức khỏe của 14,836 phụ nữ (khoảng hơn 14 nghìn người)."},
+  {text:"Having more pregnancies always increases the risk of breast and ovarian cancer.",ans:"F",exp:"SAI — Ngược lại, ít mang thai hơn ('fewer pregnancies') mới có thể có tác động tích cực như giảm nguy cơ mắc các loại ung thư này."}
+];
+
+const GF = {
+  bank:["affect", "organisms", "reproduction", "lifespan", "analysed", "benefit", "reverse", "support"],
+  parts:[
+    "A study suggests the number of children a woman has might (1)____ her rate of ageing.",
+    "From an evolutionary biology perspective, (2)____ have limited resources.",
+    "When energy is invested in (3)____, it is taken away from bodily maintenance.",
+    "Large investment in reproduction could reduce (4)____.",
+    "The researchers (5)____ health data on 14,836 women.",
+    "One (6)____ of fewer pregnancies is a lower risk of cancer.",
+    "The wear and tear from multiple childbirths could (7)____ a lowered risk.",
+    "Social (8)____ is another factor that could increase longevity."
+  ],
+  ans:["affect", "organisms", "reproduction", "lifespan", "analysed", "benefit", "reverse", "support"]
+};
+
+const DISC_COMP = [
+  {
+    q:"What did the study suggest about the number of children a woman has and ageing?",
+    model:"The study suggested that the number of children a woman has might affect her rate of biological ageing.",
+    note:"Động từ 'suggest' đi kèm mệnh đề danh từ bắt đầu bằng 'that' để chỉ ra phát hiện của nghiên cứu."
+  },
+  {
+    q:"Which groups of women were found to age faster?",
+    model:"Women who had five or more children, as well as those who had no children, were found to age faster.",
+    note:"Cụm từ 'as well as' dùng để liên kết các đối tượng tương đương (như 'and also')."
+  },
+  {
+    q:"According to the researcher, why can reproduction affect lifespan?",
+    model:"According to the researcher, reproduction can affect lifespan because investing energy in reproduction diverts resources away from bodily maintenance and repair.",
+    note:"Cụm từ 'diverts resources away from' có nghĩa là làm chệch hướng nguồn lực khỏi điều gì đó."
+  },
+  {
+    q:"What resources do organisms have in limited amounts?",
+    model:"Organisms have limited resources such as time and energy.",
+    note:"Cụm từ 'such as' dùng để đưa ra các ví dụ cụ thể của nguồn lực."
+  },
+  {
+    q:"What happens when a large amount of energy is invested in reproduction?",
+    model:"When a large amount of energy is invested in reproduction, it is taken away from bodily maintenance and repair mechanisms.",
+    note:"Cấu trúc bị động ở hiện tại đơn: 'is invested in' (được đầu tư vào) và 'is taken away from' (bị lấy đi khỏi)."
+  },
+  {
+    q:"What surprised the researcher about women who never gave birth?",
+    model:"The researcher was surprised by the shorter lifespans of women who had never given birth.",
+    note:"Dùng thì quá khứ hoàn thành 'had never given birth' để chỉ hành động chưa từng xảy ra trước một mốc thời gian trong quá khứ."
+  },
+  {
+    q:"How many women were included in the study?",
+    model:"The study analysed health data from 14,836 women.",
+    note:"Số đếm tiếng Anh sử dụng dấu phẩy ',' để phân tách hàng nghìn (14,836)."
+  },
+  {
+    q:"What types of data did the researchers examine?",
+    model:"The researchers examined DNA data, blood, and health records.",
+    note:"Động từ 'examine' mang nghĩa là kiểm tra, nghiên cứu kỹ lưỡng mẫu vật hoặc dữ liệu."
+  },
+  {
+    q:"What health benefit may come from having fewer pregnancies?",
+    model:"Having fewer pregnancies may result in a lower risk of breast and ovarian cancer.",
+    note:"Cụm động từ 'result in' chỉ kết quả, cụm danh từ 'lower risk' nghĩa là nguy cơ thấp hơn."
+  },
+  {
+    q:"How could multiple childbirths affect this benefit?",
+    model:"The wear and tear from multiple childbirths could reverse the lowered risk of cancer.",
+    note:"Động từ 'reverse' mang nghĩa đảo ngược kết quả hoặc trạng thái nào đó từ tốt sang xấu."
+  }
+];
+
+const DISC_OPEN = [
+  {
+    q:"Were you surprised by the findings of this study? Why or why not?",
+    model:"Yes, I was surprised to learn that childless women also age faster, as I had assumed they would suffer less physical wear and tear.",
+    note:"Dùng cấu trúc 'I was surprised to learn that...' để diễn tả sự ngạc nhiên khi biết được một điều gì đó."
+  },
+  {
+    q:"Do you think having children affects a person's health and lifestyle? How?",
+    model:"Yes, having children significantly changes a person's lifestyle by reducing their free time and sleep, while also adding financial and emotional responsibilities.",
+    note:"Dùng 'by + V-ing' để chỉ cách thức một hành động tác động đến cuộc sống."
+  },
+  {
+    q:"What are some challenges parents face when raising several children?",
+    model:"Parents raising multiple children face high financial costs, difficulty balancing attention among siblings, and extreme exhaustion from daily chores.",
+    note:"Cụm từ 'balancing attention among siblings' nghĩa là cân bằng sự chú ý giữa các anh chị em."
+  },
+  {
+    q:"Why might social support help people live longer?",
+    model:"Social support can help people live longer by reducing stress levels, providing emotional comfort, and assisting with daily tasks.",
+    note:"Cụm từ 'emotional comfort' có nghĩa là sự an ủi/xoa dịu về mặt cảm xúc."
+  },
+  {
+    q:"What kinds of support should governments provide to parents?",
+    model:"Governments should provide financial support such as child allowances, longer parental leave, and subsidized childcare services.",
+    note:"Cụm từ 'childcare services' là các dịch vụ chăm sóc trẻ em."
+  },
+  {
+    q:"Do you think people today are having fewer children than in the past? Why?",
+    model:"Yes, people are having fewer children due to the high cost of raising them, career ambitions, and shifts in social values about family size.",
+    note:"Cụm từ 'due to' (bởi vì) đi kèm với cụm danh từ chỉ nguyên nhân."
+  },
+  {
+    q:"What are some advantages of having a large family?",
+    model:"A large family provides a lively household, a strong support network, and closer relationships among many siblings.",
+    note:"Cụm từ 'support network' có nghĩa là mạng lưới hỗ trợ lẫn nhau."
+  },
+  {
+    q:"What are some advantages of having a small family?",
+    model:"A small family allows parents to focus their resources and attention on one or two children, reducing financial strain and saving personal time.",
+    note:"Cụm động từ 'focus one's resources and attention on' nghĩa là tập trung nguồn lực và sự chú ý vào ai."
+  },
+  {
+    q:"Why do some people choose not to have children?",
+    model:"Some people choose not to have children to prioritize their careers, enjoy personal freedom, or avoid the high financial and emotional costs of parenting.",
+    note:"Động từ 'prioritize' nghĩa là ưu tiên cái gì đó trước tiên."
+  },
+  {
+    q:"In your opinion, what factors are most important for living a long and healthy life?",
+    model:"In my opinion, the most important factors are maintaining a balanced diet, exercising regularly, managing stress, and having strong relationships.",
+    note:"'In my opinion' (Theo ý kiến của tôi) là cụm từ mở đầu phổ biến để đưa ra quan điểm riêng."
+  }
+];
+
+const AW_PROMPTS = [
+  {
+    viet:"Năng lượng được đầu tư vào việc sinh sản có thể làm giảm tuổi thọ vì nó bị lấy đi khỏi các cơ chế sửa chữa của cơ thể.",
+    hint:"energy / invested in / reproduction / reduce lifespan / taken away / bodily repair mechanisms",
+    grammar:"Energy + invested in + reproduction + can + reduce + lifespan + because + it is + taken away from + bodily repair mechanisms"
+  },
+  {
+    viet:"Các nhà nghiên cứu đã phân tích dữ liệu DNA của hàng ngàn phụ nữ để mô hình hóa các tác động của việc sinh con đối với tốc độ lão hóa.",
+    hint:"researchers / analysed DNA data / thousands of women / model the effects of / childbirth / rate of ageing",
+    grammar:"S + analysed + DNA data of + O + to + model the effects of + O + on + rate of ageing"
+  },
+  {
+    viet:"Mặc dù việc mang thai ít hơn có tác động tích cực đến sức khỏe, sự hao mòn từ nhiều lần sinh nở có thể đảo ngược lợi ích này.",
+    hint:"although / fewer pregnancies / positive effects on health / wear and tear / multiple childbirths / reverse this benefit",
+    grammar:"Although + fewer pregnancies + have + positive effects on health, + wear and tear + from + multiple childbirths + can + reverse + this benefit"
+  }
+];
+
+const ART_PLAIN = `A study suggests the number of children a woman has might affect her rate of ageing. Research from Finland found that women who had five children or more, or no children, aged faster than those who had few kids. A researcher said: "From an evolutionary biology perspective, organisms have limited resources, such as time and energy. When a large amount of energy is invested in reproduction, it is taken away from bodily maintenance and repair mechanisms, which could reduce lifespan." She was surprised about the shorter lifespans of women who never gave birth.
+
+The researchers analysed health data on 14,836 women. Researchers examined DNA data and blood, then modelled the effects of reproduction on women's rates of longevity. A researcher found that having fewer pregnancies could have positive effects on a mother's health. One benefit is a possible lower risk of breast and ovarian cancer. However, the "wear and tear" from multiple childbirths could reverse this lowered risk. Another factor that could increase longevity is the social support a mother receives.`;
+</script>
+<script src="common.js"></script>
+</body>
+</html>
