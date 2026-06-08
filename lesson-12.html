@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teenagers Win Earth Prize – English Lesson</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common.css">
+</head>
+<body>
+
+<script>
+const LESSON_CONFIG = {
+  tag: "Mon 8/6/2026 · Breaking News English Level 5",
+  title: "Teenagers Win Earth Prize",
+  titleHtml: "Teenagers Win <em>Earth Prize</em>",
+  sub: "Three Indian teenagers win the world's largest environmental competition for their microplastic 'magnet' invention",
+  emoji: "🧲",
+  kicker: "📍 Environment · 8 June 2026",
+  artHl: "Teenagers win Earth Prize for microplastic 'magnet'",
+  artHtml: `
+    <p>Three sixteen-year-olds from India have won this year's <span class="hl" data-w="Earth Prize" data-viet="Giải thưởng Trái Đất">Earth Prize</span>. This <span class="hl" data-w="award" data-viet="giải thưởng">award</span> is the world's largest environmental <span class="hl" data-w="sustainability" data-viet="sự bền vững">sustainability</span> competition for teenagers. Teens can win by developing <span class="hl" data-w="innovative" data-viet="mang tính đổi mới / sáng tạo">innovative</span> solutions to global eco-challenges. The three Indian teenagers won by inventing a <span class="hl" data-w="biodegradable" data-viet="có thể phân hủy sinh học">biodegradable</span> <span class="hl" data-w="powder" data-viet="bột">powder</span> made from old <span class="hl" data-w="tamarind seeds" data-viet="hạt me">tamarind seeds</span>. A tamarind is a tropical fruit that is used in sauces and desserts. The powder attracts <span class="hl" data-w="microplastics" data-viet="hạt vi nhựa">microplastics</span> when it is put in water. The microplastics stick together and form a <span class="hl" data-w="mass" data-viet="khối / đám (kết tụ)">mass</span> that we can see. The mass of microplastics and powder can then be removed from the water with a <span class="hl" data-w="magnet" data-viet="nam châm">magnet</span>. The powder is a simple, cheap way to make water <span class="hl" data-w="safer to drink" data-viet="an toàn hơn để uống">safer to drink</span> in <span class="hl" data-w="rural areas" data-viet="khu vực nông thôn">rural areas</span>.</p>
+    <p>The three teenagers called their <span class="hl" data-w="invention" data-viet="sự phát minh / sáng chế">invention</span> 'Plas-Stick'. They were <span class="hl" data-w="extremely happy" data-viet="cực kỳ vui mừng / hạnh phúc">extremely happy</span> to win an award for it. They said: "Being named the <span class="hl" data-w="global winners" data-viet="người chiến thắng toàn cầu">global winners</span> of the Earth Prize is <span class="hl" data-w="incredibly special" data-viet="vô cùng đặc biệt">incredibly special</span> for all of us, especially as the <span class="hl" data-w="first team from India" data-viet="đội đầu tiên từ Ấn Độ">first team from India</span> to receive it." They added: "<span class="hl" data-w="tiny bits" data-viet="mảnh nhỏ / hạt li ti">Tiny bits</span> of plastic hide in our <span class="hl" data-w="drinking water" data-viet="nước uống">drinking water</span>, but they're too small to see. We made a special powder from <span class="hl" data-w="thrown-away" data-viet="bị vứt bỏ / bỏ đi">thrown-away</span> tamarind seeds that <span class="hl" data-w="acts like a magnet" data-viet="hoạt động như một nam châm">acts like a magnet</span> for these tiny plastics." Their website <span class="hl" data-w="outlines" data-viet="phác thảo / nêu bật">outlines</span> another <span class="hl" data-w="benefit" data-viet="lợi ích">benefit</span>. It said: "The <span class="hl" data-w="collected plastic" data-viet="nhựa được thu gom">collected plastic</span> is <span class="hl" data-w="safely turned into" data-viet="được biến đổi an toàn thành">safely turned into</span> small useful items&hellip; so it can't return to nature. This <span class="hl" data-w="simple method" data-viet="phương pháp đơn giản">simple method</span> helps <span class="hl" data-w="protect people" data-viet="bảo vệ con người">protect people</span>, animals, and our planet from <span class="hl" data-w="invisible" data-viet="vô hình">invisible</span> plastic pollution."</p>
+  `,
+  aiEnabled: true,
+  theme: {
+    bg: "#f4f9f4",      // Soft fresh light green
+    border: "#d5e5d5",  // Muted green border
+    text: "#1a2e1a",    // Dark forest text
+    muted: "#556b55",   // Olive-gray muted text
+    accent: "#1b8a5a",  // Vibrant green accent
+    accent2: "#2bb37b", // Secondary bright green accent
+    light: "#ebf5eb"    // Very light green surface
+  }
+};
+
+const VOCAB = [
+  {w:"microplastics",pos:"noun",ipa:"/ˌmaɪ.krəʊˈplæs.tɪks/",viet:"Hạt vi nhựa",def:"Extremely small pieces of plastic debris in the environment resulting from the disposal and breakdown of consumer products",ex:"The powder attracts <strong>microplastics</strong> when it is put in water."},
+  {w:"mass",pos:"noun",ipa:"/mæs/",viet:"Khối / đám (kết tụ)",def:"A large body of matter with no definite shape",ex:"The microplastics stick together and form a <strong>mass</strong> that we can see."},
+  {w:"magnet",pos:"noun",ipa:"/ˈmæɡ.nət/",viet:"Nam châm",def:"A piece of iron or other material that has its component atoms so ordered that the material exhibits properties of magnetism",ex:"The mass of microplastics and powder can then be removed from the water with a <strong>magnet</strong>."},
+  {w:"powder",pos:"noun",ipa:"/ˈpaʊ.dər/",viet:"Bột",def:"Fine dry particles produced by the grinding, crushing, or disintegration of a solid substance",ex:"The three Indian teenagers won by inventing a biodegradable <strong>powder</strong> made from old tamarind seeds."},
+  {w:"safer to drink",pos:"phrase",ipa:"/ˈseɪf.ər tə drɪŋk/",viet:"An toàn hơn để uống",def:"More secure and healthy for consumption without causing illness",ex:"The powder is a simple, cheap way to make water <strong>safer to drink</strong> in rural areas."},
+  {w:"rural areas",pos:"noun phrase",ipa:"/ˈrʊə.rəl ˈeə.ri.əz/",viet:"Khu vực nông thôn",def:"Geographic areas that are located outside towns and cities, with low population density",ex:"The powder is a simple, cheap way to make water safer to drink in <strong>rural areas</strong>."},
+  {w:"invention",pos:"noun",ipa:"/ɪnˈven.ʃən/",viet:"Sự phát minh / sáng chế",def:"A unique or novel device, method, composition, or process",ex:"The three teenagers called their <strong>invention</strong> 'Plas-Stick'."},
+  {w:"extremely happy",pos:"phrase",ipa:"/ɪkˈstriːm.li ˈhæp.i/",viet:"Cực kỳ vui mừng / hạnh phúc",def:"Feeling or showing great pleasure or contentment",ex:"They were <strong>extremely happy</strong> to win an award for it."},
+  {w:"award",pos:"noun",ipa:"/əˈwɔːd/",viet:"Giải thưởng",def:"A prize or other mark of recognition given in honor of an achievement",ex:"They were extremely happy to win an <strong>award</strong> for it."},
+  {w:"global winners",pos:"noun phrase",ipa:"/ˈɡləʊ.bəl ˈwɪn.əz/",viet:"Người chiến thắng toàn cầu",def:"The top competitors who achieved first place on a worldwide level",ex:"Being named the <strong>global winners</strong> of the Earth Prize is incredibly special for all of us."},
+  {w:"incredibly special",pos:"phrase",ipa:"/ɪnˈkred.ə.bli ˈspeʃ.əl/",viet:"Vô cùng đặc biệt",def:"Extremely significant, unique, or valued",ex:"Being named the global winners of the Earth Prize is <strong>incredibly special</strong> for all of us."},
+  {w:"receive an award",pos:"phrase",ipa:"/rɪˈsiːv ən əˈwɔːd/",viet:"Nhận giải thưởng",def:"To be given a prize or mark of recognition for an accomplishment",ex:"We are proud to be the first team from India to <strong>receive an award</strong> of this scale."},
+  {w:"drinking water",pos:"noun phrase",ipa:"/ˈdrɪŋ.kɪŋ ˌwɔː.tər/",viet:"Nước uống",def:"Water that is safe to be consumed by humans",ex:"Tiny bits of plastic hide in our <strong>drinking water</strong>, but they're too small to see."},
+  {w:"tiny bits",pos:"phrase",ipa:"/ˈtaɪ.ni bɪts/",viet:"Mảnh nhỏ / hạt li ti",def:"Very small pieces or fragments of something",ex:"<strong>Tiny bits</strong> of plastic hide in our drinking water, but they're too small to see."},
+  {w:"thrown-away",pos:"adjective/phrase",ipa:"/θrəʊn əˈweɪ/",viet:"Bị vứt bỏ / bỏ đi",def:"Discarded as useless or unwanted",ex:"We made a special powder from <strong>thrown-away</strong> tamarind seeds."},
+  {w:"tamarind seeds",pos:"noun phrase",ipa:"/ˈtæm.ər.ɪnd siːdz/",viet:"Hạt me",def:"The hard, brown seeds found inside the pods of the tamarind tree",ex:"We made a special powder from thrown-away <strong>tamarind seeds</strong>."},
+  {w:"acts like a magnet",pos:"phrase",ipa:"/ækts laɪk ə ˈmæɡ.nət/",viet:"Hoạt động như một nam châm",def:"Behaves in a way that strongly attracts other items",ex:"We made a special powder from tamarind seeds that <strong>acts like a magnet</strong> for these tiny plastics."},
+  {w:"outlines",pos:"verb",ipa:"/ˈaʊt.laɪnz/",viet:"Phác thảo / nêu bật",def:"Gives a summary or highlights the main features of something",ex:"Their website <strong>outlines</strong> another benefit."},
+  {w:"benefit",pos:"noun",ipa:"/ˈben.ɪ.fɪt/",viet:"Lợi ích",def:"An advantage or profit gained from something",ex:"Their website outlines another <strong>benefit</strong>."},
+  {w:"collected plastic",pos:"noun phrase",ipa:"/kəˈlek.tɪd ˈplæs.tɪk/",viet:"Nhựa được thu gom",def:"Plastic waste that has been gathered from the environment",ex:"The <strong>collected plastic</strong> is safely turned into small useful items."},
+  {w:"safely turned into",pos:"phrase",ipa:"/ˈseɪf.li tɜːnd ˈɪn.tuː/",viet:"Được biến đổi an toàn thành",def:"Converted into a different state or product without causing harm",ex:"The collected plastic is <strong>safely turned into</strong> small useful items."},
+  {w:"simple method",pos:"noun phrase",ipa:"/ˈsɪm.pəl ˈmeθ.əd/",viet:"Phương pháp đơn giản",def:"An uncomplicated or easy way of doing something",ex:"This <strong>simple method</strong> helps protect people, animals, and our planet."},
+  {w:"protect people",pos:"phrase",ipa:"/prəˈtekt ˈpiː.pəl/",viet:"Bảo vệ con người",def:"Keep humans safe from harm, injury, or danger",ex:"This simple method helps <strong>protect people</strong>, animals, and our planet."},
+  {w:"invisible",pos:"adjective",ipa:"/ɪnˈvɪz.ə.bəl/",viet:"Vô hình",def:"Unable to be seen by the naked eye",ex:"This simple method helps protect our planet from <strong>invisible</strong> plastic pollution."},
+  {w:"environmental protection",pos:"noun phrase",ipa:"/ɪnˌvaɪ.rənˈmen.təl prəˈtek.ʃən/",viet:"Bảo vệ môi trường",def:"The practice of protecting the natural environment for the benefit of both the environment and humans",ex:"Working on <strong>environmental protection</strong> projects helps build a sustainable future."},
+  {w:"eco-friendly",pos:"adjective",ipa:"/ˌiː.kəʊˈfrend.li/",viet:"Thân thiện với môi trường",def:"Not harmful to the environment",ex:"Teens can win by developing innovative solutions to global <strong>eco-friendly</strong> challenges."},
+  {w:"contamination",pos:"noun",ipa:"/kənˌtæm.ɪˈneɪ.ʃən/",viet:"Sự ô nhiễm / nhiễm bẩn",def:"The action or state of making something impure or unsuitable by contact with something unclean or harmful",ex:"The new powder prevents the <strong>contamination</strong> of drinking water with microplastics."},
+  {w:"practical solution",pos:"noun phrase",ipa:"/ˈpræk.tɪ.kəl səˈluː.ʃən/",viet:"Giải pháp thực tế",def:"A realistic and effective answer to a problem that can be easily applied",ex:"The biodegradable powder offers a <strong>practical solution</strong> to water purification."},
+  {w:"resourceful",pos:"adjective",ipa:"/rɪˈzɔːs.fəl/",viet:"Tháo vát / khéo xoay xở",def:"Having the ability to find quick and clever ways to overcome difficulties",ex:"The <strong>resourceful</strong> teenagers transformed thrown-away seeds into a useful invention."},
+  {w:"transform waste",pos:"phrase",ipa:"/trænsˈfɔːm weɪst/",viet:"Biến đổi chất thải",def:"To change discarded materials into something of value or usefulness",ex:"Their invention shows how we can <strong>transform waste</strong> into practical products."}
+];
+
+const TF_DATA = [
+  {text:"The Earth Prize is the largest environmental competition for teenagers.",ans:"T",exp:"ĐÚNG — Bài viết khẳng định giải thưởng này là cuộc thi về phát triển bền vững môi trường dành cho thanh thiếu niên lớn nhất thế giới."},
+  {text:"The special powder is made from tropical tamarind leaves.",ans:"F",exp:"SAI — Bột được chế tạo từ hạt me (tamarind seeds), chứ không phải lá me."},
+  {text:"The microplastics stick together and can then be removed using a magnet.",ans:"T",exp:"ĐÚNG — Các hạt vi nhựa kết dính lại với nhau thành một khối và có thể được hút ra khỏi nước bằng nam châm."},
+  {text:"The powder is a very expensive water purification method.",ans:"F",exp:"SAI — Bài viết chỉ ra đây là một phương pháp đơn giản và giá rẻ (simple, cheap way) để lọc nước."},
+  {text:"The three teenagers are the first team from India to win the Earth Prize.",ans:"T",exp:"ĐÚNG — Họ là đội đầu tiên đến từ Ấn Độ nhận được giải thưởng này."},
+  {text:"The collected plastic is thrown back into nature after removal.",ans:"F",exp:"SAI — Nhựa thu gom được chế biến một cách an toàn thành các vật dụng nhỏ hữu ích để không thải ngược lại tự nhiên."}
+];
+
+const GF = {
+  bank:["sustainability", "powder", "microplastics", "magnet", "extremely", "receive", "drinking", "protect"],
+  parts:[
+    "This award is the world's largest environmental (1)____ competition for teenagers.",
+    "The teenagers won by inventing a biodegradable (2)____ made from tamarind seeds.",
+    "The powder attracts (3)____ when it is put in water.",
+    "The mass of microplastics can then be removed from the water with a (4)____.",
+    "They were (5)____ happy to win an award for their invention.",
+    "They are the first team from India to (6)____ this award.",
+    "Tiny bits of plastic hide in our (7)____ water.",
+    "This simple method helps (8)____ people, animals, and our planet."
+  ],
+  ans:["sustainability", "powder", "microplastics", "magnet", "extremely", "receive", "drinking", "protect"]
+};
+
+const DISC_COMP = [
+  {
+    q:"What can be removed from water using a magnet?",
+    model:"A mass of microplastics and tamarind powder can be removed from water using a magnet.",
+    note:"Sử dụng cấu trúc câu bị động 'can be removed' (có thể được loại bỏ) kết hợp với giới từ 'with' hoặc 'using'."
+  },
+  {
+    q:"What is the name of the teenagers' invention?",
+    model:"The teenagers called their invention 'Plas-Stick'.",
+    note:"Động từ 'call' dùng cấu trúc 'call something + name' để gọi tên phát minh."
+  },
+  {
+    q:"Why is the powder considered a cheap solution?",
+    model:"The powder is considered a cheap solution because it is made from thrown-away tamarind seeds, which are waste materials.",
+    note:"Dùng liên từ 'because' kết hợp với danh từ 'thrown-away tamarind seeds' để chỉ rõ nguồn nguyên liệu phế thải giá rẻ."
+  },
+  {
+    q:"How did the teenagers feel about winning the award?",
+    model:"The teenagers felt extremely happy and honored to win the award.",
+    note:"Trạng từ 'extremely' bổ nghĩa cho tính từ 'happy' để nhấn mạnh mức độ cảm xúc."
+  },
+  {
+    q:"What award did they win?",
+    model:"They won the Earth Prize, which is the world's largest environmental sustainability competition for teenagers.",
+    note:"Sử dụng mệnh đề quan hệ bắt đầu bằng 'which' để giải thích thêm về giải thưởng."
+  },
+  {
+    q:"Why was winning the Earth Prize especially meaningful to them?",
+    model:"It was especially meaningful because they were the first team from India to receive this global recognition.",
+    note:"Cấu trúc 'the first + danh từ + to V' (đối tượng đầu tiên làm việc gì) là một điểm ngữ pháp quan trọng."
+  },
+  {
+    q:"What problem in drinking water were the teenagers trying to solve?",
+    model:"They were trying to solve the problem of invisible microplastics contaminating drinking water.",
+    note:"Thì quá khứ tiếp diễn 'were trying to' chỉ hành động đang nỗ lực thực hiện tại thời điểm nghiên cứu."
+  },
+  {
+    q:"What material did they use to make their special powder?",
+    model:"They used thrown-away tamarind seeds to make their special powder.",
+    note:"Động từ 'use' kết hợp với cấu trúc 'use something to V' (sử dụng cái gì để làm gì)."
+  },
+  {
+    q:"How does the powder help remove tiny plastics from water?",
+    model:"The powder acts like a magnet, attracting microplastics and making them stick together into a visible mass.",
+    note:"Cụm từ 'act like a magnet' (hoạt động như một thanh nam châm) mô tả cơ chế hút các hạt nhựa."
+  },
+  {
+    q:"What happens to the collected plastic after it is removed from the water?",
+    model:"The collected plastic is safely turned into small useful items so that it cannot return to nature.",
+    note:"Cụm từ 'safely turned into' (được biến đổi an toàn thành) dùng ở dạng bị động ở hiện tại đơn."
+  }
+];
+
+const DISC_OPEN = [
+  {
+    q:"Why is plastic pollution a growing problem around the world?",
+    model:"In my opinion, plastic pollution is a growing problem because plastic takes hundreds of years to decompose, and we continue to produce and discard massive amounts of it every day.",
+    note:"Dùng cụm từ 'In my opinion' để bắt đầu ý kiến cá nhân và cụm động từ 'take time to V' để chỉ thời gian phân hủy."
+  },
+  {
+    q:"How important is access to clean drinking water?",
+    model:"I believe that access to clean drinking water is extremely important because it is essential for human health, sanitation, and preventing waterborne diseases.",
+    note:"Tính từ 'essential' (thiết yếu/quan trọng) mạnh hơn 'important' và thường đi với giới từ 'for'."
+  },
+  {
+    q:"What do you think makes a good scientific invention?",
+    model:"A good scientific invention should be practical, affordable, and solve a real-world problem, just like the tamarind seed powder.",
+    note:"Cách dùng tính từ song song 'practical, affordable' để liệt kê các đặc điểm của phát minh."
+  },
+  {
+    q:"Should schools encourage students to work on environmental projects? Why?",
+    model:"Yes, schools should definitely encourage students because it raises environmental awareness and helps them develop teamwork and problem-solving skills.",
+    note:"Động từ khuyết thiếu 'should' kết hợp trạng từ nhấn mạnh 'definitely' để thể hiện sự đồng tình mạnh mẽ."
+  },
+  {
+    q:"What are some ways people can reduce their use of plastic?",
+    model:"People can reduce plastic use by carrying reusable shopping bags, avoiding single-use plastic bottles, and choosing eco-friendly packaging.",
+    note:"Sử dụng cấu trúc 'by + V-ing' (bằng cách làm gì) để đề xuất giải pháp."
+  },
+  {
+    q:"Have you ever participated in an environmental project? What did you do?",
+    model:"Honestly, I have participated in a school cleanup campaign where we collected plastic waste around our local park and sorted it for recycling.",
+    note:"Sử dụng trạng từ 'Honestly' để mở đầu câu trả lời một cách tự nhiên và chia thì hiện tại hoàn thành 'have participated'."
+  },
+  {
+    q:"Why do you think young people are often successful at creating innovative ideas?",
+    model:"I think young people are successful because they are highly creative, open to new ideas, and not afraid to challenge existing methods.",
+    note:"Cụm tính từ 'open to new ideas' (cởi mở với ý tưởng mới) và 'not afraid to' (không ngại làm gì)."
+  },
+  {
+    q:"What environmental problems are most serious in your country?",
+    model:"In my country, air pollution in big cities and plastic waste contamination in rivers and oceans are currently the most serious environmental problems.",
+    note:"Dùng từ 'contamination' (sự ô nhiễm) và trạng từ 'currently' để cập nhật tình hình hiện tại."
+  },
+  {
+    q:"If you could invent something to help the environment, what would it be?",
+    model:"If I could invent something, I would create an affordable device that can automatically collect and recycle plastic waste from local rivers.",
+    note:"Sử dụng câu điều kiện loại 2 'If I could... I would...' để diễn tả một giả định không có thật ở hiện tại."
+  },
+  {
+    q:"Do you think governments or individuals have more responsibility for reducing pollution? Explain your answer.",
+    model:"Personally, I believe both share the responsibility: governments must implement strict laws and provide green infrastructure, while individuals must change their daily consumption habits.",
+    note:"Cấu trúc song hành 'while A..., B...' dùng để đối chiếu trách nhiệm của hai bên."
+  }
+];
+
+const AW_PROMPTS = [
+  {
+    viet:"Ba học sinh mười sáu tuổi đến từ Ấn Độ đã giành được giải thưởng năm nay nhờ phát minh ra một loại bột sinh học làm từ hạt me.",
+    hint:"three sixteen-year-olds / India / won / this year's award / inventing / biodegradable powder / made from / tamarind seeds",
+    grammar:"S + have/has + V3 + by + V-ing + O + V3/ed (reduced relative clause)"
+  },
+  {
+    viet:"Phương pháp đơn giản này giúp bảo vệ con người khỏi sự ô nhiễm nhựa vô hình trong nước uống của họ.",
+    hint:"this simple method / helps protect / people / invisible plastic pollution / drinking water",
+    grammar:"S + helps + V(inf) + O + from + NP"
+  },
+  {
+    viet:"Nếu chúng ta có thể biến chất thải thành các sản phẩm hữu ích, chúng ta sẽ bảo vệ được hành tinh của mình khỏi tác động môi trường.",
+    hint:"if / can / transform waste / useful products / protect / planet / environmental impact",
+    grammar:"If + S + V(present), S + will + V(inf) + from + NP (Conditional sentence type 1)"
+  }
+];
+
+const ART_PLAIN = `Three sixteen-year-olds from India have won this year's Earth Prize. This award is the world's largest environmental sustainability competition for teenagers. Teens can win by developing innovative solutions to global eco-challenges. The three Indian teenagers won by inventing a biodegradable powder made from old tamarind seeds. A tamarind is a tropical fruit that is used in sauces and desserts. The powder attracts microplastics when it is put in water. The microplastics stick together and form a mass that we can see. The mass of microplastics and powder can then be removed from the water with a magnet. The powder is a simple, cheap way to make water safer to drink in rural areas.
+
+The three teenagers called their invention 'Plas-Stick'. They were extremely happy to win an award for it. They said: "Being named the global winners of the Earth Prize is incredibly special for all of us, especially as the first team from India to receive it." They added: "Tiny bits of plastic hide in our drinking water, but they're too small to see. We made a special powder from thrown-away tamarind seeds that acts like a magnet for these tiny plastics." Their website outlines another benefit. It said: "The collected plastic is safely turned into small useful items… so it can't return to nature. This simple method helps protect people, animals, and our planet from invisible plastic pollution."`;
+</script>
+<script src="common.js"></script>
+</body>
+</html>
