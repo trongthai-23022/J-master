@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Air Traffic Controller Gaming – English Lesson</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common.css">
+</head>
+<body>
+
+<script>
+const LESSON_CONFIG = {
+  tag: "Mon 13/4/2026 · Breaking News English Level 4",
+  title: "Air Traffic Controller Gaming",
+  titleHtml: "Air Traffic Controller <em>Gaming</em>",
+  sub: "The US Federal Aviation Administration targets video gamers in a new recruitment drive to address a shortage of air traffic controllers",
+  emoji: "🎮",
+  kicker: "📍 Aviation · 13 April 2026",
+  artHl: "US wants gamers to become air traffic controllers",
+  audio: "lesson-13.wav",
+  artHtml: `
+    <p>The USA has launched a <span class="hl" data-w="campaign" data-viet="chiến dịch">campaign</span> <span class="hl" data-w="aimed at" data-viet="nhắm vào / hướng tới">aimed at</span> gamers. The country wants gamers to become <span class="hl" data-w="air traffic controllers" data-viet="nhân viên kiểm soát không lưu">air traffic controllers</span>. There is a <span class="hl" data-w="lack" data-viet="sự thiếu hụt">lack</span> of controllers. There are around 3,000 <span class="hl" data-w="vacancies" data-viet="vị trí trống / vị trí tuyển dụng">vacancies</span>. The National Air Traffic Controllers <span class="hl" data-w="association" data-viet="hiệp hội">Association</span> said it "<span class="hl" data-w="welcomes" data-viet="hoan nghênh / chào đón">welcomes</span> <span class="hl" data-w="innovative" data-viet="mang tính đổi mới / sáng tạo">innovative</span> <span class="hl" data-w="approaches" data-viet="phương pháp tiếp cận">approaches</span> to <span class="hl" data-w="expanding" data-viet="mở rộng">expanding</span> the <span class="hl" data-w="candidate pool" data-viet="nguồn ứng viên / nhóm ứng viên">candidate pool</span>, including <span class="hl" data-w="outreach" data-viet="hoạt động tiếp cận">outreach</span> to <span class="hl" data-w="individuals" data-viet="các cá nhân">individuals</span> with <span class="hl" data-w="high-level skills" data-viet="kỹ năng trình độ cao / nâng cao">high-level skills</span>, such as gamers." Candidates must <span class="hl" data-w="maintain" data-viet="duy trì">maintain</span> the "<span class="hl" data-w="rigorous" data-viet="nghiêm ngặt / khắt khe">rigorous</span> <span class="hl" data-w="standards" data-viet="các tiêu chuẩn">standards</span>" of this "<span class="hl" data-w="safety-critical" data-viet="cực kỳ quan trọng về an toàn">safety-critical</span> <span class="hl" data-w="profession" data-viet="nghề nghiệp chuyên môn">profession</span>."</p>
+    <p>The <span class="hl" data-w="recruitment" data-viet="sự tuyển dụng">recruitment</span> video has an Xbox logo on it. The video says: "You've been training for this&hellip; Become an air traffic controller. It's not a game. It's a <span class="hl" data-w="career" data-viet="sự nghiệp">career</span>." The US Transportation Secretary said the country needed "young adults who have many of the hard skills it takes to be a <span class="hl" data-w="successful" data-viet="thành công">successful</span> controller," such as spatial awareness, multitasking, strategic problem-solving, and the <span class="hl" data-w="ability" data-viet="khả năng / năng lực">ability</span> to think quickly and maintain focus under pressure.</p>
+  `,
+  aiEnabled: true,
+  theme: {
+    bg: "#f0f5fa",      // Soft tech blue background
+    border: "#cedbe7",  // Muted sky blue border
+    text: "#182a3c",    // Deep navy text
+    muted: "#546e85",   // Slate blue muted text
+    accent: "#1b748a",  // Teal blue accent
+    accent2: "#2ba4b3", // Cyan-teal secondary accent
+    light: "#e7eff5"    // Very light blue surface
+  }
+};
+
+const VOCAB = [
+  {w:"campaign",pos:"noun",ipa:"/kæmˈpeɪn/",viet:"Chiến dịch",def:"A planned series of actions and events intended to achieve a specific result",ex:"The USA has launched a <strong>campaign</strong> aimed at gamers."},
+  {w:"air traffic controller",pos:"noun",ipa:"/ˈeə ˌtræf.ɪk kənˈtrəʊ.lər/",viet:"Nhân viên kiểm soát không lưu",def:"A person who controls and directs air traffic, ensuring safe distances between planes",ex:"The country wants gamers to become <strong>air traffic controllers</strong>."},
+  {w:"lack",pos:"noun",ipa:"/læk/",viet:"Sự thiếu hụt / thiếu thốn",def:"The state of being without or not having enough of something",ex:"There is a <strong>lack</strong> of controllers."},
+  {w:"vacancy",pos:"noun",ipa:"/ˈveɪ.kən.si/",viet:"Vị trí trống / tuyển dụng",def:"A job or position that is available to be filled",ex:"There are around 3,000 <strong>vacancies</strong>."},
+  {w:"association",pos:"noun",ipa:"/əˌsəʊ.siˈeɪ.ʃən/",viet:"Hiệp hội",def:"An official group of people who have joined together for a particular purpose",ex:"The National Air Traffic Controllers <strong>Association</strong> welcomed the campaign."},
+  {w:"welcomes",pos:"verb",ipa:"/ˈwel.kəmz/",viet:"Hoan nghênh / chào đón",def:"Greets or accepts something in a polite and friendly way",ex:"The union <strong>welcomes</strong> innovative approaches to recruitment."},
+  {w:"innovative",pos:"adjective",ipa:"/ˈɪn.ə.və.tɪv/",viet:"Mang tính đổi mới / sáng tạo",def:"Introducing or using new ideas or methods",ex:"The association welcomes <strong>innovative</strong> approaches to expanding the candidate pool."},
+  {w:"approach",pos:"noun",ipa:"/əˈprəʊtʃ/",viet:"Phương pháp / cách tiếp cận",def:"A way of dealing with something or a situation",ex:"The union welcomed this new <strong>approach</strong> to recruitment."},
+  {w:"expanding",pos:"verb/adj",ipa:"/ɪkˈspæn.dɪŋ/",viet:"Mở rộng",def:"Making or becoming larger in size, range, or amount",ex:"They are looking for new ways of <strong>expanding</strong> the candidate pool."},
+  {w:"candidate pool",pos:"noun phrase",ipa:"/ˈkæn.dɪ.dət puːl/",viet:"Nguồn ứng viên / nhóm ứng viên",def:"The group of people who are applying for or being considered for a job",ex:"The FAA wants to expand the <strong>candidate pool</strong> by targeting gamers."},
+  {w:"outreach",pos:"noun",ipa:"/ˈaʊt.riːtʃ/",viet:"Hoạt động tiếp cận",def:"An effort to bring services or information to people where they live and work",ex:"The FAA is starting an <strong>outreach</strong> program to young adults."},
+  {w:"individual",pos:"noun",ipa:"/ˌɪn.dɪˈvɪdʒ.u.əl/",viet:"Cá nhân",def:"A single human being as distinct from a group or class",ex:"The campaign aims at <strong>individuals</strong> with high-level cognitive skills."},
+  {w:"high-level skills",pos:"noun phrase",ipa:"/ˈhaɪ.lev.əl skɪlz/",viet:"Kỹ năng trình độ cao / nâng cao",def:"Advanced abilities or expertise in a specific area",ex:"Gamers often possess <strong>high-level skills</strong> that are useful in real life."},
+  {w:"candidate",pos:"noun",ipa:"/ˈkæn.dɪ.dət/",viet:"Ứng viên",def:"A person who applies for a job or is nominated for election",ex:"Each <strong>candidate</strong> must undergo rigorous tests."},
+  {w:"maintain",pos:"verb",ipa:"/meɪnˈteɪn/",viet:"Duy trì",def:"Keep something in its existing state or at the same level",ex:"Controllers must <strong>maintain</strong> high concentration during their shift."},
+  {w:"rigorous",pos:"adjective",ipa:"/ˈrɪɡ.ər.əs/",viet:"Nhiêm ngặt / khắt khe",def:"Extremely thorough, exhaustive, or accurate",ex:"Candidates must maintain <strong>rigorous</strong> standards to qualify."},
+  {w:"standards",pos:"noun (plural)",ipa:"/ˈstæn.dədz/",viet:"Các tiêu chuẩn",def:"Levels of quality or attainment that are accepted as normal or average",ex:"They must maintain rigorous safety <strong>standards</strong>."},
+  {w:"safety-critical",pos:"adjective",ipa:"/ˈseɪf.ti ˈkrɪt.ɪ.kəl/",viet:"Cực kỳ quan trọng về an toàn",def:"Relating to a system or job where failure could result in death or injury",ex:"Air traffic control is a <strong>safety-critical</strong> profession."},
+  {w:"profession",pos:"noun",ipa:"/prəˈfeʃ.ən/",viet:"Nghề nghiệp chuyên môn",def:"A paid occupation, especially one that involves prolonged training and a formal qualification",ex:"Candidates must maintain the standards of this safety-critical <strong>profession</strong>."},
+  {w:"recruitment",pos:"noun",ipa:"/rɪˈkruːt.mənt/",viet:"Sự tuyển dụng",def:"The action of finding new people to join an organization or support a cause",ex:"The new <strong>recruitment</strong> video has an Xbox logo on it."},
+  {w:"career",pos:"noun",ipa:"/kəˈrɪər/",viet:"Sự nghiệp",def:"An occupation undertaken for a significant period of a person's life and with opportunities for progress",ex:"It is not a game, it is a <strong>career</strong>."},
+  {w:"successful",pos:"adjective",ipa:"/səkˈses.fəl/",viet:"Thành công",def:"Accomplishing an aim or purpose",ex:"The Transportation Secretary discussed the traits of a <strong>successful</strong> controller."},
+  {w:"ability",pos:"noun",ipa:"/əˈbɪl.ə.ti/",viet:"Khả năng / năng lực",def:"Possession of the means or skill to do something",ex:"Gamers show a strong <strong>ability</strong> to think quickly under pressure."},
+  {w:"manage complexity",pos:"phrase",ipa:"/ˈmæn.ɪdʒ kəmˈplek.sə.ti/",viet:"Quản lý sự phức tạp",def:"To deal with or control complicated situations effectively",ex:"The job requires the skill to <strong>manage complexity</strong> in high-stress situations."},
+  {w:"think quickly",pos:"phrase",ipa:"/θɪŋk ˈkwɪk.li/",viet:"Tư duy nhanh / suy nghĩ nhanh",def:"To make fast decisions or process information rapidly",ex:"Controllers need to <strong>think quickly</strong> when flight paths overlap."}
+];
+
+const TF_DATA = [
+  {text:"The US government is targeting video gamers in a new recruitment drive.",ans:"T",exp:"ĐÚNG — Câu đầu tiên của bài đọc chỉ ra rằng Hoa Kỳ đã khởi động một chiến dịch tuyển dụng nhắm mục tiêu vào các game thủ."},
+  {text:"There is a shortage of around 3,000 air traffic controllers in the US.",ans:"T",exp:"ĐÚNG — Bài đọc cho biết có sự thiếu hụt nhân viên kiểm soát và có khoảng 3.000 vị trí đang trống."},
+  {text:"The air traffic controllers' association is against recruiting gamers.",ans:"F",exp:"SAI — Hiệp hội này hoan nghênh (welcomes) cách tiếp cận sáng tạo này để mở rộng nguồn ứng viên."},
+  {text:"The recruitment video features a PlayStation logo.",ans:"F",exp:"SAI — Video tuyển dụng có logo Xbox chứ không phải PlayStation."},
+  {text:"The US Transportation Secretary believes young adults do not have the hard skills for this job.",ans:"F",exp:"SAI — Bộ trưởng Bộ Giao thông Hoa Kỳ nói rằng quốc gia này cần những người trẻ tuổi có nhiều kỹ năng cứng cần thiết cho công việc này."},
+  {text:"Gamers must still pass the same rigorous standards as other candidates.",ans:"T",exp:"ĐÚNG — Bài đọc nhấn mạnh rằng ứng viên phải duy trì các tiêu chuẩn nghiêm ngặt (rigorous standards) của ngành này."}
+];
+
+const GF = {
+  bank:["campaign", "vacancies", "innovative", "standards", "logo", "career", "successful", "pressure"],
+  parts:[
+    "The US has launched a recruitment (1)____ aimed at video gamers.",
+    "There are currently around 3,000 (2)____ for air traffic controllers.",
+    "The association welcomes (3)____ approaches to find new candidates.",
+    "All candidates must maintain the rigorous safety (4)____.",
+    "The new recruitment video has a gaming (5)____ on it.",
+    "The advertisement reminds gamers that it is not a game, but a (6)____.",
+    "The Secretary wants to recruit people who can become a (7)____ controller.",
+    "Gamers are believed to have the ability to maintain focus under (8)____."
+  ],
+  ans:["campaign", "vacancies", "innovative", "standards", "logo", "career", "successful", "pressure"]
+};
+
+const DISC_COMP = [
+  {
+    q:"What campaign has the USA launched?",
+    model:"The USA has launched a recruitment campaign targeting gamers to become air traffic controllers.",
+    note:"Sử dụng cấu trúc 'targeting someone to V' (nhắm vào ai để làm gì) để diễn tả mục đích của chiến dịch."
+  },
+  {
+    q:"What job does the USA want gamers to consider?",
+    model:"The USA wants gamers to consider becoming air traffic controllers.",
+    note:"Động từ 'consider' đi với dạng danh động từ 'V-ing' (consider doing something) để diễn tả việc cân nhắc làm gì."
+  },
+  {
+    q:"Why is there a need for more air traffic controllers?",
+    model:"There is a need for more air traffic controllers because there is a serious staff shortage in the country.",
+    note:"Sử dụng liên từ 'because' để đưa ra lý do và cụm danh từ 'staff shortage' (sự thiếu hụt nhân sự)."
+  },
+  {
+    q:"How many vacancies are there for air traffic controllers?",
+    model:"There are currently around 3,000 vacancies for air traffic controllers.",
+    note:"Sử dụng trạng từ chỉ thời gian 'currently' kết hợp với cụm từ chỉ số lượng ước chừng 'around 3,000'."
+  },
+  {
+    q:"Which organization supports recruiting gamers?",
+    model:"The National Air Traffic Controllers Association supports this campaign.",
+    note:"Động từ 'support' chia ở thì hiện tại đơn ngôi thứ ba số ít để đồng ý với chủ ngữ tên tổ chức."
+  },
+  {
+    q:"What kind of approaches did the association welcome?",
+    model:"The association welcomed innovative approaches to expanding the candidate pool.",
+    note:"Giới từ 'to' sau 'approach' thường đi với danh động từ (approach to doing something) để chỉ hướng hành động."
+  },
+  {
+    q:"What must all candidates maintain?",
+    model:"All candidates must maintain the rigorous safety standards of the profession.",
+    note:"Động từ khuyết thiếu 'must' kết hợp với động từ nguyên mẫu 'maintain' để chỉ nghĩa bắt buộc."
+  },
+  {
+    q:"What logo appears in the recruitment video?",
+    model:"An Xbox logo appears in the recruitment video.",
+    note:"Sử dụng mạo từ bất định 'An' trước danh từ bắt đầu bằng nguyên âm/phụ âm câm (Xbox phát âm bắt đầu bằng /e/)."
+  },
+  {
+    q:"What message does the recruitment video give to gamers?",
+    model:"The video tells gamers that they have been training for this, and that it is a career, not a game.",
+    note:"Sử dụng cấu trúc câu gián tiếp 'tell someone that...' kết hợp với thì hiện tại hoàn thành tiếp diễn 'have been training'."
+  },
+  {
+    q:"According to the Transportation Secretary, why might young adults be good air traffic controllers?",
+    model:"According to the Secretary, young adults might be good air traffic controllers because they possess the hard skills needed for the job.",
+    note:"Cụm từ 'According to' (theo như) dùng để trích dẫn nguồn thông tin hoặc ý kiến của ai đó."
+  }
+];
+
+const DISC_OPEN = [
+  {
+    q:"Do you think gaming can help people develop useful real-world skills? Why or why not?",
+    model:"In my opinion, gaming can help develop skills like strategic thinking and spatial awareness, but playing too much can lead to negative physical health effects.",
+    note:"Mở đầu bằng 'In my opinion' và sử dụng cấu trúc song hành 'develop skills..., but play too much...'"
+  },
+  {
+    q:"Would you be interested in becoming an air traffic controller? Why or why not?",
+    model:"Honestly, I would not be interested because it is a highly stressful, safety-critical job where mistakes can have serious consequences.",
+    note:"Trạng từ 'Honestly' mở đầu rất tự nhiên. 'Safety-critical' là tính từ ghép đắt giá."
+  },
+  {
+    q:"What skills do you think are most important for air traffic controllers?",
+    model:"I believe that the ability to stay focused under pressure, think quickly, and manage complexity are the most crucial skills for this job.",
+    note:"Cụm danh động từ làm chủ ngữ 'the ability to stay focused...' đi với động từ số nhiều 'are'."
+  },
+  {
+    q:"Do you think governments should recruit people through video games? Why or why not?",
+    model:"Personally, I think this is an innovative approach to outreach, but candidates must still pass rigorous examinations to ensure safety standards.",
+    note:"Sử dụng liên từ đối lập 'but' để thể hiện sự cân bằng giữa đổi mới tuyển dụng và đảm bảo an toàn."
+  },
+  {
+    q:"What jobs besides air traffic control could benefit from gaming skills?",
+    model:"Besides air traffic control, careers in drone piloting, surgical operations, and logistics management could greatly benefit from gaming skills.",
+    note:"Giới từ 'Besides' (bên cạnh) đứng đầu câu để bổ sung thông tin. Cụm động từ 'benefit from'."
+  },
+  {
+    q:"How much time do you spend playing video games? What skills have you learned from them?",
+    model:"I only spend a few hours a week playing games, and I feel I have improved my reaction times and problem-solving abilities.",
+    note:"Dùng thì hiện tại đơn kết hợp hiện tại hoàn thành 'have improved' để diễn tả kết quả từ việc chơi game đến nay."
+  },
+  {
+    q:"Do you agree that gamers can think quickly and stay focused under pressure?",
+    model:"I agree to some extent, as many games require rapid decisions, but it might not translate perfectly to real-world high-stakes jobs.",
+    note:"Cụm từ 'agree to some extent' (đồng ý đến mức độ nào đó) giúp lập luận trở nên khách quan và sâu sắc hơn."
+  },
+  {
+    q:"What are some advantages and disadvantages of playing video games?",
+    model:"The main advantages are cognitive training and relaxation, while the main disadvantages are physical inactivity and the risk of addiction.",
+    note:"Cấu trúc so sánh tương phản sử dụng liên từ 'while' rất phù hợp cho dạng câu hỏi thảo luận hai mặt."
+  },
+  {
+    q:"What career would you like to have in the future, and why?",
+    model:"I would like to pursue a career in software development because it allows me to solve complex problems and create innovative tools.",
+    note:"Động từ 'pursue' (theo đuổi) kết hợp với danh từ 'career' tạo thành một collocation chuyên nghiệp."
+  },
+  {
+    q:"If you were creating a recruitment campaign for a job, who would you target and how would you reach them?",
+    model:"If I were creating a campaign for a tech role, I would target university students on platforms like GitHub and LinkedIn through coding competitions.",
+    note:"Sử dụng câu điều kiện loại 2 'If I were... I would...' để thảo luận một tình huống giả định ở hiện tại."
+  }
+];
+
+const AW_PROMPTS = [
+  {
+    viet: "Hoa Kỳ đã khởi động một chiến dịch nhắm vào những người chơi trò chơi điện tử để giải quyết sự thiếu hụt nhân viên kiểm soát không lưu.",
+    hint: "USA / launched a campaign / aimed at gamers / solve / lack of controllers",
+    grammar: "S + have/has + launched + O + aimed at + NP + to V (purpose)"
+  },
+  {
+    viet: "Bộ trưởng nói rằng quốc gia cần những người trẻ tuổi có khả năng tư duy nhanh và quản lý sự phức tạp dưới áp lực.",
+    hint: "Secretary / said that / country / needs / young adults / who / ability / think quickly / manage complexity / pressure",
+    grammar: "S + said that + S + V(past) + NP + who + have the ability to V + under pressure (Reported speech + Relative clause)"
+  },
+  {
+    viet: "Mặc dù phương pháp tiếp cận này giúp mở rộng nguồn ứng viên, tất cả mọi người đều phải duy trì các tiêu chuẩn an toàn nghiêm ngặt.",
+    hint: "although / approach / helps expand / candidate pool / everyone / must maintain / rigorous safety standards",
+    grammar: "Although + S + helps + V(inf) + O, S + must + V(inf) + O"
+  }
+];
+
+const ART_PLAIN = `The USA has launched a campaign aimed at gamers. The country wants gamers to become air traffic controllers. There is a lack of controllers. There are around 3,000 vacancies. The National Air Traffic Controllers Association said it "welcomes innovative approaches to expanding the candidate pool, including outreach to individuals with high-level skills, such as gamers." Candidates must maintain the "rigorous standards" of "this safety-critical profession".
+
+The recruitment video has an Xbox logo on it. The video says: "You've been training for this… Become an air traffic controller. It's not a game. It's a career." The US Transportation Secretary said the country needed "young adults who have many of the hard skills it takes to be a successful controller," such as spatial awareness, multitasking, strategic problem-solving, and the ability to think quickly and maintain focus under pressure.`;
+</script>
+<script src="common.js"></script>
+</body>
+</html>

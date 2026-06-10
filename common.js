@@ -852,14 +852,18 @@ function generateHTML() {
     <div class="stage" id="s2">
       <div class="tts-bar">
         <span class="tts-lbl">🔊 Nghe bài đọc</span>
-        <button class="tts-btn" id="art-play-btn" onclick="ttsArt()">▶ Đọc toàn bài</button>
-        <button class="tts-btn" onclick="ttsStop()">⏹ Dừng</button>
-        <div class="spd">Tốc độ:
-          <button class="spd-btn on" onclick="setSp(0.8,this)">0.8×</button>
-          <button class="spd-btn" onclick="setSp(1.0,this)">1×</button>
-          <button class="spd-btn" onclick="setSp(1.2,this)">1.2×</button>
-        </div>
-        <div class="tts-prog"><div class="tts-prog-fill" id="art-prog"></div></div>
+        ${LESSON_CONFIG.audio ? `
+          <audio controls src="${LESSON_CONFIG.audio}" style="flex:1; min-width:250px; height:32px; border-radius:6px; outline:none; margin: 4px 0;"></audio>
+        ` : `
+          <button class="tts-btn" id="art-play-btn" onclick="ttsArt()">▶ Đọc toàn bài</button>
+          <button class="tts-btn" onclick="ttsStop()">⏹ Dừng</button>
+          <div class="spd">Tốc độ:
+            <button class="spd-btn on" onclick="setSp(0.8,this)">0.8×</button>
+            <button class="spd-btn" onclick="setSp(1.0,this)">1×</button>
+            <button class="spd-btn" onclick="setSp(1.2,this)">1.2×</button>
+          </div>
+          <div class="tts-prog"><div class="tts-prog-fill" id="art-prog"></div></div>
+        `}
       </div>
       <div class="card">
         <div class="art-kicker">${esc(LESSON_CONFIG.kicker)}</div>
